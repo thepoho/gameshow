@@ -15,21 +15,27 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="LampMatrix.cpp">
+    <ClCompile Include="game_show.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="gameshow.cpp">
+    <ClCompile Include="lamp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lamp_matrix_test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="LampMatrix.h">
+    <ClInclude Include="game_show.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="gameshow.h">
+    <ClInclude Include="wiring_pi.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="wiringpi.h">
+    <ClInclude Include="lamp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lamp_matrix_test.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

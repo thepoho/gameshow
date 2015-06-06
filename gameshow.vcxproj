@@ -11,13 +11,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="gameshow.cpp" />
-    <ClCompile Include="LampMatrix.cpp" />
+    <ClCompile Include="game_show.cpp" />
+    <ClCompile Include="lamp.cpp" />
+    <ClCompile Include="lamp_matrix_test.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="gameshow.h" />
-    <ClInclude Include="LampMatrix.h" />
-    <ClInclude Include="wiringpi.h" />
+    <ClInclude Include="game_show.h" />
+    <ClInclude Include="lamp.h" />
+    <ClInclude Include="lamp_matrix_test.h" />
+    <ClInclude Include="wiring_pi.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F0E481E2-FB49-44D7-BE3B-75184BC2E052}</ProjectGuid>
