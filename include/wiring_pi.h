@@ -1,5 +1,5 @@
 #ifdef __linux
-#include <wiringpi>
+#include <wiringPi.h>
 #else
 #define wiringPiSetup() 1
 #define pinMode(a,b) 1
