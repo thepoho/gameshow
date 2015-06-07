@@ -33,6 +33,8 @@ void lampController::startup()
 void lampController::update(int delta)
 {
   //TODO: update the lamp flash states based on deltas
+  std::cout << "update";
+  delay(1);
 
   for (int c = 0; c < 8; c++){ //columns
     

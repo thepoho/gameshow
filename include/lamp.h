@@ -1,6 +1,8 @@
 #ifndef _LAMP_H
 #define _LAMP_H
 
+#include <iostream>
+
 enum LampState{ LAMP_ON, LAMP_OFF, LAMP_FLASH_FAST, LAMP_FLASH_SLOW };
 
 class lamp
