@@ -11,15 +11,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="game_show.cpp" />
-    <ClCompile Include="lamp.cpp" />
-    <ClCompile Include="lamp_matrix_test.cpp" />
+    <ClInclude Include="include\game_show.h" />
+    <ClInclude Include="include\lamp.h" />
+    <ClInclude Include="include\lamp_matrix_test.h" />
+    <ClInclude Include="include\wiring_pi.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="game_show.h" />
-    <ClInclude Include="lamp.h" />
-    <ClInclude Include="lamp_matrix_test.h" />
-    <ClInclude Include="wiring_pi.h" />
+    <ClCompile Include="src\game_show.cpp" />
+    <ClCompile Include="src\lamp.cpp" />
+    <ClCompile Include="src\lamp_matrix_test.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F0E481E2-FB49-44D7-BE3B-75184BC2E052}</ProjectGuid>
@@ -55,6 +55,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\proj\_git\gameshow\src;C:\proj\_git\gameshow\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

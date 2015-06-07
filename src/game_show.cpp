@@ -1,11 +1,21 @@
 #include "game_show.h"
 
-void lampMatrixTest();
+
+lamp lamps[8][8];
 
 int main(void)
 {
+	setupLamps();
 	lampMatrixTest();
-	
+}
+
+void setupLamps()
+{
+  for (int c = 0; c < 8; c++){
+	  for (int r = 0; r < 8; r++){
+      lamps[c][r].startup(c, r);
+		}
+	}
 }
 
 void lampMatrixTest(){
@@ -35,7 +45,7 @@ void lampMatrixTest(){
 				digitalWrite(colPins[i], colOutputs[k][i]);
 			}
 
-			for (int i = 0; i < SIZEOF(rowPins); i++){ //TODO: change this to 8
+			for (int i = 0; i < SIZEOF(rowPins); i++){ //TODO: change this to 8 - might be faster!
 				digitalWrite(rowPins[i], HIGH);
 			}
 
