@@ -1,4 +1,4 @@
-#ifdef __linux
+#ifdef __arm
 #include <wiringPi.h>
 #else
 #define wiringPiSetup() 1
