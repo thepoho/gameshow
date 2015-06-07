@@ -1,23 +1,21 @@
 #include "game_show.h"
 
-
-lamp lamps[8][8];
+lampController lamp_controller;
 
 int main(void)
 {
-	setupLamps();
-	lampMatrixTest();
+  lamp_controller.startup();
+  while (true){
+    update();
+  }
+	//lampMatrixTest();
 }
 
-void setupLamps()
-{
-  for (int c = 0; c < 8; c++){
-	  for (int r = 0; r < 8; r++){
-      lamps[c][r].startup(c, r);
-		}
-	}
+void update(){
+  //work out deltas
+  
+  lamp_controller.update(0); //using delta 0 for now
 }
-
 void lampMatrixTest(){
 	if (wiringPiSetup() == -1)
 		return ;
