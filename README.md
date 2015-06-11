@@ -6,3 +6,5 @@ To install wiring pi:
 git clone git://git.drogon.net/wiringPi
 cd wiringPi
 sudo ./build
+
+test
