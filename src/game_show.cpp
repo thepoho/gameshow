@@ -1,10 +1,12 @@
 #include "game_show.h"
 
 lampController lamp_controller;
+buttonController button_controller;
 
 int main(void)
 {
   lamp_controller.startup();
+  button_controller.startup();
   while (true){
     update();
   }

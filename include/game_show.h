@@ -11,6 +11,8 @@ using namespace std;
 #include "wiring_pi.h"
 #include "lamp_controller.h"
 #include "lamp.h"
+#include "button_controller.h"
+#include "button.h"
 //#include "lamp_matrix_test.h"
 
 #define SIZEOF(n) (sizeof(n) / sizeof(n[0]))
