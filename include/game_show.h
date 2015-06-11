@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <string>
+using namespace std;
 
 #include "wiring_pi.h"
 #include "lamp_controller.h"

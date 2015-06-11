@@ -3,6 +3,9 @@
 
 #include "lamp.h"
 #include "game_show.h"
+
+
+
 class lampController
 {
 public:
