@@ -11,12 +11,16 @@ GAMESOURCE = 	./src/*.cpp
 
 
 #READLINESRC  =		./readline/*.c
-LIB = readline
+#LIB = readline
 
 
 #pinlib.o : $(PINLIBINC) $(PINLIBSRC)
 #	$(CC) $(CFLAGS) -I $(PINLIBINC) $(PINLIBSRC)
 
+
 gameshow : $(GAMEINCLUDE) $(GAMESOURCE)
-	$(CC) $(CFLAGS) -D _DEBUG -D _LINUX -iquote $(GAMEINCLUDE) $(GAMESOURCE) -l${LIB}  -o gameshow
+	$(CC) $(CFLAGS) -D _DEBUG -D _LINUX -D __arm -lwiringPi -iquote $(GAMEINCLUDE) $(GAMESOURCE) -o gameshow
+
+clean:
+	$(RM) gameshow
 

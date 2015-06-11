@@ -15,5 +15,5 @@ void lamp::startup(int _row, int _col, int _num, string _name)
   name  = _name;
   num   = _num;
   state = LAMP_ON;//default to on
-  cout << "creating lamp " << row << ", " << col << ", " << name << ", " << num << endl;
+//  cout << "creating lamp " << row << ", " << col << ", " << name << ", " << num << endl;
 }

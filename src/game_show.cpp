@@ -5,12 +5,23 @@ buttonController button_controller;
 
 int main(void)
 {
+//	lampMatrixTest();
+//  exit(0);
+    if (wiringPiSetup() == -1)
+      return 1 ;
+
   lamp_controller.startup();
-  button_controller.startup();
-  while (true){
+  //button_controller.startup();
+  printf("setup complete\n");
+  //sleep(1000);
+  printf("starting main loop\n");
+  while (1){
     update();
+    //sleep(1);
+   //printf("poho");
   }
-	//lampMatrixTest();
+//	lampMatrixTest();
+  exit(0);
 }
 
 void update(){

@@ -1,9 +1,9 @@
 #include "button_controller.h"
 
 
-const int rowPins[8] = { 4, 5, 6, 10, 11, 26, 27, 28 };
-const int colPins[3] = { 15, 16, 1 };
-const int colOutputs[8][3] = { { 0, 0, 0 }, { 0, 0, 1 }, { 0, 1, 0 }, { 0, 1, 1 }, { 1, 0, 0 }, { 1, 0, 1 }, { 1, 1, 0 }, { 1, 1, 1 } };
+static const int rowPins[8] = { 4, 5, 6, 10, 11, 26, 27, 28 };
+static const int colPins[3] = { 15, 16, 1 };
+static const int colOutputs[8][3] = { { 0, 0, 0 }, { 0, 0, 1 }, { 0, 1, 0 }, { 0, 1, 1 }, { 1, 0, 0 }, { 1, 0, 1 }, { 1, 1, 0 }, { 1, 1, 1 } };
 const string buttonNames[8][8] = {
   { "plum_bob_tilt", "not", "top_lane_left", "easy_spin", "truck_t", "spin_wheel", "not_used", "right_flipper" },
   { "not_used", "outhole", "top_lane_middle", "center_ramp", "truck_r", "right_spinner", "not_used", "left_flipper" },
