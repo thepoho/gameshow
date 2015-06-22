@@ -19,7 +19,7 @@ GAMESOURCE = 	./src/*.cpp
 
 
 gameshow : $(GAMEINCLUDE) $(GAMESOURCE)
-	$(CC) $(CFLAGS) -D _DEBUG -D _LINUX -D __arm -lwiringPi -iquote $(GAMEINCLUDE) $(GAMESOURCE) -o gameshow
+	$(CC) $(CFLAGS) -D _DEBUG -D _LINUX -D _RASPI -lwiringPi -iquote $(GAMEINCLUDE) $(GAMESOURCE) -o gameshow
 
 clean:
 	$(RM) gameshow

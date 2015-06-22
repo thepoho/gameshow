@@ -14,8 +14,9 @@ public:
 
   void update(int delta);
 
-  void startup();
+  void startup(PinIO& _pinio);
 private:
+  PinIO& pinIo;
 //  static const int rowPins[8];
  // static const int colPins[3];  //8 columns, on a binary decoder
 

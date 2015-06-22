@@ -17,39 +17,42 @@ const string lampNames[8][8] = {
 
 lampController::lampController()
 {
+  //pinIo = NULL;
 }
 
 lampController::~lampController()
 {
 }
 
-void lampController::startup()
+void lampController::startup(PinIO& _pinio)
 {
-  printf("lc startup\n");
+  pinIo = _pinio;
+  //printf("lc startup\n");
 
     for (int c = 0; c < 8; c++)
     {
-      printf(" c is %d\n", c);
+      //printf(" c is %d\n", c);
       for (int r = 0; r < 8; r++)
       {
-        printf(" r is %d\n", r);
-        //lamps[c][r].startup(c, r, ((8 * c) + (r + 1)), lampNames[r][c]);
-        printf("lamp has been set up\n");
+        //printf(" r is %d\n", r);
+        lamps[c][r].startup(c, r, ((8 * c) + (r + 1)), lampNames[r][c]);
+        //printf("lamp has been set up\n");
       }
       printf("after c is now %d\n",c);
     }
 
   //initialize the pins on the rpi
-  printf("POHO");
-  printf("row pins is %d", SIZEOF(rowPins));
+  //printf("POHO");
+  //printf("row pins is %d", SIZEOF(rowPins));
   for (int i = 0; i < SIZEOF(rowPins); i++){
     printf("setting output\n");
-    pinMode(rowPins[i], OUTPUT);
-    digitalWrite(rowPins[i], LOW);
+    
+    pinIo.pinMode(rowPins[i], OUTPUT);
+    pinIo.digitalWrite(rowPins[i], LOW);
   }
   for (int i = 0; i < SIZEOF(colPins); i++){
-    pinMode(colPins[i], OUTPUT);
-    digitalWrite(colPins[i], LOW);
+    pinIo.pinMode(colPins[i], OUTPUT);
+    pinIo.digitalWrite(colPins[i], LOW);
   }
 }
 
@@ -71,14 +74,14 @@ void lampController::update(int delta)
 
     //set the appropriate output pins for the current column
     for (int i = 0; i < 3; i++){
-      digitalWrite(colPins[i], colOutputs[c][i]);
+      pinIo.digitalWrite(colPins[i], colOutputs[c][i]);
     }
 
     for (int r = 0; r < 8; r++){
       //now for each row!
       //lamp tmpLamp = lamps[c][r];
       //if (1 || tmpLamp.state == LAMP_ON){
-        digitalWrite(rowPins[r], HIGH);
+      pinIo. digitalWrite(rowPins[r], HIGH);
      // }
       //else{
       //  digitalWrite(rowPins[r], LOW);

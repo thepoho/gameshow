@@ -32,21 +32,21 @@ void buttonController::startup()
   }
 
   //initialize the pins on the rpi
-  for (int i = 0; i < SIZEOF(rowPins); i++){
+  /*for (int i = 0; i < SIZEOF(rowPins); i++){
     pinMode(rowPins[i], INPUT);
     digitalWrite(rowPins[i], LOW);
   }
   for (int i = 0; i < SIZEOF(colPins); i++){
     pinMode(colPins[i], OUTPUT);
     digitalWrite(colPins[i], LOW);
-  }
+  }*/
 }
 
 void buttonController::update(int delta)
 {
   //TODO: update the switch flash states based on deltas
   //std::cout << "update";
-  delay(1);
+  //delay(1);
 
   // for (int c = 0; c < 8; c++){ //columns
 

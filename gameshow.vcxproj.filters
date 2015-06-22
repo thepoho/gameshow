@@ -24,9 +24,6 @@
     <ClInclude Include="include\lamp_matrix_test.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\wiring_pi.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\lamp_controller.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -34,6 +31,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\button_controller.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PinIO.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -54,6 +54,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\button_controller.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PinIO.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
