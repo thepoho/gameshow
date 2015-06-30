@@ -26,18 +26,14 @@ lampController::~lampController()
 void lampController::startup(PinIO* _pinio)
 {
   pinIo = _pinio;
-  //printf("lc startup\n");
-
+ 
     for (int c = 0; c < 8; c++)
     {
-      //printf(" c is %d\n", c);
       for (int r = 0; r < 8; r++)
       {
-        //printf(" r is %d\n", r);
         lamps[c][r].startup(c, r, ((8 * c) + (r + 1)), lampNames[r][c]);
-        //printf("lamp has been set up\n");
       }
-      printf("after c is now %d\n",c);
+      //printf("after c is now %d\n",c);
     }
 
   //initialize the pins on the rpi
@@ -67,8 +63,7 @@ void lampController::update(int delta)
   for (int c = 0; c < 8; c++)
   { //columns
     //sleep(5);
-//printf("column %d\n", c);
-    
+
     //turn all rows off. Mabe unnecessary?
     //for(int i = 0; i < SIZEOF(rowPins); i++){
       //digitalWrite(rowPins[i], LOW);

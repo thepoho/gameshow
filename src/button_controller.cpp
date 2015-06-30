@@ -23,8 +23,9 @@ buttonController::~buttonController()
 {
 }
 
-void buttonController::startup()
+void buttonController::startup(PinIO* _pinio)
 {
+  pinIo = _pinio;
   for (int c = 0; c < 8; c++){
     for (int r = 0; r < 8; r++){
       buttons[c][r].startup(c, r, ((8 * c) + (r + 1)), buttonNames[r][c]);
@@ -32,14 +33,14 @@ void buttonController::startup()
   }
 
   //initialize the pins on the rpi
-  /*for (int i = 0; i < SIZEOF(rowPins); i++){
-    pinMode(rowPins[i], INPUT);
-    digitalWrite(rowPins[i], LOW);
+  for (int i = 0; i < SIZEOF(rowPins); i++){
+    pinIo->pinMode(rowPins[i], INPUT);
+    //pinIo->digitalWrite(rowPins[i], LOW); //not necesssary?
   }
   for (int i = 0; i < SIZEOF(colPins); i++){
-    pinMode(colPins[i], OUTPUT);
-    digitalWrite(colPins[i], LOW);
-  }*/
+    pinIo->pinMode(colPins[i], OUTPUT);
+    pinIo->digitalWrite(colPins[i], LOW);
+  }
 }
 
 void buttonController::update(int delta)
@@ -48,27 +49,18 @@ void buttonController::update(int delta)
   //std::cout << "update";
   //delay(1);
 
-  // for (int c = 0; c < 8; c++){ //columns
+   for (int c = 0; c < 8; c++) //columns
+   {
+     //set the appropriate output pins for the current column
+     for (int i = 0; i < 3; i++)
+     {
+       pinIo->digitalWrite(colPins[i], colOutputs[c][i]);
+     }
 
-  //   //turn all rows off. Mabe unnecessary?
-  //   //for(int i = 0; i < SIZEOF(rowPins); i++){
-  //     //digitalWrite(rowPins[i], LOW);
-  //   //}
-
-  //   //set the appropriate output pins for the current column
-  //   for (int i = 0; i < 3; i++){
-  //     digitalWrite(colPins[i], colOutputs[k][i]);
-  //   }
-
-  //   for (int r = 0; r < 8; r++){
-  //     //now for each row!
-  //     switch tmpLamp = switchs[c][r];
-  //     if (tmpLamp.state == LAMP_ON){
-  //       digitalWrite(rowPins[r], HIGH);
-  //     }
-  //     else{
-  //       digitalWrite(rowPins[r], LOW);
-  //     }
-  //   }
-  // }
+     for (int r = 0; r < 8; r++)
+     {
+       //now for each row!
+       buttons[c][r].onOffState = pinIo->digitalRead(rowPins[r]);
+     }
+   }
 }

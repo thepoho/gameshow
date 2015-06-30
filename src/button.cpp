@@ -2,6 +2,7 @@
 
 button::button()
 {
+  onOffState = 0;
 }
 
 button::~button()
