@@ -17,14 +17,13 @@ const string lampNames[8][8] = {
 
 lampController::lampController()
 {
-  //pinIo = NULL;
 }
 
 lampController::~lampController()
 {
 }
 
-void lampController::startup(PinIO& _pinio)
+void lampController::startup(PinIO* _pinio)
 {
   pinIo = _pinio;
   //printf("lc startup\n");
@@ -44,15 +43,17 @@ void lampController::startup(PinIO& _pinio)
   //initialize the pins on the rpi
   //printf("POHO");
   //printf("row pins is %d", SIZEOF(rowPins));
-  for (int i = 0; i < SIZEOF(rowPins); i++){
+  for (int i = 0; i < SIZEOF(rowPins); i++)
+  {
     printf("setting output\n");
     
-    pinIo.pinMode(rowPins[i], OUTPUT);
-    pinIo.digitalWrite(rowPins[i], LOW);
+    pinIo->pinMode(rowPins[i], OUTPUT);
+    pinIo->digitalWrite(rowPins[i], LOW);
   }
-  for (int i = 0; i < SIZEOF(colPins); i++){
-    pinIo.pinMode(colPins[i], OUTPUT);
-    pinIo.digitalWrite(colPins[i], LOW);
+  for (int i = 0; i < SIZEOF(colPins); i++)
+  {
+    pinIo->pinMode(colPins[i], OUTPUT);
+    pinIo->digitalWrite(colPins[i], LOW);
   }
 }
 
@@ -63,7 +64,8 @@ void lampController::update(int delta)
   //std::cout << "update";
   //delay(1);
 
-  for (int c = 0; c < 8; c++){ //columns
+  for (int c = 0; c < 8; c++)
+  { //columns
     //sleep(5);
 //printf("column %d\n", c);
     
@@ -73,15 +75,17 @@ void lampController::update(int delta)
     //}
 
     //set the appropriate output pins for the current column
-    for (int i = 0; i < 3; i++){
-      pinIo.digitalWrite(colPins[i], colOutputs[c][i]);
+    for (int i = 0; i < 3; i++)
+    {
+      pinIo->digitalWrite(colPins[i], colOutputs[c][i]);
     }
 
-    for (int r = 0; r < 8; r++){
+    for (int r = 0; r < 8; r++)
+    {
       //now for each row!
       //lamp tmpLamp = lamps[c][r];
       //if (1 || tmpLamp.state == LAMP_ON){
-      pinIo. digitalWrite(rowPins[r], HIGH);
+      pinIo->digitalWrite(rowPins[r], HIGH);
      // }
       //else{
       //  digitalWrite(rowPins[r], LOW);

@@ -12,7 +12,7 @@ int main(void)
 
   pinIo.startup();
 
-  lamp_controller.startup(pinIo);
+  lamp_controller.startup(&pinIo);
   //button_controller.startup();
   printf("setup complete\n");
   //sleep(1000);

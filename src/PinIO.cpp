@@ -9,30 +9,30 @@ PinIO::~PinIO()
 
 }
 
+#ifdef _RASPI
 void PinIO::startup()
 {
-#ifdef _RASPI
   if (wiringPiSetup() == -1)
     exit(0);
-#else
-  //nothing!
-#endif
 }
 
 void PinIO::pinMode(int pin, int mode)
 {
-#ifdef _RASPI
   pinMode(pin, mode);
-#else
-  //nothing!
-#endif
 }
 
 void PinIO::digitalWrite(int pin, int value)
 {
-#ifdef _RASPI
   digitalWrite(pin, value);
-#else
-  //nothing!
-#endif
 }
+
+int PinIO::digitalRead(int pin)
+{
+  return(digitalRead(pin));
+}
+#else
+void PinIO::startup(){}
+void PinIO::pinMode(int pin, int mode){}
+void PinIO::digitalWrite(int pin, int value){}
+int PinIO::digitalRead(int pin){ return(0); }
+#endif
