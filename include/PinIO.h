@@ -23,7 +23,9 @@ public:
   int digitalRead(int pin);  //needed
   //int analogRead(int pin);
   //void analogWrite(int pin, int value);
-  //void delay(a);
+  void delay(unsigned int howLong);
+  unsigned int millis(void);
+  //unsigned int tmp = 0;
 };
 
 #endif

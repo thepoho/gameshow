@@ -23,4 +23,6 @@ using namespace std;
 void setupLamps();
 void update();
 
+//unsigned int totalElapsedTime = 0;
+
 #endif //_GAME_SHOW_H

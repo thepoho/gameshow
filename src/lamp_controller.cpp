@@ -53,21 +53,35 @@ void lampController::startup(PinIO* _pinio)
   }
 }
 
-void lampController::update(int delta)
+void lampController::update(unsigned int delta)
 {
-  //TODO: update the lamp flash states based on deltas
-//printf("updating\n");
-  //std::cout << "update";
-  //delay(1);
+  elapsedTime += delta;
+  
+  if (elapsedTime >= (lastFastFlash + FAST_FLASH_DELAY))
+  {
+    lastFastFlash = elapsedTime;
+    fastFlashStatus = !fastFlashStatus;
+    printf("ff is now %d\n", fastFlashStatus);
+  }
 
+  if (elapsedTime >= (lastSlowFlash + SLOW_FLASH_DELAY))
+  {
+    lastSlowFlash = elapsedTime;
+    slowFlashStatus = !slowFlashStatus;
+    //printf("sf is now %d\n", slowFlashStatus);
+  }
+  flushLamps();
+}
+
+void lampController::flushLamps()
+{
   for (int c = 0; c < 8; c++)
   { //columns
-    //sleep(5);
 
     //turn all rows off. Mabe unnecessary?
-    //for(int i = 0; i < SIZEOF(rowPins); i++){
-      //digitalWrite(rowPins[i], LOW);
-    //}
+    for(int i = 0; i < SIZEOF(rowPins); i++){
+      pinIo->digitalWrite(rowPins[i], LOW);
+    }
 
     //set the appropriate output pins for the current column
     for (int i = 0; i < 3; i++)
@@ -78,14 +92,25 @@ void lampController::update(int delta)
     for (int r = 0; r < 8; r++)
     {
       //now for each row!
-      //lamp tmpLamp = lamps[c][r];
-      //if (1 || tmpLamp.state == LAMP_ON){
-      pinIo->digitalWrite(rowPins[r], HIGH);
-     // }
-      //else{
-      //  digitalWrite(rowPins[r], LOW);
-     // }
+      lamp tmpLamp = lamps[c][r];
+      int state = 0;
+      switch (tmpLamp.state)
+      {
+      case LAMP_ON:
+        state = 1;
+        break;
+      case LAMP_FLASH_FAST:
+        state = fastFlashStatus;
+        break;
+      case LAMP_FLASH_SLOW:
+        state = slowFlashStatus;
+        break;
+      default: //AKA LAMP_OFF
+        state = 0;
+        break;
+      }
+      pinIo->digitalWrite(rowPins[r], state);
     }
-    //delay(1);
+    pinIo->delay(1);
   }
 }

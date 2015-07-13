@@ -27,10 +27,14 @@ int main(void)
   exit(0);
 }
 
+unsigned int lastTickTime;
 void update(){
   //work out deltas
+  unsigned int millis = pinIo.millis();
+  unsigned int delta = millis - lastTickTime;
+  lastTickTime = millis;
   
-  lamp_controller.update(0); //using delta 0 for now
+  lamp_controller.update(delta);
 }
 //void lampMatrixTest(){
 //	if (wiringPiSetup() == -1)

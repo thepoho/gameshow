@@ -4,6 +4,8 @@
 #include "lamp.h"
 #include "game_show.h"
 
+#define SLOW_FLASH_DELAY 1600
+#define FAST_FLASH_DELAY 800
 
 
 class lampController
@@ -12,7 +14,7 @@ public:
   lampController();
   ~lampController();
 
-  void update(int delta);
+  void update(unsigned int delta);
 
   void startup(PinIO* _pinio);
 private:
@@ -25,6 +27,12 @@ private:
   //static const int colOutputs[8][3];
 
   lamp lamps[8][8];
+  void flushLamps();
+  unsigned int elapsedTime = 0;
+  unsigned int lastFastFlash = 0;
+  bool fastFlashStatus = 0;
+  unsigned int lastSlowFlash = 0;
+  bool slowFlashStatus = 0;
 };
 
 #endif

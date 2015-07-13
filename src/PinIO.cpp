@@ -30,9 +30,23 @@ int PinIO::digitalRead(int pin)
 {
   return(digitalRead(pin));
 }
+
+int PinIO::delay(unsigned int howLong)
+{
+  delay(howLong);
+}
+
+unsigned int PinIO::millis(void)
+{
+  millis();
+}
 #else
 void PinIO::startup(){}
 void PinIO::pinMode(int pin, int mode){}
 void PinIO::digitalWrite(int pin, int value){}
 int PinIO::digitalRead(int pin){ return(0); }
+void PinIO::delay(unsigned int howLong){}
+
+unsigned int tmp = 0;
+unsigned int PinIO::millis(void){ return(++tmp); }
 #endif
