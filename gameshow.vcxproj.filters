@@ -36,6 +36,12 @@
     <ClInclude Include="include\PinIO.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\coil.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\coil_controller.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\game_show.cpp">
@@ -57,6 +63,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\PinIO.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\coil.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\coil_controller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

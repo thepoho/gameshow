@@ -12,7 +12,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\coil.h" />
-    <ClInclude Include="include\coil_controller.h" />
     <ClInclude Include="include\game_show.h" />
     <ClInclude Include="include\lamp.h" />
     <ClInclude Include="include\lamp_controller.h" />
@@ -23,7 +22,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\coil.cpp" />
-    <ClCompile Include="src\coil_controller.cpp" />
     <ClCompile Include="src\game_show.cpp" />
     <ClCompile Include="src\lamp.cpp" />
     <ClCompile Include="src\lamp_controller.cpp" />
