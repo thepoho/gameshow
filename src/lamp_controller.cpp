@@ -1,10 +1,10 @@
 #include "lamp_controller.h"
 
 
-const int rowPins[8] = { 0, 2, 3, 12, 13, 14, 21, 22 };
-const int colPins[3] = { 8, 9, 7 };
-const int colOutputs[8][3] = { { 0, 0, 0 }, { 0, 0, 1 }, { 0, 1, 0 }, { 0, 1, 1 }, { 1, 0, 0 }, { 1, 0, 1 }, { 1, 1, 0 }, { 1, 1, 1 } };
-const string lampNames[8][8] = { 
+int rowPins[8] = { 0, 2, 3, 12, 13, 14, 21, 22 };
+int colPins[3] = { 8, 9, 7 };
+int colOutputs[8][3] = { { 0, 0, 0 }, { 0, 0, 1 }, { 0, 1, 0 }, { 0, 1, 1 }, { 1, 0, 0 }, { 1, 0, 1 }, { 1, 1, 0 }, { 1, 1, 1 } };
+string lampNames[8][8] = { 
   {"shoot_again", "bonus_1k", "wheel_5k", "wheel_45k", "truck_t", "big_bucks", "2_million_left", "top_lane_right" },
   {"wheel_5x","bonus_2x","wheel_10k","wheel_50k","truck_r","top_lane_red","left_spot_letter","grand_prize"},
   { "bonus_multiplier_1x", "bonus_4k", "wheel_15k", "tv_t", "truck_u", "top_lane_red", "left_extra_ball", "collect_tv" },
@@ -17,6 +17,11 @@ const string lampNames[8][8] = {
 
 lampController::lampController()
 {
+  elapsedTime = 0;
+  lastFastFlash = 0;
+  fastFlashStatus = 0;
+  int lastSlowFlash = 0;
+  slowFlashStatus = 0;
 }
 
 lampController::~lampController()
@@ -25,7 +30,7 @@ lampController::~lampController()
 
 void lampController::startup(PinIO* _pinio)
 {
-  pinIo = _pinio;
+    pinIo = _pinio;
  
     for (int c = 0; c < 8; c++)
     {
@@ -37,19 +42,24 @@ void lampController::startup(PinIO* _pinio)
     }
 
   //initialize the pins on the rpi
-  //printf("POHO");
-  //printf("row pins is %d", SIZEOF(rowPins));
+  printf("POHO");
+  printf("row pins is %d\n", SIZEOF(rowPins));
+  printf("row 0 is %d\n", rowPins[0]); 
   for (int i = 0; i < SIZEOF(rowPins); i++)
   {
-    printf("setting output\n");
+    printf("setting output i is %d\n", i);
+    printf("rowpin output i is %d\n", rowPins[i]);
     
-    pinIo->pinMode(rowPins[i], OUTPUT);
-    pinIo->digitalWrite(rowPins[i], LOW);
+    pinIo->setPinMode(rowPins[i], OUTPUT);
+    printf("one");
+    pinIo->pinWrite(rowPins[i], LOW);
+    printf("two");
   }
+  printf("three");
   for (int i = 0; i < SIZEOF(colPins); i++)
   {
-    pinIo->pinMode(colPins[i], OUTPUT);
-    pinIo->digitalWrite(colPins[i], LOW);
+    pinIo->setPinMode(colPins[i], OUTPUT);
+    pinIo->pinWrite(colPins[i], LOW);
   }
 }
 
@@ -61,7 +71,7 @@ void lampController::update(unsigned int delta)
   {
     lastFastFlash = elapsedTime;
     fastFlashStatus = !fastFlashStatus;
-    printf("ff is now %d\n", fastFlashStatus);
+    //printf("ff is now %d\n", fastFlashStatus);
   }
 
   if (elapsedTime >= (lastSlowFlash + SLOW_FLASH_DELAY))
@@ -80,13 +90,13 @@ void lampController::flushLamps()
 
     //turn all rows off. Mabe unnecessary?
     for(int i = 0; i < SIZEOF(rowPins); i++){
-      pinIo->digitalWrite(rowPins[i], LOW);
+      pinIo->pinWrite(rowPins[i], LOW);
     }
 
     //set the appropriate output pins for the current column
     for (int i = 0; i < 3; i++)
     {
-      pinIo->digitalWrite(colPins[i], colOutputs[c][i]);
+      pinIo->pinWrite(colPins[i], colOutputs[c][i]);
     }
 
     for (int r = 0; r < 8; r++)
@@ -109,9 +119,9 @@ void lampController::flushLamps()
         state = 0;
         break;
       }
-      pinIo->digitalWrite(rowPins[r], state);
+      pinIo->pinWrite(rowPins[r], state);
     }
-    pinIo->delay(1);
+    pinIo->doDelay(1);
   }
 }
 
@@ -123,7 +133,7 @@ lamp *lampController::getLamp(string name){
       }
     }
   }
-  return(nullptr);
+  return(NULL);
 }
 
 void lampController::setLampState(string name, LampState state){

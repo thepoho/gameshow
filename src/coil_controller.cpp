@@ -17,6 +17,7 @@
 
 coilController::coilController()
 {
+  elapsedTime = 0;
 }
 
 coilController::~coilController()
@@ -50,7 +51,7 @@ coil *coilController::getCoil(string name){
   //     }
   //   }
   // }
-  return(nullptr);
+  return(NULL);
 }
 
 void coilController::setCoilState(string name, bool state){

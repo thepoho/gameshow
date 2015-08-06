@@ -1,5 +1,5 @@
 #ifndef _PINIO_H
-#define _PINO_H
+#define _PINIO_H
 
 #ifdef _RASPI
 #include <wiringPi.h>
@@ -16,15 +16,15 @@ public:
   PinIO();
   ~PinIO();
   void startup();
-  void pinMode(int pin, int mode);
+  void setPinMode(int pin, int mode);
   //void pullUpDnControl(int pin, int pud);
-  void digitalWrite(int pin, int value);
+  void pinWrite(int pin, int value);
   //void pwmWrite(int pin, int value);
-  int digitalRead(int pin);  //needed
+  int pinRead(int pin);  //needed
   //int analogRead(int pin);
   //void analogWrite(int pin, int value);
-  void delay(unsigned int howLong);
-  unsigned int millis(void);
+  void doDelay(unsigned int howLong);
+  unsigned int getMillis(void);
   //unsigned int tmp = 0;
 };
 

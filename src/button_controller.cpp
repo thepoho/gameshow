@@ -34,12 +34,11 @@ void buttonController::startup(PinIO* _pinio)
 
   //initialize the pins on the rpi
   for (int i = 0; i < SIZEOF(rowPins); i++){
-    pinIo->pinMode(rowPins[i], INPUT);
-    //pinIo->digitalWrite(rowPins[i], LOW); //not necesssary?
+    pinIo->setPinMode(rowPins[i], INPUT);
   }
   for (int i = 0; i < SIZEOF(colPins); i++){
-    pinIo->pinMode(colPins[i], OUTPUT);
-    pinIo->digitalWrite(colPins[i], LOW);
+    pinIo->setPinMode(colPins[i], OUTPUT);
+    pinIo->pinWrite(colPins[i], LOW);
   }
 }
 
@@ -54,13 +53,13 @@ void buttonController::update(int delta)
      //set the appropriate output pins for the current column
      for (int i = 0; i < 3; i++)
      {
-       pinIo->digitalWrite(colPins[i], colOutputs[c][i]);
+       pinIo->pinWrite(colPins[i], colOutputs[c][i]);
      }
 
      for (int r = 0; r < 8; r++)
      {
        //now for each row!
-       buttons[c][r].onOffState = pinIo->digitalRead(rowPins[r]);
+       buttons[c][r].onOffState = pinIo->pinRead(rowPins[r]);
      }
    }
 }
@@ -73,7 +72,7 @@ button *buttonController::getButton(string name){
       }
     }
   }
-  return(nullptr);
+  return(NULL);
 }
 
 bool buttonController::getButtonState(string name){
@@ -82,4 +81,19 @@ bool buttonController::getButtonState(string name){
     return(tmpButton->onOffState);
   }
   return(0);
+}
+
+void buttonController::outputButtons(){
+  for (int c = 0; c < 8; c++){
+    for (int r = 0; r < 8; r++){
+      //bool state = buttons[c][r].onOffState;
+      //if(state){
+        //printf("%s", buttons[c][r].getName());
+       // cout << buttons[c][r].getName();
+      //}
+      printf("%d", buttons[c][r].onOffState);
+    }
+    printf(" ");
+  }
+  printf("\r");
 }

@@ -5,7 +5,7 @@
 #include "game_show.h"
 
 #define SLOW_FLASH_DELAY 1600
-#define FAST_FLASH_DELAY 800
+#define FAST_FLASH_DELAY 400
 
 
 class lampController
@@ -30,11 +30,11 @@ private:
 
   lamp lamps[8][8];
   void flushLamps();
-  unsigned int elapsedTime = 0;
-  unsigned int lastFastFlash = 0;
-  bool fastFlashStatus = 0;
-  unsigned int lastSlowFlash = 0;
-  bool slowFlashStatus = 0;
+  unsigned int elapsedTime;
+  unsigned int lastFastFlash;
+  bool fastFlashStatus;
+  unsigned int lastSlowFlash;
+  bool slowFlashStatus;
 };
 
 #endif

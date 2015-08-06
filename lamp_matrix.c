@@ -43,10 +43,20 @@ int main(void)
 
      //delay(1);
 
+if(0)
+{
+     if(k == 0){
+       digitalWrite(colPins[0], 1);
+     }else{
+       digitalWrite(colPins[0], 0);
+     }
+}
+if(1)
+{
       for(int i = 0; i < 3; i++){
 	digitalWrite(colPins[i], colOutputs[k][i]);
       }
-     
+ }    
       for(int i = 0; i < SIZEOF(rowPins); i++){
         //if(k == 0){
           digitalWrite(rowPins[i], HIGH);
@@ -57,7 +67,8 @@ int main(void)
       }
       
       //if(k == 0){
-        delay(15.0f);
+        delay(1.0f);
+        //sleep(1);
      // }
     }
   }

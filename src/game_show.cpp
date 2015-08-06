@@ -4,48 +4,54 @@ lampController lamp_controller;
 buttonController button_controller;
 coilController coil_controller;
 
-PinIO pinIo;
+
+PinIO *pPinIo;
 
 int main(void)
 {
-//	lampMatrixTest();
-//  exit(0);
+  pPinIo = new PinIO();
+  
+  pPinIo->startup();
 
-  pinIo.startup();
-
-  lamp_controller.startup(&pinIo);
-  button_controller.startup(&pinIo);
-  coil_controller.startup(&pinIo);
-  //button_controller.startup();
+  lamp_controller.startup(pPinIo);
+  button_controller.startup(pPinIo);
+  coil_controller.startup(pPinIo);
   printf("setup complete\n");
-  //sleep(1000);
   printf("starting main loop\n");
   while (1){
     update();
   }
-//	lampMatrixTest();
-  exit(0);
 }
 
 unsigned int lastTickTime;
 void update(){
   //work out deltas
-  unsigned int millis = pinIo.millis();
+  unsigned int millis = pPinIo->getMillis();
   unsigned int delta = millis - lastTickTime;
   lastTickTime = millis;
   
+//  printf("millis is %d\n", millis);
+ // printf("delta is %d\n", delta);
   lamp_controller.update(delta);
   button_controller.update(delta);
   coil_controller.update(delta);
   
-  if (button_controller.getButtonState("left_flipper")){
+  //bool state = button_controller.getButtonState("left_flipper");
+  //printf("left flipper is %d  ", state);
+
+  //state = button_controller.getButtonState("truck_t");
+  //printf("truck t is %d\n", state);
+
+  //button_controller.outputButtons();
+
+  if (button_controller.getButtonState("trough_1_right")){
     lamp_controller.setLampState("truck_t", LAMP_ON);
   }
   else{
     lamp_controller.setLampState("truck_t", LAMP_OFF);
   }
 
-  if (button_controller.getButtonState("right_flipper")){
+  if (button_controller.getButtonState("tv_t")){
     lamp_controller.setLampState("trip_t", LAMP_ON);
   }
   else{

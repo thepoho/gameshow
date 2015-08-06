@@ -23,7 +23,7 @@ private:
 
   coil coils[16];
   void flushCoils();
-  unsigned int elapsedTime = 0;
+  unsigned int elapsedTime;
 };
 
 #endif
