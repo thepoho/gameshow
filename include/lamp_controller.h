@@ -17,6 +17,8 @@ public:
   void update(unsigned int delta);
 
   void startup(PinIO* _pinio);
+  void setLampState(string name, LampState state);
+  lamp *getLamp(string name);
 private:
   PinIO* pinIo;
 //  static const int rowPins[8];

@@ -114,3 +114,21 @@ void lampController::flushLamps()
     pinIo->delay(1);
   }
 }
+
+lamp *lampController::getLamp(string name){
+  for (int c = 0; c < 8; c++){
+    for (int r = 0; r < 8; r++){
+      if (lamps[c][r].getName() == name){
+        return(&lamps[c][r]);
+      }
+    }
+  }
+  return(nullptr);
+}
+
+void lampController::setLampState(string name, LampState state){
+  lamp *tmpLamp = getLamp(name);
+  if (NULL != tmpLamp){
+    tmpLamp->state = state;
+  }
+}

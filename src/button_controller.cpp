@@ -64,3 +64,22 @@ void buttonController::update(int delta)
      }
    }
 }
+
+button *buttonController::getButton(string name){
+  for (int c = 0; c < 8; c++){
+    for (int r = 0; r < 8; r++){
+      if (buttons[c][r].getName() == name){
+        return(&buttons[c][r]);
+      }
+    }
+  }
+  return(nullptr);
+}
+
+bool buttonController::getButtonState(string name){
+  button *tmpButton = getButton(name);
+  if (NULL != tmpButton){
+    return(tmpButton->onOffState);
+  }
+  return(0);
+}

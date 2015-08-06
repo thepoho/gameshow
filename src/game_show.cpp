@@ -20,8 +20,6 @@ int main(void)
   printf("starting main loop\n");
   while (1){
     update();
-    //sleep(1);
-   //printf("poho");
   }
 //	lampMatrixTest();
   exit(0);
@@ -35,6 +33,21 @@ void update(){
   lastTickTime = millis;
   
   lamp_controller.update(delta);
+  button_controller.update(delta);
+  
+  if (button_controller.getButtonState("left_flipper")){
+    lamp_controller.setLampState("truck_t", LAMP_ON);
+  }
+  else{
+    lamp_controller.setLampState("truck_t", LAMP_OFF);
+  }
+
+  if (button_controller.getButtonState("right_flipper")){
+    lamp_controller.setLampState("trip_t", LAMP_ON);
+  }
+  else{
+    lamp_controller.setLampState("trip_t", LAMP_OFF);
+  }
 }
 //void lampMatrixTest(){
 //	if (wiringPiSetup() == -1)

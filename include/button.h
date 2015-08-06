@@ -13,6 +13,7 @@ public:
 	void startup(int _row, int _col, int _num, string _name);
 
   int onOffState; //use accessors?
+  string getName() { return(name); }
 private:
 	int row, col, num;
   string name;

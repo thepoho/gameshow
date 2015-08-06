@@ -15,6 +15,8 @@ public:
   void update(int delta);
 
   void startup(PinIO* _pinio);
+  bool getButtonState(string name);
+  button *getButton(string name);
 private:
   PinIO* pinIo;
   //static const int rowPins[8];
