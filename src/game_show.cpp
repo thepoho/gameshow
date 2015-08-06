@@ -2,6 +2,7 @@
 
 lampController lamp_controller;
 buttonController button_controller;
+coilController coil_controller;
 
 PinIO pinIo;
 
@@ -14,6 +15,7 @@ int main(void)
 
   lamp_controller.startup(&pinIo);
   button_controller.startup(&pinIo);
+  coil_controller.startup(&pinIo);
   //button_controller.startup();
   printf("setup complete\n");
   //sleep(1000);
@@ -34,6 +36,7 @@ void update(){
   
   lamp_controller.update(delta);
   button_controller.update(delta);
+  coil_controller.update(delta);
   
   if (button_controller.getButtonState("left_flipper")){
     lamp_controller.setLampState("truck_t", LAMP_ON);

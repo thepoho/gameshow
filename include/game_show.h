@@ -13,6 +13,8 @@ using namespace std;
 #include "lamp.h"
 #include "button_controller.h"
 #include "button.h"
+#include "coil_controller.h"
+#include "coil.h"
 //#include "lamp_matrix_test.h"
 
 #define SIZEOF(n) (sizeof(n) / sizeof(n[0]))
