@@ -42,6 +42,12 @@
     <ClInclude Include="include\pin_io.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="serial_io.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\game_show.cpp">
@@ -74,5 +80,13 @@
     <ClCompile Include="src\pin_io.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="serial_io.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="gameshow.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
