@@ -20,7 +20,7 @@ lampController::lampController()
   elapsedTime = 0;
   lastFastFlash = 0;
   fastFlashStatus = 0;
-  int lastSlowFlash = 0;
+  lastSlowFlash = 0;
   slowFlashStatus = 0;
 }
 
@@ -42,20 +42,11 @@ void lampController::startup(PinIO* _pinio)
     }
 
   //initialize the pins on the rpi
-  printf("POHO");
-  printf("row pins is %d\n", SIZEOF(rowPins));
-  printf("row 0 is %d\n", rowPins[0]); 
   for (int i = 0; i < SIZEOF(rowPins); i++)
   {
-    printf("setting output i is %d\n", i);
-    printf("rowpin output i is %d\n", rowPins[i]);
-    
     pinIo->setPinMode(rowPins[i], OUTPUT);
-    printf("one");
     pinIo->pinWrite(rowPins[i], LOW);
-    printf("two");
   }
-  printf("three");
   for (int i = 0; i < SIZEOF(colPins); i++)
   {
     pinIo->setPinMode(colPins[i], OUTPUT);
@@ -71,14 +62,12 @@ void lampController::update(unsigned int delta)
   {
     lastFastFlash = elapsedTime;
     fastFlashStatus = !fastFlashStatus;
-    //printf("ff is now %d\n", fastFlashStatus);
   }
 
   if (elapsedTime >= (lastSlowFlash + SLOW_FLASH_DELAY))
   {
     lastSlowFlash = elapsedTime;
     slowFlashStatus = !slowFlashStatus;
-    //printf("sf is now %d\n", slowFlashStatus);
   }
   flushLamps();
 }

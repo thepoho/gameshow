@@ -1,7 +1,7 @@
 #need to have libreadline-dev
 
 CC=g++
-CFLAGS=-fpermissive
+CFLAGS=-Wall
 
 GAMEINCLUDE = 	./include
 GAMESOURCE = 	./src/*.cpp
