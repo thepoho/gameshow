@@ -8,7 +8,7 @@
 #include <string>
 using namespace std;
 
-#include "PinIO.h"
+#include "pin_io.h"
 #include "lamp_controller.h"
 #include "lamp.h"
 #include "button_controller.h"
@@ -20,12 +20,19 @@ using namespace std;
 #define SIZEOF(n) (sizeof(n) / sizeof(n[0]))
 #define pohoNULL (0)
 
-//enum LampState{ LAMP_ON, LAMP_OFF, LAMP_FLASH_FAST, LAMP_FLASH_SLOW };
 
-//void lampMatrixTest();
-void setupLamps();
-void update();
+class GameShow
+{
+public:
+  GameShow();
+  ~GameShow();
+  void update();
+private:
 
-//unsigned int totalElapsedTime = 0;
+};
+
+#endif //_LAMP_H
+
+
 
 #endif //_GAME_SHOW_H

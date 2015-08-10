@@ -1,4 +1,4 @@
-#include "PinIO.h"
+#include "pin_io.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -14,14 +14,12 @@ PinIO::~PinIO()
 #ifdef _RASPI
 void PinIO::startup()
 {
-  printf("starting up pinio");
   if (wiringPiSetup() == -1)
     exit(0);
 }
 
 void PinIO::setPinMode(int pin, int mode)
 {
-  printf("here\n:");
   pinMode(pin, mode);
 }
 
