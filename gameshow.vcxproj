@@ -19,7 +19,7 @@
     <ClInclude Include="include\lamp_matrix_test.h" />
     <ClInclude Include="include\button.h" />
     <ClInclude Include="include\button_controller.h" />
-    <ClInclude Include="include\PinIO.h" />
+    <ClInclude Include="include\pin_io.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\coil.cpp" />
@@ -30,7 +30,8 @@
     <ClCompile Include="src\lamp_matrix_test.cpp" />
     <ClCompile Include="src\button.cpp" />
     <ClCompile Include="src\button_controller.cpp" />
-    <ClCompile Include="src\PinIO.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\pin_io.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F0E481E2-FB49-44D7-BE3B-75184BC2E052}</ProjectGuid>

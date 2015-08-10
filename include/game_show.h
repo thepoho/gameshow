@@ -31,8 +31,4 @@ private:
 
 };
 
-#endif //_LAMP_H
-
-
-
 #endif //_GAME_SHOW_H
