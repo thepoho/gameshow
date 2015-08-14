@@ -20,11 +20,10 @@
     <ClInclude Include="include\button.h" />
     <ClInclude Include="include\button_controller.h" />
     <ClInclude Include="include\pin_io.h" />
+    <ClInclude Include="include\serial_io.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="serial_io.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="serial_io.cpp" />
     <ClCompile Include="src\coil.cpp" />
     <ClCompile Include="src\coil_controller.cpp" />
     <ClCompile Include="src\game_show.cpp" />
@@ -35,6 +34,7 @@
     <ClCompile Include="src\button_controller.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\pin_io.cpp" />
+    <ClCompile Include="src\serial_io.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="gameshow.rc" />
