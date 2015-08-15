@@ -2,6 +2,7 @@
 #define _SERIAL_IO_H
 
 #include "game_show.h"
+#include "pin_io.h"
 
 #define DATA_PIN 23
 #define CLOCK_PIN 24

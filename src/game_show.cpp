@@ -3,7 +3,6 @@
   lampController    lamp_controller;
   buttonController  button_controller;
   coilController    coil_controller;
-  serialIo          serial_io;
   PinIO *pPinIo;
   unsigned int lastTickTime;
   
@@ -17,7 +16,6 @@ GameShow::GameShow()
   lamp_controller.startup(pPinIo);
   button_controller.startup(pPinIo);
   coil_controller.startup(pPinIo);
-  serial_io.startup(pPinIo);
   printf("setup complete\n");
   printf("starting main loop\n");
   while (1){

@@ -21,7 +21,7 @@ public:
 private:
   PinIO* pinIo;
 
-  coil coils[16];
+  coil coils[14];
   void flushCoils();
   unsigned int elapsedTime;
 };

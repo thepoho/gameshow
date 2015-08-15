@@ -17,6 +17,8 @@ void PinIO::startup()
 {
   if (wiringPiSetup() == -1)
     exit(0);
+
+  // serial_io.startup(*this);
 }
 
 void PinIO::setPinMode(int pin, int mode)

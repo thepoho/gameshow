@@ -1,6 +1,9 @@
 #ifndef _PINIO_H
 #define _PINIO_H
 
+// #include "game_show.h"
+// #include "serial_io.h"
+
 #ifdef _RASPI
 #include <wiringPi.h>
 #else
@@ -27,6 +30,8 @@ public:
   void doDelay(unsigned int howLong);
   unsigned int getMillis(void);
   //unsigned int tmp = 0;
+
+  // serialIo* serial_io;
 };
 
 #endif
