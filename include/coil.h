@@ -15,7 +15,8 @@ public:
   int onOffState; //use accessors?
   string getName() { return(name); }
   bool getState() { return(state); }
-  void setState(bool _state);
+  bool setState(bool _state);
+  int getNumber() { return(num); }
 private:
   int num;
   string name;

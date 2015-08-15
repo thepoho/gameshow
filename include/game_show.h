@@ -8,7 +8,16 @@
 #include <string>
 using namespace std;
 
-// #include "serial_io.h"
+#define SIZEOF(n) ((int)(sizeof(n) / sizeof(n[0])))
+#define pohoNULL (0)
+#define FALSE (0)
+#define TRUE  (1)
+
+#define COIL_COUNT (14)
+#define FLASHER_COUNT (8)
+
+
+
 #include "pin_io.h"
 #include "lamp_controller.h"
 #include "lamp.h"
@@ -18,10 +27,6 @@ using namespace std;
 #include "coil.h"
 //#include "lamp_matrix_test.h"
 
-#define SIZEOF(n) ((int)(sizeof(n) / sizeof(n[0])))
-#define pohoNULL (0)
-#define FALSE (0)
-#define TRUE  (1)
 
 
 class GameShow

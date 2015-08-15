@@ -1,8 +1,8 @@
 #ifndef _COIL_CONTROLLER_H
 #define _COIL_CONTROLLER_H
 
-#include "coil.h"
 #include "game_show.h"
+#include "coil.h"
 
 #define COIL_MAX_ON_TIME 500
 #define COIL_COOLDOWN_TIME 200
@@ -21,8 +21,7 @@ public:
 private:
   PinIO* pinIo;
 
-  coil coils[14];
-  void flushCoils();
+  coil coils[COIL_COUNT];
   unsigned int elapsedTime;
 };
 

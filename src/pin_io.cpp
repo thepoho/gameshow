@@ -18,7 +18,7 @@ void PinIO::startup()
   if (wiringPiSetup() == -1)
     exit(0);
 
-  outputsDirty = FALSE;
+  serialOutputsDirty = FALSE;
 }
 
 void PinIO::setPinMode(int pin, int mode)
@@ -36,8 +36,9 @@ int PinIO::pinRead(int pin)
   return(digitalRead(pin));
 }
 
-void PinIO::flushSerialData(){
-  if(outputsDirty){
+void PinIO::flushSerialData()
+{
+  if(serialOutputsDirty){
     digitalWrite(SERIAL_LATCH_PIN, LOW);
     
     digitalWrite(SERIAL_CLOCK_PIN, LOW);
@@ -47,7 +48,7 @@ void PinIO::flushSerialData(){
       digitalWrite(SERIAL_CLOCK_PIN, LOW);
     }
     digitalWrite(SERIAL_LATCH_PIN, HIGH);
-    outputsDirty = FALSE;
+    serialOutputsDirty = FALSE;
   }
 }
 
@@ -66,9 +67,14 @@ void PinIO::setPinMode(int pin, int mode){}
 void PinIO::pinWrite(int pin, int value){}
 int  PinIO::pinRead(int pin){ return(0); }
 void PinIO::doDelay(unsigned int howLong){}
-void PinIO::flushSerialData(){outputsDirty = FALSE;}
+void PinIO::flushSerialData(){serialOutputsDirty = FALSE;}
 
 unsigned int tmp = 0;
 unsigned int PinIO::getMillis(void){ return(++tmp); }
 #endif
 
+void PinIO::setSerialOutput(int num, char state)
+{
+  currentSerialState[num] = state;
+  serialOutputsDirty = TRUE;
+}

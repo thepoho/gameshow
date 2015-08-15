@@ -36,11 +36,12 @@ public:
   unsigned int getMillis(void);
 
   void flushSerialData();
+  void setSerialOutput(int num, char state);
 
 private:
   char currentSerialState[SERIAL_NUM_OUTPUTS];
 
-  bool outputsDirty;
+  bool serialOutputsDirty;
 };
 
 #endif
