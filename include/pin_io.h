@@ -5,13 +5,18 @@
 // #include "serial_io.h"
 
 #ifdef _RASPI
-#include <wiringPi.h>
+  #include <wiringPi.h>
 #else
-#define LOW 0
-#define HIGH 1
-#define INPUT 0
-#define OUTPUT 1
+  #define LOW 0
+  #define HIGH 1
+  #define INPUT 0
+  #define OUTPUT 1
 #endif
+
+#define SERIAL_DATA_PIN 23
+#define SERIAL_CLOCK_PIN 24
+#define SERIAL_LATCH_PIN 25
+#define SERIAL_NUM_OUTPUTS 16
 
 class PinIO
 {
@@ -24,14 +29,18 @@ public:
   void pinWrite(int pin, int value);
   //void pwmWrite(int pin, int value);
   int pinRead(int pin);  //needed
-  void shiftOut(int data_pin, int clock_pin, int latch_pin, char* data);
+  void shiftOut(char* data);
   //int analogRead(int pin);
   //void analogWrite(int pin, int value);
   void doDelay(unsigned int howLong);
   unsigned int getMillis(void);
-  //unsigned int tmp = 0;
 
-  // serialIo* serial_io;
+  void flushSerialData();
+
+private:
+  char currentSerialState[SERIAL_NUM_OUTPUTS];
+
+  bool outputsDirty;
 };
 
 #endif
