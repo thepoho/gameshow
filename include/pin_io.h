@@ -21,6 +21,7 @@ public:
   void pinWrite(int pin, int value);
   //void pwmWrite(int pin, int value);
   int pinRead(int pin);  //needed
+  void shiftOut(int data_pin, int clock_pin, int latch_pin, char* data);
   //int analogRead(int pin);
   //void analogWrite(int pin, int value);
   void doDelay(unsigned int howLong);

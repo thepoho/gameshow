@@ -9,6 +9,7 @@
 using namespace std;
 
 #include "pin_io.h"
+#include "serial_io.h"
 #include "lamp_controller.h"
 #include "lamp.h"
 #include "button_controller.h"

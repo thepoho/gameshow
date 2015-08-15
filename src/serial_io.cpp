@@ -2,7 +2,7 @@
 
 serialIo::serialIo()
 {
-
+  
 }
 
 serialIo::~serialIo()
@@ -10,9 +10,9 @@ serialIo::~serialIo()
 
 }
 
-void serialIo::startup()
+void serialIo::startup(PinIO* _pinio)
 {
-
+  pinIo = _pinio;
 }
 
 void serialIo::update()
@@ -26,14 +26,7 @@ void serialIo::update()
   }
 }
 
-void serialIo::flushData(){
-  digitalWrite(LATCH_PIN, LOW);
-  
-  digitalWrite(CLOCK_PIN, LOW);
-  for (int i = 0; i < NUM_OUTPUTS; i++){
-    digitalWrite(DATA_PIN, currentState[i]);
-    digitalWrite(CLOCK_PIN, HIGH);
-    digitalWrite(CLOCK_PIN, LOW);
-  }
-  digitalWrite(LATCH_PIN, HIGH);
+void serialIo::flushData()
+{
+  pinIo->shiftOut(DATA_PIN, CLOCK_PIN, LATCH_PIN, currentState);
 }
