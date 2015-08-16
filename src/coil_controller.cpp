@@ -1,5 +1,10 @@
 #include "coil_controller.h"
 
+string coilNames[COIL_COUNT] = {"r_flipper","l_flipper","l_slingshot","r_slingshot",
+                      "ball_launcher", "trough","f_bumper","l_bumper",
+                      "r_bumper","r_popper","drop_target","l_gate","l_launch","bell"};
+
+
 coilController::coilController()
 {
   elapsedTime = 0;
@@ -12,12 +17,15 @@ coilController::~coilController()
 void coilController::startup(PinIO* _pinio)
 {
   pinIo = _pinio;
-  //create all my coils
-  string coilNames[COIL_COUNT] = {"r_flipper","l_flipper","l_slingshot","r_slingshot","ball_launcher",
-                    "trough","f_bumper","l_bumper","r_bumper","r_popper","drop_target","l_gate","l_launch","bell"};
-                    
+  //create all my coils                    
   for(int i = 0; i < SIZEOF(coils); i++){
     coils[i].startup(i, coilNames[i]);
+    
+    //all coils should turn off after a period of time except for flippers
+    if(coilNames[i] == "r_flipper" || coilNames[i] == "l_flipper"){
+      coils[i].setShouldTurnOff(FALSE);
+    }
+
   }
 }
 
@@ -26,7 +34,14 @@ void coilController::update(unsigned int delta)
   elapsedTime += delta;
   
   //See if any coils have been on for too long and turn them off
-  
+  for(int i = 0; i < SIZEOF(coils); i++){
+    if(coils[i].getShouldTurnOff()){
+      if(elapsedTime >= coils[i].getTurnOffTime()){
+        //this coil has been on for too long! turn it off
+        coils[i].setState(COIL_OFF);
+      }
+    }
+  }  
 }
 
 
@@ -45,6 +60,7 @@ void coilController::setCoilState(string name, bool state){
     if(tmpCoil->setState(state)){
       //will return true if state changed
       pinIo->setSerialOutput(tmpCoil->getNumber(), tmpCoil->getState());
+      tmpCoil->setTurnOffTime(elapsedTime + COIL_ON_TIME);
     }
   }
 }

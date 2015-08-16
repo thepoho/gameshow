@@ -19,12 +19,12 @@ using namespace std;
 
 
 #include "pin_io.h"
-#include "lamp_controller.h"
 #include "lamp.h"
-#include "button_controller.h"
+#include "lamp_controller.h"
 #include "button.h"
-#include "coil_controller.h"
+#include "button_controller.h"
 #include "coil.h"
+#include "coil_controller.h"
 //#include "lamp_matrix_test.h"
 
 
