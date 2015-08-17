@@ -2,13 +2,7 @@
 #define _COIL_CONTROLLER_H
 
 #include "coil.h"
-#include "game_show.h"
-
-#define COIL_MAX_ON_TIME 500
-#define COIL_COOLDOWN_TIME 200
-#define COIL_ON_TIME 150 //the amount of time a coil is generally fired for
-#define COIL_OFF 0
-#define COIL_ON  1
+#include "game_show.h"  
 
 class coilController
 {

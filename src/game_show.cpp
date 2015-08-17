@@ -16,6 +16,7 @@ GameShow::GameShow()
   lamp_controller.startup(pPinIo);
   button_controller.startup(pPinIo);
   coil_controller.startup(pPinIo);
+  coil_controller.getCoil("trough")->setState(1);
   printf("setup complete\n");
   printf("starting main loop\n");
   while (1){

@@ -8,15 +8,7 @@
 #include <string>
 using namespace std;
 
-#define SIZEOF(n) ((int)(sizeof(n) / sizeof(n[0])))
-#define pohoNULL (0)
-#define FALSE (0)
-#define TRUE  (1)
-
-#define COIL_COUNT (14)
-#define FLASHER_COUNT (8)
-
-
+#include "common_defines.h"
 
 #include "pin_io.h"
 #include "lamp.h"

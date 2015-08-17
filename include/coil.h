@@ -4,6 +4,7 @@
 // #include <iostream>
 #include <string>
 // #include "game_show.h"
+#include "common_defines.h"
 using namespace std;
 
 class coil
@@ -19,19 +20,21 @@ public:
   bool setState(bool _state);
   int getNumber() { return(num); }
 
-  unsigned int getLastOnTime(){  return(lastOnTime);  }
-  unsigned int getLastOffTime(){ return(lastOffTime); }
+  // unsigned int getLastOnTime(){  return(lastOnTime);  }
+  // unsigned int getLastOffTime(){ return(lastOffTime); }
   
-  unsigned int getTurnOffTime(){ return(turnOffTime); }
-  void setTurnOffTime(unsigned int tot){ turnOffTime = tot; }
+  // unsigned int getTurnOffTime(){ return(turnOffTime); }
+  // void setTurnOffTime(unsigned int tot){ turnOffTime = tot; }
 
-  bool getShouldTurnOff(){ return(shouldTurnOff); }
+  // bool getShouldTurnOff(){ return(shouldTurnOff); }
   void setShouldTurnOff(unsigned int sso){ shouldTurnOff = sso; }
+
+  void update(unsigned int delta);
 private:
   int num;
   string name;
   bool state;
-  unsigned int lastOnTime, lastOffTime, turnOffTime;
+  unsigned int onTimeRemaining, offTimeRemaining;
   bool shouldTurnOff;
   
 };

@@ -12,17 +12,46 @@ void coil::startup(int _num, string _name)
 {
   name  = _name;
   num   = _num;
-  shouldTurnOff = 1;
-  turnOffTime = 0;
+  shouldTurnOff = TRUE;
+  state = COIL_OFF;
+  onTimeRemaining = offTimeRemaining = 0;
 }
 
 bool coil::setState(bool _state){
-  if(state == _state){
-    //state has not changed - nothing to do!
-    return false;
-  }else{
-    //state has changed!
-    state = _state;
-    return true;
+  if(state != _state){  //asking to go to a new state
+    if(_state == COIL_ON){  //transitioning to an ON state
+      if(offTimeRemaining == 0){ //cooldown complete!
+        state = _state;
+        onTimeRemaining = COIL_ON_TIME;
+        return true;
+      }
+    }else{  //turning off
+      state = _state;
+      onTimeRemaining = 0;
+      offTimeRemaining = COIL_COOLDOWN_TIME;
+      return true;
+    }
+  }
+  return false; //nothing changed here, boss
+}
+
+void coil::update(unsigned int delta)
+{
+  if(shouldTurnOff){
+    if(state == COIL_ON){  //currently on
+      if(onTimeRemaining > delta){ //more time remaining than the delta
+        onTimeRemaining -= delta;
+      }else{
+        setState(COIL_OFF);  //this will also reset onTimeRemaining
+      }
+    }else{ //if our state is COIL_OFF
+      if(offTimeRemaining > 0){
+        if(offTimeRemaining > delta){
+          offTimeRemaining -= delta;
+        }else{
+          offTimeRemaining = 0; //cooldown complete!
+        }
+      }
+    }
   }
 }

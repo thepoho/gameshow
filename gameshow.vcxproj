@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\common_defines.h" />
     <ClInclude Include="include\coil.h" />
     <ClInclude Include="include\coil_controller.h" />
     <ClInclude Include="include\game_show.h" />
