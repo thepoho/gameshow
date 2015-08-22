@@ -12,12 +12,14 @@ public:
   ~socketServer();
   void startup();
 
-  void runThread();
 
   
 private:
 
   static int ev_handler(struct mg_connection *conn, enum mg_event ev);
+  static void runThread();
+
+  std::thread socketThread;
   
 };
 

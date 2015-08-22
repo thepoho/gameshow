@@ -11,8 +11,8 @@ socketServer::~socketServer()
 void socketServer::startup()
 {
   printf("starting up server\n");
-  std::thread runThread();
-  // runThread.join();
+  std::thread t1(socketServer::runThread);
+  t1.join();
 }
 
 void socketServer::runThread(){

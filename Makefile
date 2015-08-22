@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-Wall -std=c++0x
+CFLAGS=-Wall -std=c++0x -pthread
 
 ifeq ($(HOSTTYPE), arm)
   DFLAGS=-D _RASPI

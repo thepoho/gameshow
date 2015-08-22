@@ -18,7 +18,8 @@ GameShow::GameShow()
   button_controller.startup(pPinIo);
   coil_controller.startup(pPinIo);
 
-  socket_server.startup();
+  printf("not starting socket server yet!");
+  // socket_server.startup();
 
 
   // coil_controller.getCoil("trough")->setState(1);
@@ -40,8 +41,8 @@ void GameShow::update(){
   unsigned int delta = millis - lastTickTime;
   lastTickTime = millis;
   
-//  printf("millis is %d\n", millis);
- // printf("delta is %d\n", delta);
+ // printf("millis is %d\n", millis);
+  printf("delta is %d\n", delta);
   lamp_controller.update(delta);
   button_controller.update(delta);
   coil_controller.update(delta);
