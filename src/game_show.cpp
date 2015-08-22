@@ -3,6 +3,7 @@
   lampController    lamp_controller;
   buttonController  button_controller;
   coilController    coil_controller;
+  socketServer      socket_server;
   PinIO *pPinIo;
   unsigned int lastTickTime;
   
@@ -16,7 +17,11 @@ GameShow::GameShow()
   lamp_controller.startup(pPinIo);
   button_controller.startup(pPinIo);
   coil_controller.startup(pPinIo);
-  coil_controller.getCoil("trough")->setState(1);
+
+  socket_server.startup();
+
+
+  // coil_controller.getCoil("trough")->setState(1);
   printf("setup complete\n");
   printf("starting main loop\n");
   while (1){

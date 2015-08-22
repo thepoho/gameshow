@@ -10,6 +10,8 @@ using namespace std;
 
 #include "common_defines.h"
 
+#include "mongoose.h"
+
 #include "pin_io.h"
 #include "lamp.h"
 #include "lamp_controller.h"
@@ -17,6 +19,7 @@ using namespace std;
 #include "button_controller.h"
 #include "coil.h"
 #include "coil_controller.h"
+#include "socket_server.h"
 //#include "lamp_matrix_test.h"
 
 

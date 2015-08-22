@@ -1,6 +1,8 @@
 #ifndef _COMMON_DEFINES_H
 #define _COMMON_DEFINES_H
 
+#include "mongoose.h"
+
 #define SIZEOF(n) ((int)(sizeof(n) / sizeof(n[0])))
 #define pohoNULL (0)
 #define FALSE (0)

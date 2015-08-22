@@ -1,12 +1,12 @@
 CC=g++
-CFLAGS=-Wall
+CFLAGS=-Wall -std=c++11
 
 ifeq ($(HOSTTYPE), arm)
   DFLAGS=-D _RASPI
 endif
 
 GAMEINCLUDE = 	./include
-GAMESOURCE = 	./src/*.cpp
+GAMESOURCE = 	./src/*.cpp ./src/*.c
 
 #PINLIBINC = 	./pinlib/include
 #PINLIBSRC = 	./pinlib/src/*.cpp 
