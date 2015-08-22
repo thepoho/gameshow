@@ -3,6 +3,10 @@
 
 #include "mongoose.h"
 
+#ifdef __arm__
+  #define _RASPI
+#endif
+
 #define SIZEOF(n) ((int)(sizeof(n) / sizeof(n[0])))
 #define pohoNULL (0)
 #define FALSE (0)
