@@ -18,8 +18,8 @@ GameShow::GameShow()
   button_controller.startup(pPinIo);
   coil_controller.startup(pPinIo);
 
-  printf("not starting socket server yet!");
-  // socket_server.startup();
+  // printf("not starting socket server yet!");
+  socket_server.startup();
 
 
   // coil_controller.getCoil("trough")->setState(1);
@@ -33,6 +33,12 @@ GameShow::GameShow()
 GameShow::~GameShow()
 {
 
+}
+
+void GameShow::startSocketServer()
+{
+  // std::thread t1(socket_server.startup());
+  // t1.join();
 }
 
 void GameShow::update(){

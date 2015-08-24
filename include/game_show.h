@@ -31,7 +31,7 @@ public:
   ~GameShow();
   void update();
 private:
-
+  void startSocketServer();
 };
 
 #endif //_GAME_SHOW_H

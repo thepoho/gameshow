@@ -12,7 +12,7 @@ void socketServer::startup()
 {
   printf("starting up server\n");
   std::thread t1(socketServer::runThread);
-  t1.join();
+  t1.detach();
 }
 
 void socketServer::runThread(){
