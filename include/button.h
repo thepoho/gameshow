@@ -14,6 +14,9 @@ public:
 
   int onOffState; //use accessors?
   string getName() { return(name); }
+  int getNum() { return(num); }
+  int getRow() { return(row); }
+  int getCol() { return(col); }
 private:
 	int row, col, num;
   string name;

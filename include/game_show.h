@@ -12,6 +12,18 @@ using namespace std;
 
 #include "mongoose.h"
 
+class GameShow
+{
+public:
+  GameShow();
+  ~GameShow();
+  void update();
+
+  string getButtonInfoString();
+private:
+
+};
+
 #include "pin_io.h"
 #include "lamp.h"
 #include "lamp_controller.h"
@@ -24,14 +36,5 @@ using namespace std;
 
 
 
-class GameShow
-{
-public:
-  GameShow();
-  ~GameShow();
-  void update();
-private:
-  void startSocketServer();
-};
 
 #endif //_GAME_SHOW_H

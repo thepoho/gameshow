@@ -5,7 +5,7 @@ static const int rowPins[8] = { 4, 5, 6, 10, 11, 26, 27, 28 };
 static const int colPins[3] = { 15, 16, 1 };
 static const int colOutputs[8][3] = { { 0, 0, 0 }, { 0, 0, 1 }, { 0, 1, 0 }, { 0, 1, 1 }, { 1, 0, 0 }, { 1, 0, 1 }, { 1, 1, 0 }, { 1, 1, 1 } };
 const string buttonNames[8][8] = {
-  { "plum_bob_tilt", "not", "top_lane_left", "easy_spin", "truck_t", "spin_wheel", "not_used", "right_flipper" },
+  { "plum_bob_tilt", "not_used", "top_lane_left", "easy_spin", "truck_t", "spin_wheel", "not_used", "right_flipper" },
   { "not_used", "outhole", "top_lane_middle", "center_ramp", "truck_r", "right_spinner", "not_used", "left_flipper" },
   { "credit_button", "trough_1_right", "top_lane_right", "tv_t", "truck_u", "spot_letter", "not_used", "not_used" },
   { "right_coin", "trough_2_left", "right_ramp", "tv_v", "truck_c", "not_used", "not_used", "left_jet" },
@@ -26,9 +26,9 @@ buttonController::~buttonController()
 void buttonController::startup(PinIO* _pinio)
 {
   pinIo = _pinio;
-  for (int c = 0; c < 8; c++){
-    for (int r = 0; r < 8; r++){
-      buttons[c][r].startup(c, r, ((8 * c) + (r + 1)), buttonNames[r][c]);
+  for (int r = 0; r < 8; r++){
+    for (int c = 0; c < 8; c++){
+      buttons[r][c].startup(r, c, ((8 * r) + (c + 1)), buttonNames[r][c]);
     }
   }
 
@@ -59,16 +59,16 @@ void buttonController::update(int delta)
      for (int r = 0; r < 8; r++)
      {
        //now for each row!
-       buttons[c][r].onOffState = pinIo->pinRead(rowPins[r]);
+       buttons[r][c].onOffState = pinIo->pinRead(rowPins[r]);
      }
    }
 }
 
 button *buttonController::getButton(string name){
-  for (int c = 0; c < 8; c++){
-    for (int r = 0; r < 8; r++){
+  for (int r = 0; r < 8; r++){
+    for (int c = 0; c < 8; c++){
       if (buttons[c][r].getName() == name){
-        return(&buttons[c][r]);
+        return(&buttons[r][c]);
       }
     }
   }
@@ -84,16 +84,39 @@ bool buttonController::getButtonState(string name){
 }
 
 void buttonController::outputButtons(){
-  for (int c = 0; c < 8; c++){
-    for (int r = 0; r < 8; r++){
-      //bool state = buttons[c][r].onOffState;
+  for (int r = 0; r < 8; r++){
+    for (int c = 0; c < 8; c++){
+      //bool state = buttons[r][c].onOffState;
       //if(state){
-        //printf("%s", buttons[c][r].getName());
-       // cout << buttons[c][r].getName();
+        //printf("%s", buttons[r][c].getName());
+       // cout << buttons[r][c].getName();
       //}
-      printf("%d", buttons[c][r].onOffState);
+      printf("%d", buttons[r][c].onOffState);
     }
     printf(" ");
   }
   printf("\r");
+}
+
+string buttonController::getInfoString(){
+  stringstream sstm;
+  sstm << "[";
+  // string ret = "";
+
+  for (int r = 0; r < 8; r++){
+    for (int c = 0; c < 8; c++){
+      sstm << "{";
+      sstm << "\"name\": \"" << buttons[r][c].getName() << "\",";
+      sstm << "\"num\": \""  << buttons[r][c].getNum()  << "\",";
+      sstm << "\"row\": \""  << buttons[r][c].getRow()  << "\",";
+      sstm << "\"col\": \""  << buttons[r][c].getCol()  << "\"";
+      // sstm <<  buttons[r][c].getNum();
+      sstm <<  "}";
+      if(!(c == 7 && r == 7)){
+        sstm <<  ", ";
+      }
+    }
+  }
+  sstm <<  "]";
+  return sstm.str();
 }

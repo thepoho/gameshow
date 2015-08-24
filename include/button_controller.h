@@ -4,6 +4,7 @@
 #include "button.h"
 #include "game_show.h"
 
+#include <sstream>
 
 
 class buttonController
@@ -18,6 +19,8 @@ public:
   bool getButtonState(string name);
   button *getButton(string name);
   void outputButtons();
+
+  string getInfoString();
 private:
   PinIO* pinIo;
   //static const int rowPins[8];

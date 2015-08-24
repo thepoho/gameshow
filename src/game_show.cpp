@@ -19,7 +19,8 @@ GameShow::GameShow()
   coil_controller.startup(pPinIo);
 
   // printf("not starting socket server yet!");
-  socket_server.startup();
+  printf("this pointer is %p\n", this);
+  socket_server.startup(this);
 
 
   // coil_controller.getCoil("trough")->setState(1);
@@ -35,12 +36,6 @@ GameShow::~GameShow()
 
 }
 
-void GameShow::startSocketServer()
-{
-  // std::thread t1(socket_server.startup());
-  // t1.join();
-}
-
 void GameShow::update(){
   //work out deltas
   unsigned int millis = pPinIo->getMillis();
@@ -48,7 +43,7 @@ void GameShow::update(){
   lastTickTime = millis;
   
  // printf("millis is %d\n", millis);
-  printf("delta is %d\n", delta);
+  // printf("delta is %d\n", delta);
   lamp_controller.update(delta);
   button_controller.update(delta);
   coil_controller.update(delta);
@@ -66,4 +61,8 @@ void GameShow::update(){
   else{
     lamp_controller.setLampState("trip_t", LAMP_OFF);
   }
+}
+
+string GameShow::getButtonInfoString(){
+  return button_controller.getInfoString();
 }
