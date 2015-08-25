@@ -43,7 +43,12 @@ void GameShow::update(){
   lastTickTime = millis;
   
  // printf("millis is %d\n", millis);
-  // printf("delta is %d\n", delta);
+  // printf("millis is %d\n", millis);
+  // if(millis % 400000 == 0){
+  //   printf("zero\n");
+  //   sendWebMessage("poho");
+  // }
+
   lamp_controller.update(delta);
   button_controller.update(delta);
   coil_controller.update(delta);
