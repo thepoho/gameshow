@@ -27,6 +27,7 @@ void buttonController::startup(GameShow* _game_show, PinIO* _pinio)
 {
   pinIo = _pinio;
   game_show = _game_show;
+  elapsedTime = 0;
   
   for (int r = 0; r < 8; r++){
     for (int c = 0; c < 8; c++){
@@ -44,8 +45,9 @@ void buttonController::startup(GameShow* _game_show, PinIO* _pinio)
   }
 }
 
-void buttonController::update(int delta)
+void buttonController::update(unsigned int delta)
 {
+  elapsedTime += delta;
   //TODO: update the switch flash states based on deltas
   //std::cout << "update";
   //delay(1);
@@ -64,7 +66,21 @@ void buttonController::update(int delta)
     {
       //now for each row!
       bool stateChanged = buttons[c][r].setState(pinIo->pinRead(rowPins[r]));
+      
+/*
+      if(c == 5 && r == 5 && elapsedTime % 200000 == 0){
+        int st = buttons[c][r].getState();
+        printf("here\n");
+        stateChanged = true;
+        // if(st == 1){
+        //   stateChanged = buttons[c][r].setState(0);
+        // }else{
+          stateChanged = buttons[c][r].setState(1);
+        // }
+      }
+*/
       if(stateChanged){
+	//TODO - make it so we can turn off the web stuff at run time with a flag
         updateWebButtonState(buttons[c][r]);
       }
     }

@@ -13,7 +13,7 @@ public:
   buttonController();
   ~buttonController();
 
-  void update(int delta);
+  void update(unsigned int delta);
 
   void startup(GameShow* _game_show, PinIO* _pinio);
   bool getButtonState(string name);
@@ -26,6 +26,8 @@ private:
   GameShow* game_show;
 
   void updateWebButtonState(button _btn);
+
+  unsigned int elapsedTime;
 
   //static const int rowPins[8];
   //static const int colPins[3];  //8 columns, on a binary decoder
