@@ -12,14 +12,16 @@ public:
 	~button();
 	void startup(int _row, int _col, int _num, string _name);
 
-  int onOffState; //use accessors?
   string getName() { return(name); }
   int getNum() { return(num); }
   int getRow() { return(row); }
   int getCol() { return(col); }
+  int getState() { return(onOffState); }
+  void setState(int _state) { onOffState = _state; }
 private:
-	int row, col, num;
+  int row, col, num;
   string name;
+  int onOffState;
   
 };
 

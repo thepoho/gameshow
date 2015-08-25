@@ -2,6 +2,13 @@
 #define _COMMON_DEFINES_H
 
 #include "mongoose.h"
+#include "rapidjson/writer.h"
+#include "rapidjson/stringbuffer.h"
+#include <iostream>
+#include <string>
+
+using namespace rapidjson;
+using namespace std;
 
 #ifdef __arm__
   #define _RASPI

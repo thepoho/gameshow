@@ -58,12 +58,13 @@ int socketServer::ev_handler(struct mg_connection *conn, enum mg_event ev) {
 int socketServer::sendWsReply(struct mg_connection *conn)
 {
   if(conn->is_websocket){
-    // printf("WS: %s\n", conn->content);
+
     if(!memcmp(conn->content, "get_buttons", 11)){
+
       //get switch deets
-      string info = gameShow->getButtonInfoString();
-      info = "{\"name\": \"get_buttons\", \"data\": " + info + "}";
-      mg_websocket_write(conn, 1, info.c_str(), info.length());
+      string data = gameShow->getButtonInfoString();
+
+      mg_websocket_write(conn, 1, data.c_str(), data.length());
     }else{
       // printf("gwar");
       mg_websocket_write(conn, 1, "not exit", 8);

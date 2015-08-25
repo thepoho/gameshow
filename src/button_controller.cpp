@@ -59,7 +59,7 @@ void buttonController::update(int delta)
      for (int r = 0; r < 8; r++)
      {
        //now for each row!
-       buttons[r][c].onOffState = pinIo->pinRead(rowPins[r]);
+       buttons[r][c].setState(pinIo->pinRead(rowPins[r]));
      }
    }
 }
@@ -78,7 +78,7 @@ button *buttonController::getButton(string name){
 bool buttonController::getButtonState(string name){
   button *tmpButton = getButton(name);
   if (NULL != tmpButton){
-    return(tmpButton->onOffState);
+    return(tmpButton->getState());
   }
   return(0);
 }
@@ -91,7 +91,7 @@ void buttonController::outputButtons(){
         //printf("%s", buttons[r][c].getName());
        // cout << buttons[r][c].getName();
       //}
-      printf("%d", buttons[r][c].onOffState);
+      printf("%d", buttons[r][c].getState());
     }
     printf(" ");
   }
@@ -99,24 +99,35 @@ void buttonController::outputButtons(){
 }
 
 string buttonController::getInfoString(){
-  stringstream sstm;
-  sstm << "[";
-  // string ret = "";
+
+  StringBuffer s;
+  Writer<StringBuffer> writer(s);
+
+  writer.StartObject();
+  writer.String("name");
+  writer.String("get_buttons");
+  writer.String("data");
+  writer.StartArray();
 
   for (int r = 0; r < 8; r++){
     for (int c = 0; c < 8; c++){
-      sstm << "{";
-      sstm << "\"name\": \"" << buttons[r][c].getName() << "\",";
-      sstm << "\"num\": \""  << buttons[r][c].getNum()  << "\",";
-      sstm << "\"row\": \""  << buttons[r][c].getRow()  << "\",";
-      sstm << "\"col\": \""  << buttons[r][c].getCol()  << "\"";
-      // sstm <<  buttons[r][c].getNum();
-      sstm <<  "}";
-      if(!(c == 7 && r == 7)){
-        sstm <<  ", ";
-      }
+      writer.StartObject();
+      writer.String("name");
+      writer.String(buttons[r][c].getName().c_str());
+      writer.String("num");
+      writer.Uint(buttons[r][c].getNum());
+      writer.String("row");
+      writer.Uint(buttons[r][c].getRow());
+      writer.String("col");
+      writer.Uint(buttons[r][c].getCol());
+      writer.String("state");
+      writer.Uint(buttons[r][c].getState());
+      writer.EndObject();
+
     }
   }
-  sstm <<  "]";
-  return sstm.str();
+  writer.EndArray();
+  writer.EndObject();
+
+  return s.GetString();
 }
