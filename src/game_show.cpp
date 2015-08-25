@@ -14,9 +14,9 @@ GameShow::GameShow()
   
   pPinIo->startup();
 
-  lamp_controller.startup(pPinIo);
-  button_controller.startup(pPinIo);
-  coil_controller.startup(pPinIo);
+  lamp_controller.startup(this, pPinIo);
+  button_controller.startup(this, pPinIo);
+  coil_controller.startup(this, pPinIo);
 
   // printf("not starting socket server yet!");
   printf("this pointer is %p\n", this);
@@ -65,4 +65,9 @@ void GameShow::update(){
 
 string GameShow::getButtonInfoString(){
   return button_controller.getInfoString();
+}
+
+void GameShow::sendWebMessage(string message)
+{
+  socket_server.sendMessage(message);
 }

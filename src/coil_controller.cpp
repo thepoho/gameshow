@@ -14,9 +14,10 @@ coilController::~coilController()
 {
 }
 
-void coilController::startup(PinIO* _pinio)
+void coilController::startup(GameShow* _game_show, PinIO* _pinio)
 {
   pinIo = _pinio;
+  game_show = _game_show;
   //create all my coils                    
   for(int i = 0; i < SIZEOF(coils); i++){
     coils[i].startup(i, coilNames[i]);

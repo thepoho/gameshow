@@ -12,11 +12,12 @@ public:
 
   void update(unsigned int delta);
 
-  void startup(PinIO* _pinio);
+  void startup(GameShow* _game_show, PinIO* _pinio);
   void setCoilState(string name, bool state);
   coil *getCoil(string name);
 private:
   PinIO* pinIo;
+  GameShow* game_show;
 
   coil coils[COIL_COUNT];
   unsigned int elapsedTime;

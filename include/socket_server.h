@@ -16,6 +16,8 @@ public:
   socketServer();
   ~socketServer();
   static void startup(GameShow* _gameshow);
+
+  static void sendMessage(string message);
   // void startup();
 
 
@@ -30,6 +32,7 @@ private:
   // std::thread socketThread;
 
   static GameShow* gameShow;
+  static struct mg_server *s_server;
   
 };
 

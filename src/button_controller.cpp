@@ -23,9 +23,11 @@ buttonController::~buttonController()
 {
 }
 
-void buttonController::startup(PinIO* _pinio)
+void buttonController::startup(GameShow* _game_show, PinIO* _pinio)
 {
   pinIo = _pinio;
+  game_show = _game_show;
+  
   for (int r = 0; r < 8; r++){
     for (int c = 0; c < 8; c++){
       buttons[r][c].startup(r, c, ((8 * r) + (c + 1)), buttonNames[r][c]);
@@ -48,20 +50,25 @@ void buttonController::update(int delta)
   //std::cout << "update";
   //delay(1);
 
-   for (int c = 0; c < 8; c++) //columns
-   {
-     //set the appropriate output pins for the current column
-     for (int i = 0; i < 3; i++)
-     {
-       pinIo->pinWrite(colPins[i], colOutputs[c][i]);
-     }
+  // updateWebButtonState(buttons[5][5]);
+  // game_show->sendWebMessage(s.GetString());
 
-     for (int r = 0; r < 8; r++)
-     {
-       //now for each row!
-       buttons[r][c].setState(pinIo->pinRead(rowPins[r]));
-     }
-   }
+  for (int c = 0; c < 8; c++) //columns
+  {
+    //set the appropriate output pins for the current column
+    for (int i = 0; i < 3; i++)
+    {
+      pinIo->pinWrite(colPins[i], colOutputs[c][i]);
+    }
+    for (int r = 0; r < 8; r++)
+    {
+      //now for each row!
+      bool stateChanged = buttons[c][r].setState(pinIo->pinRead(rowPins[r]));
+      if(stateChanged){
+        updateWebButtonState(buttons[c][r]);
+      }
+    }
+  }
 }
 
 button *buttonController::getButton(string name){
@@ -98,6 +105,22 @@ void buttonController::outputButtons(){
   printf("\r");
 }
 
+void buttonController::updateWebButtonState(button _btn)
+{
+
+  StringBuffer s;
+  Writer<StringBuffer> writer(s);
+
+  writer.StartObject();
+  writer.String("name");
+  writer.String("button_state");
+  writer.String("data");
+  _btn.serializeJson(&writer);
+  writer.EndObject();
+
+  game_show->sendWebMessage(s.GetString());
+}
+
 string buttonController::getInfoString(){
 
   StringBuffer s;
@@ -111,19 +134,7 @@ string buttonController::getInfoString(){
 
   for (int r = 0; r < 8; r++){
     for (int c = 0; c < 8; c++){
-      writer.StartObject();
-      writer.String("name");
-      writer.String(buttons[r][c].getName().c_str());
-      writer.String("num");
-      writer.Uint(buttons[r][c].getNum());
-      writer.String("row");
-      writer.Uint(buttons[r][c].getRow());
-      writer.String("col");
-      writer.Uint(buttons[r][c].getCol());
-      writer.String("state");
-      writer.Uint(buttons[r][c].getState());
-      writer.EndObject();
-
+      buttons[r][c].serializeJson(&writer);
     }
   }
   writer.EndArray();

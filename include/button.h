@@ -1,9 +1,7 @@
 #ifndef _BUTTON_H
 #define _BUTTON_H
 
-#include <iostream>
-#include <string>
-using namespace std;
+#include "common_defines.h"
 
 class button
 {
@@ -17,7 +15,10 @@ public:
   int getRow() { return(row); }
   int getCol() { return(col); }
   int getState() { return(onOffState); }
-  void setState(int _state) { onOffState = _state; }
+
+  bool setState(int _newState);
+
+  void serializeJson(Writer<StringBuffer>* writer);
 private:
   int row, col, num;
   string name;

@@ -28,9 +28,10 @@ lampController::~lampController()
 {
 }
 
-void lampController::startup(PinIO* _pinio)
+void lampController::startup(GameShow* _game_show, PinIO* _pinio)
 {
     pinIo = _pinio;
+    game_show = _game_show;
  
     for (int c = 0; c < 8; c++)
     {

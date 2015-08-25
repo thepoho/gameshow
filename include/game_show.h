@@ -20,6 +20,8 @@ public:
   void update();
 
   string getButtonInfoString();
+
+  void sendWebMessage(string message);
 private:
 
 };

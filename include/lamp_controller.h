@@ -16,11 +16,12 @@ public:
 
   void update(unsigned int delta);
 
-  void startup(PinIO* _pinio);
+  void startup(GameShow* _game_show, PinIO* _pinio);
   void setLampState(string name, LampState state);
   lamp *getLamp(string name);
 private:
   PinIO* pinIo;
+  GameShow* game_show;
 //  static const int rowPins[8];
  // static const int colPins[3];  //8 columns, on a binary decoder
 

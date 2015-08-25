@@ -15,7 +15,7 @@ public:
 
   void update(int delta);
 
-  void startup(PinIO* _pinio);
+  void startup(GameShow* _game_show, PinIO* _pinio);
   bool getButtonState(string name);
   button *getButton(string name);
   void outputButtons();
@@ -23,6 +23,10 @@ public:
   string getInfoString();
 private:
   PinIO* pinIo;
+  GameShow* game_show;
+
+  void updateWebButtonState(button _btn);
+
   //static const int rowPins[8];
   //static const int colPins[3];  //8 columns, on a binary decoder
 
