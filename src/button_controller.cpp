@@ -65,20 +65,23 @@ void buttonController::update(unsigned int delta)
     for (int r = 0; r < 8; r++)
     {
       //now for each row!
-      bool stateChanged = buttons[c][r].setState(pinIo->pinRead(rowPins[r]));
-      
-/*
-      if(c == 5 && r == 5 && elapsedTime % 200000 == 0){
-        int st = buttons[c][r].getState();
-        printf("here\n");
-        stateChanged = true;
-        // if(st == 1){
-        //   stateChanged = buttons[c][r].setState(0);
-        // }else{
-          stateChanged = buttons[c][r].setState(1);
-        // }
-      }
-*/
+
+      bool stateChanged = 0;
+
+      // if(c == 5 && r == 5){
+      //   if(elapsedTime % 200000 == 0){
+      //     int st = buttons[c][r].getState();
+      //     if(st == 1){
+      //       stateChanged = buttons[c][r].setState(0);
+      //     }else{
+      //       stateChanged = buttons[c][r].setState(1);
+      //     }
+      //   }
+      // }else{
+      stateChanged = buttons[c][r].setState(pinIo->pinRead(rowPins[r]));
+        
+      // }
+
       if(stateChanged){
 	//TODO - make it so we can turn off the web stuff at run time with a flag
         updateWebButtonState(buttons[c][r]);

@@ -14,7 +14,9 @@ GameShow = {
     var data = $.parseJSON(ev.data);
     if(data.name == "get_buttons"){
       GameShow.handleGetButtonsResponses(data.data);
-      
+    }
+    if(data.name == "button_state"){
+      GameShow.handleButtonState(data.data); 
     }
     
   },
@@ -31,11 +33,22 @@ GameShow = {
       if(data.col == 0){
         ret += "<tr>";
       }
-      ret += "<td>"+data.name+"</td>";
+      ret += "<td class='button' data-num='"+data.num+"'>"+data.name+"</td>";
       if(data.col == 7){
         ret += "</tr>";
       }
     })
     $("table.buttons").html(ret);
+  },
+
+  handleButtonState: function(button_data){
+    var tmp = $("td.button[data-num="+button_data.num+"]");
+    if(tmp.length != 0){
+      if(button_data.state == 0){
+        tmp.removeClass("buttonPressed");
+      }else{
+        tmp.addClass("buttonPressed");
+      }
+    }
   }
 }
