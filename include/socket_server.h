@@ -9,6 +9,8 @@ using namespace std;
 
 #include <thread>
 #include <string.h>
+#include <queue>
+#include <mutex>
 
 class socketServer
 {
@@ -20,6 +22,9 @@ public:
   static void sendMessage(string message);
   // void startup();
 
+  static void enqueueMessage(string message);
+
+
 
   
 private:
@@ -28,11 +33,16 @@ private:
   static void runThread();
 
   static int sendWsReply(struct mg_connection *conn);
+  static string dequeueMessage();
+  static void messagePusher();
 
   // std::thread socketThread;
 
   static GameShow* gameShow;
   static struct mg_server *s_server;
+  static queue<string> messages;
+
+  static mutex queueMutex;
   
 };
 

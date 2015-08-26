@@ -2,6 +2,8 @@
 
 GameShow* socketServer::gameShow;
 struct mg_server* socketServer::s_server = NULL;
+queue<string> socketServer::messages;
+mutex socketServer::queueMutex;
 
 socketServer::socketServer()
 {
@@ -9,6 +11,36 @@ socketServer::socketServer()
 
 socketServer::~socketServer()
 {
+}
+
+void socketServer::enqueueMessage(string message){
+  queueMutex.lock();
+  messages.push(message);
+  queueMutex.unlock();
+}
+
+string socketServer::dequeueMessage(){
+  // string ret;
+  // strcpy(ret, messages.pop());
+  // return ret;
+  return "";
+}
+
+void socketServer::messagePusher(){
+  while(1){
+    string tmp = "";
+    if(NULL != s_server){
+      queueMutex.lock();
+      if(!messages.empty()){
+        tmp = messages.front();
+        messages.pop();
+      }
+      queueMutex.unlock();
+      if(strcmp("", tmp.c_str())){
+        sendMessage(tmp);
+      }
+    }
+  }
 }
 
 
@@ -20,6 +52,9 @@ void socketServer::startup(GameShow* _gameshow)
   // printf("starting up server\n");
   std::thread t1(socketServer::runThread);
   t1.detach();
+
+  std::thread t2(socketServer::messagePusher);
+  t2.detach();
 }
 
 void socketServer::runThread(){
@@ -43,6 +78,7 @@ void socketServer::runThread(){
 
 void socketServer::sendMessage(string message)
 {
+  cout << "Trying to send " << message << endl;
   if(NULL != s_server){
     struct mg_connection *c;
     for (c = mg_next(s_server, NULL); c != NULL; c = mg_next(s_server, c)) {

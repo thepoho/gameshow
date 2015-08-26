@@ -31,7 +31,8 @@ void buttonController::startup(GameShow* _game_show, PinIO* _pinio)
   
   for (int r = 0; r < 8; r++){
     for (int c = 0; c < 8; c++){
-      buttons[r][c].startup(r, c, ((8 * r) + (c + 1)), buttonNames[r][c]);
+      int tmpNum = ((8 * r) + (c + 1));
+      buttons[r][c].startup(r, c, tmpNum, buttonNames[r][c]);
     }
   }
 
@@ -68,23 +69,23 @@ void buttonController::update(unsigned int delta)
 
       bool stateChanged = 0;
 
-      // if(c == 5 && r == 5){
-      //   if(elapsedTime % 200000 == 0){
-      //     int st = buttons[c][r].getState();
-      //     if(st == 1){
-      //       stateChanged = buttons[c][r].setState(0);
-      //     }else{
-      //       stateChanged = buttons[c][r].setState(1);
-      //     }
-      //   }
-      // }else{
-      stateChanged = buttons[c][r].setState(pinIo->pinRead(rowPins[r]));
+      if(0 && c == 2 && r == 5){  //disabled by putting the 0 in this if statement
+        if(elapsedTime % 200000 == 0){
+          int st = buttons[r][c].getState();
+          if(st == 1){
+            stateChanged = buttons[r][c].setState(0);
+          }else{
+            stateChanged = buttons[r][c].setState(1);
+          }
+        }
+      }else{
+        stateChanged = buttons[r][c].setState(pinIo->pinRead(rowPins[r]));
         
-      // }
+      }
 
       if(stateChanged){
 	//TODO - make it so we can turn off the web stuff at run time with a flag
-        updateWebButtonState(buttons[c][r]);
+        updateWebButtonState(buttons[r][c]);
       }
     }
   }
@@ -112,11 +113,6 @@ bool buttonController::getButtonState(string name){
 void buttonController::outputButtons(){
   for (int r = 0; r < 8; r++){
     for (int c = 0; c < 8; c++){
-      //bool state = buttons[r][c].onOffState;
-      //if(state){
-        //printf("%s", buttons[r][c].getName());
-       // cout << buttons[r][c].getName();
-      //}
       printf("%d", buttons[r][c].getState());
     }
     printf(" ");

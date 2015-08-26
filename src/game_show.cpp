@@ -75,6 +75,7 @@ string GameShow::getButtonInfoString(){
 void GameShow::sendWebMessage(string message)
 {
   // printf("sending ws message: %s\n", message);
-  cout << "sending ws message: " << message << endl;
-  socket_server.sendMessage(message);
+  // cout << "sending ws message: " << message << endl;
+  // socket_server.sendMessage(message);
+  socket_server.enqueueMessage(message);
 }
