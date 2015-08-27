@@ -13,6 +13,7 @@ PinIO::~PinIO()
 }
 
 #ifdef _RASPI
+#include <wiringPi.h>
 void PinIO::startup()
 {
   if (wiringPiSetup() == -1)
