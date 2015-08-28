@@ -29,4 +29,6 @@ using namespace std;
 #define COIL_ON_TIME 100 //the amount of time a coil is allowed to be continuously on for
 #define COIL_COOLDOWN_TIME 100 //the amount of time a coil must be off before firing again
 
+enum LampState{ LAMP_ON, LAMP_OFF, LAMP_FLASH_FAST, LAMP_FLASH_SLOW };
+
 #endif

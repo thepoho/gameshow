@@ -1,11 +1,8 @@
 #ifndef _LAMP_H
 #define _LAMP_H
 
-#include <iostream>
-#include <string>
-using namespace std;
+#include "common_defines.h"
 
-enum LampState{ LAMP_ON, LAMP_OFF, LAMP_FLASH_FAST, LAMP_FLASH_SLOW };
 
 class lamp
 {
@@ -14,11 +11,17 @@ public:
 	~lamp();
 	void startup(int _row, int _col, int _num, string _name);
 
-  LampState state;  //use accessors?
   string getName() { return(name); }
+
+  void serializeJson(Writer<StringBuffer>* writer);
+
+  bool setState(LampState _newState);
+
+  LampState getState() { return(state); }
 private:
-	int row, col, num;
+  int row, col, num;
   string name;
+  LampState state;  //use accessors?
 };
 
 #endif //_LAMP_H

@@ -30,12 +30,12 @@ void socketServer::messagePusher(){
   while(1){
     string tmp = "";
     if(NULL != s_server){
-      queueMutex.lock();
+      // queueMutex.lock();
       if(!messages.empty()){
         tmp = messages.front();
         messages.pop();
       }
-      queueMutex.unlock();
+      // queueMutex.unlock();
       if(strcmp("", tmp.c_str())){
         sendMessage(tmp);
       }
@@ -115,14 +115,12 @@ int socketServer::sendWsReply(struct mg_connection *conn)
   if(conn->is_websocket){
 
     if(!memcmp(conn->content, "get_buttons", 11)){
-
-      //get switch deets
       string data = gameShow->getButtonInfoString();
-
+      mg_websocket_write(conn, 1, data.c_str(), data.length());
+    }else if(!memcmp(conn->content, "get_lamps",9)){
+      string data = gameShow->getLampInfoString();
       mg_websocket_write(conn, 1, data.c_str(), data.length());
     }else{
-      // printf("gwar");
-      // sendMessage("blah blah blah");
       mg_websocket_write(conn, 1, "not exit", 8);
     }
     return MG_TRUE ;

@@ -94,7 +94,7 @@ void lampController::flushLamps()
       //now for each row!
       lamp tmpLamp = lamps[c][r];
       int state = 0;
-      switch (tmpLamp.state)
+      switch (tmpLamp.getState())
       {
       case LAMP_ON:
         state = 1;
@@ -129,6 +129,48 @@ lamp *lampController::getLamp(string name){
 void lampController::setLampState(string name, LampState state){
   lamp *tmpLamp = getLamp(name);
   if (NULL != tmpLamp){
-    tmpLamp->state = state;
+    if(tmpLamp->setState(state)){
+      updateWebLampState(tmpLamp);
+    }
   }
+}
+
+
+
+void lampController::updateWebLampState(lamp* _lmp)
+{
+
+  StringBuffer s;
+  Writer<StringBuffer> writer(s);
+
+  writer.StartObject();
+  writer.String("name");
+  writer.String("lamp_state");
+  writer.String("data");
+  _lmp->serializeJson(&writer);
+  writer.EndObject();
+
+  game_show->sendWebMessage(s.GetString());
+}
+
+string lampController::getInfoString(){
+
+  StringBuffer s;
+  Writer<StringBuffer> writer(s);
+
+  writer.StartObject();
+  writer.String("name");
+  writer.String("get_lamps");
+  writer.String("data");
+  writer.StartArray();
+
+  for (int r = 0; r < 8; r++){
+    for (int c = 0; c < 8; c++){
+      lamps[r][c].serializeJson(&writer);
+    }
+  }
+  writer.EndArray();
+  writer.EndObject();
+
+  return s.GetString();
 }
