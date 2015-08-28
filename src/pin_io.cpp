@@ -67,7 +67,7 @@ void PinIO::startup(){}
 void PinIO::setPinMode(int pin, int mode){}
 void PinIO::pinWrite(int pin, int value){}
 int  PinIO::pinRead(int pin){ return(0); }
-void PinIO::doDelay(unsigned int howLong){}
+void PinIO::doDelay(unsigned int howLong){ usleep(howLong * 1000);}
 void PinIO::flushSerialData(){serialOutputsDirty = FALSE;}
 
 unsigned int tmp = 0;

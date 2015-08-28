@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <string>
+#include <unistd.h>
 
 using namespace rapidjson;
 using namespace std;

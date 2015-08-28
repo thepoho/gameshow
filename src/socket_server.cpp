@@ -40,6 +40,7 @@ void socketServer::messagePusher(){
         sendMessage(tmp);
       }
     }
+    usleep(1000);
   }
 }
 
@@ -70,6 +71,7 @@ void socketServer::runThread(){
   printf("Starting on port %s\n", mg_get_option(s_server, "listening_port"));
   for (;;) {
     mg_poll_server(s_server, 100);
+    // usleep(1000);
   }
 
   // Cleanup, and free server instance

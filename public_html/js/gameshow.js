@@ -24,6 +24,7 @@ GameShow = {
   socketOnOpen: function(ev){
     // console.log("WS Connected");
     GameShow.websocket.send("get_buttons");
+    GameShow.websocket.send("get_lamps");
     //ask server for switch/lamp/coil information
   },
 
