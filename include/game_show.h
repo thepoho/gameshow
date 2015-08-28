@@ -17,9 +17,10 @@ class GameShow
 public:
   GameShow();
   ~GameShow();
-  void update();
+  void run();
 
   string getButtonInfoString();
+  string getLampInfoString();
 
   void sendWebMessage(string message);
 private:

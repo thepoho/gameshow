@@ -25,10 +25,7 @@ GameShow::GameShow()
 
   // coil_controller.getCoil("trough")->setState(1);
   printf("setup complete\n");
-  printf("starting main loop\n");
-  while (1){
-    update();
-  }
+
 }
 
 GameShow::~GameShow()
@@ -36,40 +33,41 @@ GameShow::~GameShow()
 
 }
 
-void GameShow::update(){
+void GameShow::run(){
+  printf("starting main loop\n");
+  while(1){
+    
   //work out deltas
-  unsigned int millis = pPinIo->getMillis();
-  unsigned int delta = millis - lastTickTime;
-  lastTickTime = millis;
-  
- // printf("millis is %d\n", millis);
-  // printf("millis is %d\n", millis);
-  // if(millis % 400000 == 0){
-  //   printf("zero\n");
-  //   sendWebMessage("poho");
-  // }
+    unsigned int millis = pPinIo->getMillis();
+    unsigned int delta = millis - lastTickTime;
+    lastTickTime = millis;
 
-  lamp_controller.update(delta);
-  button_controller.update(delta);
-  coil_controller.update(delta);
+    lamp_controller.update(delta);
+    button_controller.update(delta);
+    coil_controller.update(delta);
 
-  if (button_controller.getButtonState("trough_1_right")){
-    lamp_controller.setLampState("truck_t", LAMP_ON);
-  }
-  else{
-    lamp_controller.setLampState("truck_t", LAMP_OFF);
-  }
+    if (button_controller.getButtonState("trough_1_right")){
+      lamp_controller.setLampState("truck_t", LAMP_ON);
+    }
+    else{
+      lamp_controller.setLampState("truck_t", LAMP_OFF);
+    }
 
-  if (button_controller.getButtonState("tv_t")){
-    lamp_controller.setLampState("trip_t", LAMP_ON);
-  }
-  else{
-    lamp_controller.setLampState("trip_t", LAMP_OFF);
+    if (button_controller.getButtonState("tv_t")){
+      lamp_controller.setLampState("trip_t", LAMP_ON);
+    }
+    else{
+      lamp_controller.setLampState("trip_t", LAMP_OFF);
+    }
   }
 }
 
 string GameShow::getButtonInfoString(){
   return button_controller.getInfoString();
+}
+
+string GameShow::getLampInfoString(){
+  return lamp_controller.getInfoString();
 }
 
 void GameShow::sendWebMessage(string message)
