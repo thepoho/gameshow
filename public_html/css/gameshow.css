@@ -6,3 +6,21 @@ table.buttons tr td{
 td.button.buttonPressed{
   background-color: lightcoral;
 }
+
+td.lamp.lamp_on{
+  background-color: red;
+}
+td.lamp.lamp_off{
+  background-color: white;
+}
+td.lamp.lamp_flash_fast{
+  background-color: coral;
+  -webkit-animation-name: blinker;  
+  -webkit-animation-iteration-count: infinite;  
+  -webkit-animation-timing-function: cubic-bezier(.5, 0, 1, 1);
+  -webkit-animation-duration: 1.7s; 
+}
+
+td.lamp.lamp_flash_slow{
+  background-color: burlywood;
+}

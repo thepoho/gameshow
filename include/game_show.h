@@ -10,8 +10,6 @@ using namespace std;
 
 #include "common_defines.h"
 
-#include "mongoose.h"
-
 class GameShow
 {
 public:

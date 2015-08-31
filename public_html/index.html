@@ -45,9 +45,24 @@
 
         <div class="col-lg-6">
           <h3>Lamps</h3>
+          <table class="table">
+            <tr>
+              <td class="lamp lamp_off">Off</td>
+              <td class="lamp lamp_on">On</td>
+              <td class="lamp lamp_flash_slow">Slow</td>
+              <td class="lamp lamp_flash_fast">Fast</td>
+          </table>
           <table class="table table-bordered lamps">
             
           </table>
+          <div class="hidden_lamp_combo" style="display:none">
+            <select class="lamp_state">
+              <option value="lamp_off">Off</option>
+              <option value="lamp_on">On</option>
+              <option value="lamp_flash_slow">Slow</option>
+              <option value="lamp_flash_fast">Fast</option>
+            </select>
+          </div>
 
         </div>
       </div>

@@ -4,6 +4,7 @@
 #include "mongoose.h"
 
 #include "rapidjson/writer.h"
+#include "rapidjson/document.h"
 #include "rapidjson/stringbuffer.h"
 
 #include <iostream>
@@ -30,6 +31,6 @@ using namespace std;
 #define COIL_ON_TIME 100 //the amount of time a coil is allowed to be continuously on for
 #define COIL_COOLDOWN_TIME 100 //the amount of time a coil must be off before firing again
 
-enum LampState{ LAMP_ON, LAMP_OFF, LAMP_FLASH_FAST, LAMP_FLASH_SLOW };
+enum LampState{LAMP_OFF, LAMP_ON, LAMP_FLASH_SLOW, LAMP_FLASH_FAST};
 
 #endif

@@ -69,19 +69,19 @@ void buttonController::update(unsigned int delta)
 
       bool stateChanged = 0;
 
-      if(0 && c == 2 && r == 5){  //disabled by putting the 0 in this if statement
-        if(elapsedTime % 200000 == 0){
-          int st = buttons[r][c].getState();
-          if(st == 1){
-            stateChanged = buttons[r][c].setState(0);
-          }else{
-            stateChanged = buttons[r][c].setState(1);
-          }
-        }
-      }else{
+      // if(0 && c == 2 && r == 5){  //disabled by putting the 0 in this if statement
+      //   if(elapsedTime % 200000 == 0){
+      //     int st = buttons[r][c].getState();
+      //     if(st == 1){
+      //       stateChanged = buttons[r][c].setState(0);
+      //     }else{
+      //       stateChanged = buttons[r][c].setState(1);
+      //     }
+      //   }
+      // }else{
         stateChanged = buttons[r][c].setState(pinIo->pinRead(rowPins[r]));
         
-      }
+      // }
 
       if(stateChanged){
 	//TODO - make it so we can turn off the web stuff at run time with a flag
