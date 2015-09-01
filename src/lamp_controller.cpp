@@ -174,3 +174,9 @@ string lampController::getInfoString(){
 
   return s.GetString();
 }
+
+void lampController::processLampStateString(Document* document){
+  string name = document->FindMember("name")->value.GetString();
+  LampState state = (LampState)document->FindMember("value")->value.GetInt();
+  setLampState(name, state);
+}

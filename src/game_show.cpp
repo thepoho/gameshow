@@ -19,7 +19,7 @@ GameShow::GameShow()
   coil_controller.startup(this, pPinIo);
 
   // printf("not starting socket server yet!");
-  printf("this pointer is %p\n", this);
+  // printf("this pointer is %p\n", this);
   socket_server.startup(this);
 
 
@@ -62,18 +62,20 @@ void GameShow::run(){
   }
 }
 
-string GameShow::getButtonInfoString(){
-  return button_controller.getInfoString();
-}
-
-string GameShow::getLampInfoString(){
-  return lamp_controller.getInfoString();
-}
-
 void GameShow::sendWebMessage(string message)
 {
-  // printf("sending ws message: %s\n", message);
-  // cout << "sending ws message: " << message << endl;
-  // socket_server.sendMessage(message);
   socket_server.enqueueMessage(message);
+}
+
+void GameShow::processMessage(Document* document){
+  string message = document->FindMember("message")->value.GetString();
+   if(message.compare("get_buttons") == 0){
+    sendWebMessage(button_controller.getInfoString());
+  }else if(message.compare("get_lamps") == 0){
+    sendWebMessage(lamp_controller.getInfoString());
+  }else if(message.compare("set_lamp_state") == 0){
+    lamp_controller.processLampStateString(document);
+  }
+
+
 }

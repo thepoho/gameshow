@@ -17,8 +17,10 @@ public:
   ~GameShow();
   void run();
 
-  string getButtonInfoString();
-  string getLampInfoString();
+  // string getButtonInfoString();
+  // string getLampInfoString();
+
+  void processMessage(Document* document);
 
   void sendWebMessage(string message);
 private:

@@ -19,7 +19,7 @@ using namespace std;
 #endif
 
 #define SIZEOF(n) ((int)(sizeof(n) / sizeof(n[0])))
-#define pohoNULL (0)
+// #define NULL (0)
 #define FALSE (0)
 #define TRUE  (1)
 

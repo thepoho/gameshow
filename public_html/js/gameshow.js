@@ -1,10 +1,11 @@
 GameShow = {
   websocket: null,
-  lamp_classes: ["lamp_off","lamp_on","lamp_flash_slow", "lamp_flash_fast"],
+  lamp_states: ["lamp_off","lamp_on","lamp_flash_slow", "lamp_flash_fast"],
   startup: function(){
      GameShow.websocket = new WebSocket("ws://"+location.host+"/ws");
      GameShow.websocket.onopen = GameShow.socketOnOpen;
      GameShow.websocket.onmessage = GameShow.socketOnMessage;
+     GameShow.websocket.onclose = function(ev) {console.log(ev);}
   },
 
   socketOnMessage: function(ev){
@@ -69,12 +70,13 @@ GameShow = {
   handleLampState: function(lamp_data){
     var tmp = $("td.lamp[data-num="+lamp_data.num+"]");
     if(tmp.length != 0){
-      $.each(GameShow.lamp_classes[lamp_data.state], function(idx, e){
+      $.each(GameShow.lamp_states, function(idx, e){
         tmp.removeClass(e);
       });
-      tmp.addClass(GameShow.lamp_classes[lamp_data.state]);
+      tmp.addClass(GameShow.lamp_states[lamp_data.state]);
       tmp.find("option").removeAttr("selected");
-      tmp.find("option[value="+GameShow.lamp_classes[data.state]+"]").attr("selected", "selected");
+      tmp.find("select").val(GameShow.lamp_states[lamp_data.state]);
+      // tmp.find("option[value="+GameShow.lamp_states[lamp_data.state]+"]").attr("selected", "selected");
 
     }
   },
@@ -87,8 +89,8 @@ GameShow = {
         ret += "<tr>";
       }
       var tmpCombo = $("div.hidden_lamp_combo").clone();
-      tmpCombo.find("option[value="+GameShow.lamp_classes[data.state]+"]").attr("selected", "selected");
-      ret += "<td class='lamp "+GameShow.lamp_classes[data.state]+"' data-num='"+data.num+"' data-name='"+data.name+"'>";
+      tmpCombo.find("option[value="+GameShow.lamp_states[data.state]+"]").attr("selected", "selected");
+      ret += "<td class='lamp "+GameShow.lamp_states[data.state]+"' data-num='"+data.num+"' data-name='"+data.name+"'>";
       ret += data.name + "<br>" + tmpCombo.html();
       ret += "</td>";
       if(data.col == 7){
@@ -99,12 +101,10 @@ GameShow = {
     $("select.lamp_state").change(function(event){
       var name = $(this).parent().attr("data-name");
       var data = {message: "set_lamp_state", 
-      name: name,
-      value: $(this).val()
+        name: name,
+        value: GameShow.lamp_states.indexOf($(this).val())
       }
       GameShow.websocket.send(JSON.stringify(data));
-      // console.log(name);
-      // console.log($(this).val());
     });
   },
 

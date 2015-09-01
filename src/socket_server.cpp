@@ -80,7 +80,7 @@ void socketServer::runThread(){
 
 void socketServer::sendMessage(string message)
 {
-  cout << "Trying to send " << message << endl;
+  // cout << "Trying to send " << message << endl;
   if(NULL != s_server){
     struct mg_connection *c;
     for (c = mg_next(s_server, NULL); c != NULL; c = mg_next(s_server, c)) {
@@ -125,16 +125,13 @@ int socketServer::sendWsReply(struct mg_connection *conn)
     }
     
     char buffer[2048];
-    // cout << "len is " << (int) conn->content_len << endl;
-    // strncpy(buffer, conn->content, (int) conn->content_len);
+
     memcpy(buffer, conn->content, (int) conn->content_len);
-    buffer[(int) conn->content_len] = '\0';
+    buffer[(int) conn->content_len] = 0;
 
     Document document;
     document.Parse(buffer);
-    // cout << "buffer is " << buffer << endl;
-    // cout << "isobject: " << document.IsObject() << endl;
-    // cout << "hasmember message: " << document.HasMember("message") << endl;
+
     if(!document.IsObject()){
       cout << "-- malformed json message --" << endl;
       return MG_FALSE;
@@ -143,20 +140,10 @@ int socketServer::sendWsReply(struct mg_connection *conn)
       cout << "-- json doesnt contain node 'message' --" << endl;
       return MG_FALSE; 
     }
-    string message = document["message"].GetString();
+    // string message = document["message"].GetString();
     // cout << "message is " <<  message << endl;
-
-    if(message.compare("get_buttons") != 0){
-      string data = gameShow->getButtonInfoString();
-      mg_websocket_write(conn, 1, data.c_str(), data.length());
-    }else if(message.compare("get_lamps") != 0){
-      string data = gameShow->getLampInfoString();
-      mg_websocket_write(conn, 1, data.c_str(), data.length());
-    }else if(message.compare("set_lamp_state") != 0){
-      //set the lamp state now!
-    }else{
-      mg_websocket_write(conn, 1, "not exit", 8);
-    }
+    gameShow->processMessage(&document);
+    
     return MG_TRUE ;
   }else{
     return MG_FALSE;
