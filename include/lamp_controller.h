@@ -24,7 +24,6 @@ public:
 
   string getInfoString();
 
-  void processLampStateString(Document* document);
 private:
   PinIO* pinIo;
   GameShow* game_show;

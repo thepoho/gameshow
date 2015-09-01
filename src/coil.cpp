@@ -1,5 +1,5 @@
 #include "coil.h"
-
+// #include "coil_controller.h"
 coil::coil()
 {
 }
@@ -54,4 +54,20 @@ void coil::update(unsigned int delta)
       }
     }
   }
+}
+
+void coil::serializeJson(Writer<StringBuffer>* writer)
+{
+  writer->StartObject();
+  writer->String("name");
+  writer->String(name.c_str());
+  writer->String("num");
+  writer->Uint(num);
+  // writer->String("row");
+  // writer->Uint(row);
+  // writer->String("col");
+  // writer->Uint(col);
+  writer->String("state");
+  writer->Uint(state);
+  writer->EndObject();
 }

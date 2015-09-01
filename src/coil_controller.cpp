@@ -65,3 +65,23 @@ void coilController::setCoilState(string name, bool state){
     }
   }
 }
+
+string coilController::getInfoString(){
+
+  StringBuffer s;
+  Writer<StringBuffer> writer(s);
+
+  writer.StartObject();
+  writer.String("name");
+  writer.String("get_coils");
+  writer.String("data");
+  writer.StartArray();
+
+  for(int i = 0; i < SIZEOF(coils); i++){
+    coils[i].serializeJson(&writer);
+  }
+  writer.EndArray();
+  writer.EndObject();
+
+  return s.GetString();
+}

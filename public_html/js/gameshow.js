@@ -32,10 +32,12 @@ GameShow = {
   socketOnOpen: function(ev){
     // console.log("WS Connected");
     var data = JSON.stringify({message: "get_buttons"});
-    console.log(data);
     GameShow.websocket.send(data);
+
     data = JSON.stringify({message: "get_lamps"});
-    console.log(data);
+    GameShow.websocket.send(data);
+
+    data = JSON.stringify({message: "get_coils"});
     GameShow.websocket.send(data);
     // GameShow.websocket.send("get_lamps");
     // GameShow.websocket.send("get_buttons");

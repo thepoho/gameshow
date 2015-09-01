@@ -15,6 +15,7 @@ public:
   void startup(GameShow* _game_show, PinIO* _pinio);
   void setCoilState(string name, bool state);
   coil *getCoil(string name);
+  string getInfoString();
 private:
   PinIO* pinIo;
   GameShow* game_show;

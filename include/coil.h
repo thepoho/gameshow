@@ -5,7 +5,7 @@
 #include <string>
 // #include "game_show.h"
 #include "common_defines.h"
-using namespace std;
+// using namespace std;
 
 class coil
 {
@@ -30,12 +30,15 @@ public:
   void setShouldTurnOff(unsigned int sso){ shouldTurnOff = sso; }
 
   void update(unsigned int delta);
+
+  void serializeJson(Writer<StringBuffer>* writer);
 private:
   int num;
   string name;
   bool state;
   unsigned int onTimeRemaining, offTimeRemaining;
   bool shouldTurnOff;
+  // coilController* coil_controller;
   
 };
 

@@ -69,12 +69,25 @@ void GameShow::sendWebMessage(string message)
 
 void GameShow::processMessage(Document* document){
   string message = document->FindMember("message")->value.GetString();
-   if(message.compare("get_buttons") == 0){
+  
+  if(message.compare("get_buttons") == 0){
     sendWebMessage(button_controller.getInfoString());
+  
   }else if(message.compare("get_lamps") == 0){
     sendWebMessage(lamp_controller.getInfoString());
+  
+  }else if(message.compare("get_coils") == 0){
+    sendWebMessage(coil_controller.getInfoString());
+  
   }else if(message.compare("set_lamp_state") == 0){
-    lamp_controller.processLampStateString(document);
+    string name = document->FindMember("name")->value.GetString();
+    LampState state = (LampState)document->FindMember("value")->value.GetInt();
+    lamp_controller.setLampState(name, state);
+  
+  }else if(message.compare("set_coil_state") == 0){
+    string name = document->FindMember("name")->value.GetString();
+    int state = document->FindMember("value")->value.GetInt();
+    coil_controller.setCoilState(name, state);
   }
 
 
