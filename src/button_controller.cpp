@@ -67,23 +67,10 @@ void buttonController::update(unsigned int delta)
     {
       //now for each row!
 
-      bool stateChanged = 0;
-
-      /*
-      if(c == 2 && r == 5){  //disabled by putting the 0 in this if statement
-        if(elapsedTime % 100 == 0){
-          int st = buttons[r][c].getState();
-          if(st == 1){
-            stateChanged = buttons[r][c].setState(0);
-          }else{
-            stateChanged = buttons[r][c].setState(1);
-          }
-        }
-      }else//*/
-        stateChanged = buttons[r][c].setState(pinIo->pinRead(rowPins[r]));
+      bool stateChanged = buttons[r][c].setState(pinIo->pinRead(rowPins[r]));
 
       if(stateChanged){
-	//TODO - make it so we can turn off the web stuff at run time with a flag
+	      //TODO - make it so we can turn off the web stuff at run time with a flag
         updateWebButtonState(buttons[r][c]);
       }
     }
@@ -93,7 +80,7 @@ void buttonController::update(unsigned int delta)
 button *buttonController::getButton(string name){
   for (int r = 0; r < 8; r++){
     for (int c = 0; c < 8; c++){
-      if (buttons[c][r].getName() == name){
+      if (buttons[r][c].getName() == name){
         return(&buttons[r][c]);
       }
     }
