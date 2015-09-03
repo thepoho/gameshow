@@ -12,7 +12,7 @@ PinIO::~PinIO()
 
 }
 
-#ifdef _RASPI
+#ifdef GAMESHOW_BUILD_RASPI
 #include <wiringPi.h>
 void PinIO::startup()
 {

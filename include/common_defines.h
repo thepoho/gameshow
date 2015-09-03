@@ -14,9 +14,9 @@
 using namespace rapidjson;
 using namespace std;
 
-#ifdef __arm__
-  #define _RASPI
-#endif
+// #ifdef __arm__
+//   #define GAMESHOW_BUILD_RASPI
+// #endif
 
 #define SIZEOF(n) ((int)(sizeof(n) / sizeof(n[0])))
 // #define NULL (0)

@@ -1,7 +1,8 @@
 #include "button_controller.h"
 
 
-static const int rowPins[8] = { 4, 5, 6, 10, 11, 26, 27, 28 };
+// static const int rowPins[8] = { 4, 5, 6, 10, 11, 26, 27, 28 };
+static const int rowPins[8] = { 28,10,26,5,27,6,11,4 };
 static const int colPins[3] = { 15, 16, 1 };
 static const int colOutputs[8][3] = { { 0, 0, 0 }, { 0, 0, 1 }, { 0, 1, 0 }, { 0, 1, 1 }, { 1, 0, 0 }, { 1, 0, 1 }, { 1, 1, 0 }, { 1, 1, 1 } };
 const string buttonNames[8][8] = {
@@ -31,7 +32,7 @@ void buttonController::startup(GameShow* _game_show, PinIO* _pinio)
   
   for (int r = 0; r < 8; r++){
     for (int c = 0; c < 8; c++){
-      int tmpNum = ((8 * r) + (c + 1));
+      int tmpNum = ((8 * r) + (c));
       buttons[r][c].startup(r, c, tmpNum, buttonNames[r][c]);
     }
   }
@@ -67,11 +68,14 @@ void buttonController::update(unsigned int delta)
     {
       //now for each row!
 
-      bool stateChanged = buttons[r][c].setState(pinIo->pinRead(rowPins[r]));
+      // int tmpNum = ((8 * r) + (c));
+      // button* tmpButton = buttons[tmpNum]
+
+      bool stateChanged = buttons[c][r].setState(pinIo->pinRead(rowPins[r]));
 
       if(stateChanged){
 	      //TODO - make it so we can turn off the web stuff at run time with a flag
-        updateWebButtonState(buttons[r][c]);
+        updateWebButtonState(buttons[c][r]);
       }
     }
   }

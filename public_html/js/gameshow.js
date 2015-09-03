@@ -60,7 +60,7 @@ GameShow = {
       if(data.state == 1){
         state = "buttonPressed";
       }
-      ret += "<td class='button "+state+"' data-num='"+data.num+"'>"+data.name+"</td>";
+      ret += "<td class='button "+state+"' data-name='"+data.name+"' data-num='"+data.num+"'>"+data.name+"</td>";
       if(data.col == 7){
         ret += "</tr>";
       }
@@ -69,6 +69,7 @@ GameShow = {
   },
 
   handleButtonState: function(button_data){
+    // var tmp = $("td.button[data-name="+button_data.name+"]");
     var tmp = $("td.button[data-num="+button_data.num+"]");
     if(tmp.length != 0){
       if(button_data.state == 0){

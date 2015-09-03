@@ -4,7 +4,7 @@
 // #include "game_show.h"
 // #include "serial_io.h"
 
-#ifdef _RASPI
+#ifdef GAMESHOW_BUILD_RASPI
   #include <wiringPi.h>
 #else
   #define LOW 0

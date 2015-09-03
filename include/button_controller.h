@@ -37,6 +37,7 @@ private:
   //static const int colOutputs[8][3];
 
   button buttons[8][8];
+  // button buttons[64];
 };
 
 #endif
