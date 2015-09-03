@@ -2,7 +2,7 @@ CC=g++
 CFLAGS=-Wall -std=c++0x -pthread
 
 ifeq ($(HOSTTYPE), arm)
-  DFLAGS=-D _RASPI
+  DFLAGS=-D _RASPI -lwiringPi
 endif
 
 GAMEINCLUDE = 	./include
@@ -21,7 +21,7 @@ GAMESOURCE = 	./src/*.cpp ./src/*.c
 
 
 gameshow : $(GAMEINCLUDE) $(GAMESOURCE)
-	$(CC) $(CFLAGS) -D _DEBUG -D _LINUX $(DFLAGS) -lwiringPi -iquote $(GAMEINCLUDE) $(GAMESOURCE) -o gameshow
+	$(CC) $(CFLAGS) -D _DEBUG -D _LINUX $(DFLAGS) -iquote $(GAMEINCLUDE) $(GAMESOURCE) -o gameshow
 
 clean:
 	$(RM) gameshow
