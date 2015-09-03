@@ -16,6 +16,7 @@ public:
   void setCoilState(string name, bool state);
   coil *getCoil(string name);
   string getInfoString();
+  void updateWebCoilState(coil _coil);
 private:
   PinIO* pinIo;
   GameShow* game_show;

@@ -26,6 +26,12 @@ GameShow = {
     if(data.name == "lamp_state"){
       GameShow.handleLampState(data.data); 
     }
+    if(data.name == "get_coils"){
+      GameShow.handleGetCoils(data.data); 
+    }
+    if(data.name == "coil_state"){
+      GameShow.handleCoilState(data.data); 
+    }
     
   },
 
@@ -50,7 +56,11 @@ GameShow = {
       if(data.col == 0){
         ret += "<tr>";
       }
-      ret += "<td class='button' data-num='"+data.num+"'>"+data.name+"</td>";
+      state = "";
+      if(data.state == 1){
+        state = "buttonPressed";
+      }
+      ret += "<td class='button "+state+"' data-num='"+data.num+"'>"+data.name+"</td>";
       if(data.col == 7){
         ret += "</tr>";
       }
@@ -109,5 +119,39 @@ GameShow = {
       GameShow.websocket.send(JSON.stringify(data));
     });
   },
+
+  handleGetCoils: function(coil_data){
+    var tmp = "";
+    $.each(coil_data, function(idx, data){
+      var state = "";
+      if(data.state == 1){
+        state = "coil_on";
+      }
+      tmp += "<tr><td class='coil "+state+"' data-name='"+data.name+"' data-num='"+data.num+"'>"+data.name+"</td></tr>"
+    });
+    $("table.coils").html(tmp);
+    $("td.coil").click(function(){
+      var val = 1;
+      if($(this).hasClass("coil_on")){
+        val = 0;
+      }
+      var name = $(this).attr("data-name");
+      var data = {message: "set_coil_state", 
+        name: name,
+        value: val}
+      GameShow.websocket.send(JSON.stringify(data));
+    })
+  },
+
+  handleCoilState: function(coil_data){
+    var tmp = $("td.coil[data-num="+coil_data.num+"]");
+    if(tmp.length != 0){
+      if(coil_data.state == 0){
+        tmp.removeClass("coil_on");
+      }else{
+        tmp.addClass("coil_on");
+      }
+    }
+  }
 
 }

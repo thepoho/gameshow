@@ -41,7 +41,11 @@ void coilController::update(unsigned int delta)
     //   printf("coil state is %d\n", coils[i].getState());
     //   // printf("coil tot   is %d\n", coils[i].getTurnOffTime());
     // }
-    coils[i].update(delta);
+    if(coils[i].update(delta)){
+      //The coil state has changed. Probably due to an auto switch off.
+      pinIo->setSerialOutput(coils[i].getNumber(), coils[i].getState());
+      updateWebCoilState(coils[i]);
+    }
   }  
 }
 
@@ -61,6 +65,7 @@ void coilController::setCoilState(string name, bool state){
     if(tmpCoil->setState(state)){
       //will return true if state changed
       pinIo->setSerialOutput(tmpCoil->getNumber(), tmpCoil->getState());
+      updateWebCoilState(*tmpCoil);
       // tmpCoil->setTurnOffTime(elapsedTime + COIL_ON_TIME);
     }
   }
@@ -84,4 +89,20 @@ string coilController::getInfoString(){
   writer.EndObject();
 
   return s.GetString();
+}
+
+void coilController::updateWebCoilState(coil _coil)
+{
+
+  StringBuffer s;
+  Writer<StringBuffer> writer(s);
+
+  writer.StartObject();
+  writer.String("name");
+  writer.String("coil_state");
+  writer.String("data");
+  _coil.serializeJson(&writer);
+  writer.EndObject();
+
+  game_show->sendWebMessage(s.GetString());
 }

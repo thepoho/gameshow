@@ -19,30 +19,44 @@ void coil::startup(int _num, string _name)
 
 bool coil::setState(bool _state){
   if(state != _state){  //asking to go to a new state
-    if(_state == COIL_ON){  //transitioning to an ON state
-      if(offTimeRemaining == 0){ //cooldown complete!
+    // cout << "new state for " << name << " is " << _state << endl;
+    if(shouldTurnOff){
+      if(_state == COIL_ON){  //transitioning to an ON state
+        if(offTimeRemaining == 0){ //cooldown complete!
+          state = _state;
+          onTimeRemaining = COIL_ON_TIME;
+          return true;
+        }
+      }else{  //turning off
         state = _state;
-        onTimeRemaining = COIL_ON_TIME;
+        onTimeRemaining = 0;
+        offTimeRemaining = COIL_COOLDOWN_TIME;
+        // cout << "just turned off " << name << endl;
         return true;
       }
-    }else{  //turning off
+    }else{
+      //a flipper or something that can stay on indefinitely so dont care about cooldown or coil on times
       state = _state;
-      onTimeRemaining = 0;
-      offTimeRemaining = COIL_COOLDOWN_TIME;
       return true;
     }
   }
   return false; //nothing changed here, boss
 }
 
-void coil::update(unsigned int delta)
+bool coil::update(unsigned int delta)
 {
+  // if(strcmp(name, 'l_slingshot') == 0){
+  //   cout << "lslingshot";
+  // }
+  bool ret = false;
   if(shouldTurnOff){
     if(state == COIL_ON){  //currently on
       if(onTimeRemaining > delta){ //more time remaining than the delta
         onTimeRemaining -= delta;
       }else{
-        setState(COIL_OFF);  //this will also reset onTimeRemaining
+        // cout << "trying to turn off " << name << endl;
+        ret = setState(COIL_OFF);  //this will also reset onTimeRemaining
+        // cout << "ret is now " << ret << endl;
       }
     }else{ //if our state is COIL_OFF
       if(offTimeRemaining > 0){
@@ -54,6 +68,7 @@ void coil::update(unsigned int delta)
       }
     }
   }
+  return(ret);
 }
 
 void coil::serializeJson(Writer<StringBuffer>* writer)

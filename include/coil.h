@@ -29,7 +29,7 @@ public:
   // bool getShouldTurnOff(){ return(shouldTurnOff); }
   void setShouldTurnOff(unsigned int sso){ shouldTurnOff = sso; }
 
-  void update(unsigned int delta);
+  bool update(unsigned int delta);
 
   void serializeJson(Writer<StringBuffer>* writer);
 private:

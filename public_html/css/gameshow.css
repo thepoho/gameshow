@@ -7,6 +7,10 @@ td.button.buttonPressed{
   background-color: lightcoral;
 }
 
+td.coil.coil_on{
+  background-color: firebrick;
+}
+
 td.lamp.lamp_on{
   background-color: red;
 }
