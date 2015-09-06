@@ -29,11 +29,13 @@ void buttonController::startup(GameShow* _game_show, PinIO* _pinio)
   pinIo = _pinio;
   game_show = _game_show;
   elapsedTime = 0;
+
+  int idx = 0;
   
   for (int r = 0; r < 8; r++){
     for (int c = 0; c < 8; c++){
-      int tmpNum = ((8 * r) + (c));
-      buttons[r][c].startup(r, c, tmpNum, buttonNames[r][c]);
+      // int tmpNum = ((8 * r) + (c));
+      buttons[r][c].startup(r, c, idx++, buttonNames[r][c]);
     }
   }
 
@@ -65,15 +67,15 @@ void buttonController::update(unsigned int delta)
       int gotPinState = pinIo->pinRead(rowPins[r]);
       //some debug test
       // if(c == 2 || c == 3){
-        // if(r == 1){
-        //   gotPinState = 1;
-        // } 
+      //   if(rowPins[r] == 26 || rowPins[r] == 4){
+      //     gotPinState = 1;
+      //   }
       // }
       bool stateChanged = buttons[r][c].setState(gotPinState);
       // int tmpNum = ((8 * r) + (c));
       if(stateChanged){
 	      //TODO - make it so we can turn off the web stuff at run time with a flag
-        cout << "State changed R:" << r << " C:" << c << " name: " << buttons[r][c].getName();
+        cout << "State changed R:" << r << " C:" << c << " name: " << buttons[r][c].getName() << " idx: " << buttons[r][c].getNum();
         updateWebButtonState(buttons[r][c]);
       }
     }

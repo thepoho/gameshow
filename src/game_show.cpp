@@ -46,19 +46,19 @@ void GameShow::run(){
     button_controller.update(delta);
     coil_controller.update(delta);
 
-    if (button_controller.getButtonState("trough_1_right")){
-      lamp_controller.setLampState("truck_t", LAMP_ON);
-    }
-    else{
-      lamp_controller.setLampState("truck_t", LAMP_OFF);
-    }
+    // if (button_controller.getButtonState("trough_1_right")){
+    //   lamp_controller.setLampState("truck_t", LAMP_ON);
+    // }
+    // else{
+    //   lamp_controller.setLampState("truck_t", LAMP_OFF);
+    // }
 
-    if (button_controller.getButtonState("tv_t")){
-      lamp_controller.setLampState("trip_t", LAMP_ON);
-    }
-    else{
-      lamp_controller.setLampState("trip_t", LAMP_OFF);
-    }
+    // if (button_controller.getButtonState("tv_t")){
+    //   lamp_controller.setLampState("trip_t", LAMP_ON);
+    // }
+    // else{
+    //   lamp_controller.setLampState("trip_t", LAMP_OFF);
+    // }
   }
 }
 

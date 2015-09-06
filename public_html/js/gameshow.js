@@ -36,18 +36,17 @@ GameShow = {
   },
 
   socketOnOpen: function(ev){
-    // console.log("WS Connected");
-    var data = JSON.stringify({message: "get_buttons"});
-    GameShow.websocket.send(data);
-
-    data = JSON.stringify({message: "get_lamps"});
-    GameShow.websocket.send(data);
-
-    data = JSON.stringify({message: "get_coils"});
-    GameShow.websocket.send(data);
-    // GameShow.websocket.send("get_lamps");
-    // GameShow.websocket.send("get_buttons");
     //ask server for switch/lamp/coil information
+    GameShow.sendMessage({message: "get_buttons"});
+
+    GameShow.sendMessage({message: "get_lamps"});
+
+    GameShow.sendMessage({message: "get_coils"});
+  },
+
+  sendMessage: function(hash){
+    var data = JSON.stringify(hash);
+    GameShow.websocket.send(data);
   },
 
   handleGetButtonsResponses: function(button_data){
@@ -101,7 +100,7 @@ GameShow = {
       if(data.col == 0){
         ret += "<tr>";
       }
-      var tmpCombo = $("div.hidden_lamp_combo").clone();
+      var tmpCombo = $("td.lamp_combo").clone();
       tmpCombo.find("option[value="+GameShow.lamp_states[data.state]+"]").attr("selected", "selected");
       ret += "<td class='lamp "+GameShow.lamp_states[data.state]+"' data-num='"+data.num+"' data-name='"+data.name+"'>";
       ret += data.name + "<br>" + tmpCombo.html();
@@ -111,13 +110,20 @@ GameShow = {
       }
     })
     $("table.lamps").html(ret);
-    $("select.lamp_state").change(function(event){
+    $("td.lamp select.lamp_state").change(function(event){
       var name = $(this).parent().attr("data-name");
       var data = {message: "set_lamp_state", 
         name: name,
         value: GameShow.lamp_states.indexOf($(this).val())
       }
       GameShow.websocket.send(JSON.stringify(data));
+    });
+    $("td.lamp_combo select.lamp_state").change(function(){
+      var data = {message: "set_lamp_state", 
+        name: "all",
+        value: GameShow.lamp_states.indexOf($(this).val())
+      }
+      GameShow.sendMessage(data);
     });
   },
 

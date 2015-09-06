@@ -30,26 +30,22 @@ lampController::~lampController()
 
 void lampController::startup(GameShow* _game_show, PinIO* _pinio)
 {
-    pinIo = _pinio;
-    game_show = _game_show;
- 
-    for (int c = 0; c < 8; c++)
-    {
-      for (int r = 0; r < 8; r++)
-      {
-        lamps[c][r].startup(c, r, ((8 * c) + (r + 1)), lampNames[r][c]);
-      }
-      //printf("after c is now %d\n",c);
+  pinIo = _pinio;
+  game_show = _game_show;
+  int idx = 0;
+
+  for (int r = 0; r < 8; r++){
+    for (int c = 0; c < 8; c++){
+      lamps[r][c].startup(r, c, idx++, lampNames[r][c]);
     }
+  }
 
   //initialize the pins on the rpi
-  for (int i = 0; i < SIZEOF(rowPins); i++)
-  {
+  for (int i = 0; i < SIZEOF(rowPins); i++){
     pinIo->setPinMode(rowPins[i], OUTPUT);
     pinIo->pinWrite(rowPins[i], LOW);
   }
-  for (int i = 0; i < SIZEOF(colPins); i++)
-  {
+  for (int i = 0; i < SIZEOF(colPins); i++){
     pinIo->setPinMode(colPins[i], OUTPUT);
     pinIo->pinWrite(colPins[i], LOW);
   }
@@ -59,14 +55,12 @@ void lampController::update(unsigned int delta)
 {
   elapsedTime += delta;
   
-  if (elapsedTime >= (lastFastFlash + FAST_FLASH_DELAY))
-  {
+  if (elapsedTime >= (lastFastFlash + FAST_FLASH_DELAY)){
     lastFastFlash = elapsedTime;
     fastFlashStatus = !fastFlashStatus;
   }
 
-  if (elapsedTime >= (lastSlowFlash + SLOW_FLASH_DELAY))
-  {
+  if (elapsedTime >= (lastSlowFlash + SLOW_FLASH_DELAY)){
     lastSlowFlash = elapsedTime;
     slowFlashStatus = !slowFlashStatus;
   }
@@ -84,15 +78,13 @@ void lampController::flushLamps()
     }
 
     //set the appropriate output pins for the current column
-    for (int i = 0; i < 3; i++)
-    {
+    for (int i = 0; i < 3; i++){
       pinIo->pinWrite(colPins[i], colOutputs[c][i]);
     }
 
-    for (int r = 0; r < 8; r++)
-    {
+    for (int r = 0; r < 8; r++){
       //now for each row!
-      lamp tmpLamp = lamps[c][r];
+      lamp tmpLamp = lamps[r][c];
       int state = 0;
       switch (tmpLamp.getState())
       {
@@ -116,10 +108,10 @@ void lampController::flushLamps()
 }
 
 lamp *lampController::getLamp(string name){
-  for (int c = 0; c < 8; c++){
-    for (int r = 0; r < 8; r++){
-      if (lamps[c][r].getName() == name){
-        return(&lamps[c][r]);
+  for (int r = 0; r < 8; r++){
+    for (int c = 0; c < 8; c++){
+      if (lamps[r][c].getName().compare(name) == 0){
+        return(&lamps[r][c]);
       }
     }
   }
@@ -127,10 +119,20 @@ lamp *lampController::getLamp(string name){
 }
 
 void lampController::setLampState(string name, LampState state){
-  lamp *tmpLamp = getLamp(name);
-  if (NULL != tmpLamp){
-    if(tmpLamp->setState(state)){
-      updateWebLampState(tmpLamp);
+  if(name.compare("all") == 0 ){
+    for (int r = 0; r < 8; r++){
+      for (int c = 0; c < 8; c++){
+        if(lamps[r][c].setState(state)){
+          updateWebLampState(&lamps[r][c]);
+        }
+      }
+    }
+  }else{
+    lamp *tmpLamp = getLamp(name);
+    if (NULL != tmpLamp){
+      if(tmpLamp->setState(state)){
+        updateWebLampState(tmpLamp);
+      }
     }
   }
 }
