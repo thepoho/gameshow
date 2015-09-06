@@ -16,7 +16,7 @@ void button::startup(int _row, int _col, int _num, string _name)
   name = _name;
   num = _num;
   // state = button_ON;//default to on
-  //cout << "creating button " << row << ", " << col << ", " << name << ", " << num << endl;
+  cout << "creating button " << row << ", " << col << ", " << name << ", " << num << endl;
 }
 
 bool button::setState(int _newState)
