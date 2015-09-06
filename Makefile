@@ -1,7 +1,7 @@
 CC=g++
 CFLAGS=-Wall -std=c++0x -pthread
 
-ifeq ($(HOSTTYPE), arm)
+ifeq ($(shell echo $(HOSTTYPE)), arm)
   DFLAGS=-D GAMESHOW_BUILD_RASPI -lwiringPi
 endif
 
