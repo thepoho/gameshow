@@ -5,6 +5,8 @@
 static const int rowPins[8] = { 28,10,26,5,27,6,11,4 };
 static const int colPins[3] = { 15, 16, 1 };
 static const int colOutputs[8][3] = { { 0, 0, 0 }, { 0, 0, 1 }, { 0, 1, 0 }, { 0, 1, 1 }, { 1, 0, 0 }, { 1, 0, 1 }, { 1, 1, 0 }, { 1, 1, 1 } };
+// const string buttonNames64[64] = { "plum_bob_tilt", "not_used", "top_lane_left", "easy_spin", "truck_t", "spin_wheel", "not_used", "right_flipper", "not_used", "outhole", "top_lane_middle", "center_ramp", "truck_r", "right_spinner", "not_used", "left_flipper", "credit_button", "trough_1_right", "top_lane_right", "tv_t", "truck_u", "spot_letter", "not_used", "not_used", "right_coin", "trough_2_left", "right_ramp", "tv_v", "truck_c", "not_used", "not_used", "left_jet", "center_coin", "not_used", "ball_popper", "trip_t", "truck_k", "left_outlane", "not_used", "right_jet", "left_coin", "shooter_lane", "not_used", "trip_r", "not_used", "left_return", "not_used", "bottom_jet", "slam_tilt", "not_used", "left_lockup", "trip_i", "drop_target_car", "right_return", "not_used", "left_slingshot", "high_score_reset", "big_bucks", "not_used", "trip_p", "not_used", "right_outlane", "not_used", "right_slingshot" };
+
 const string buttonNames[8][8] = {
   { "plum_bob_tilt", "not_used", "top_lane_left", "easy_spin", "truck_t", "spin_wheel", "not_used", "right_flipper" },
   { "not_used", "outhole", "top_lane_middle", "center_ramp", "truck_r", "right_spinner", "not_used", "left_flipper" },
@@ -31,11 +33,13 @@ void buttonController::startup(GameShow* _game_show, PinIO* _pinio)
   elapsedTime = 0;
 
   int idx = 0;
-  
+
   for (int r = 0; r < 8; r++){
     for (int c = 0; c < 8; c++){
       // int tmpNum = ((8 * r) + (c));
-      buttons[r][c].startup(r, c, idx++, buttonNames[r][c]);
+      buttons[r][c].startup(r, c, idx, buttonNames[r][c]);
+      // buttons64[idx].startup(r, c, idx, buttonNames64[idx]);
+      idx++;
     }
   }
 
@@ -94,7 +98,7 @@ button *buttonController::getButton(string name){
 }
 
 // button *buttonController::getbutton(buttonName name){
-  
+
 // }
 
 bool buttonController::getButtonState(string name){
