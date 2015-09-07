@@ -1,4 +1,5 @@
-# gameshow
+# gameshow [![Build Status](https://travis-ci.org/thepoho/gameshow.svg?branch=master)](https://travis-ci.org/thepoho/gameshow)
+
 Code for Bally game show pinball
 
 
