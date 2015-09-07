@@ -93,6 +93,10 @@ button *buttonController::getButton(string name){
   return(NULL);
 }
 
+// button *buttonController::getbutton(buttonName name){
+  
+// }
+
 bool buttonController::getButtonState(string name){
   button *tmpButton = getButton(name);
   if (NULL != tmpButton){
