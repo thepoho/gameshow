@@ -1,0 +1,4 @@
+#!/bin/bash
+make clean_arm
+make arm && scp gameshow_arm pi@192.168.0.14:/home/pi
+ssh 192.168.0.14 -lpi -t 'sudo /home/pi/gameshow_arm'
