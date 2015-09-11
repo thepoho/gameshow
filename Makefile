@@ -1,8 +1,14 @@
+##### Makefile for GAMESHOW #####
+## If building on rpi, ensure export HOSTTYPE is included in your .bashrc ##
+######
+
+
 CC=g++
 CFLAGS=-Wall -std=c++0x -pthread
 
 #DFLAGS=-D GAMESHOW_BUILD_RASPI -I/home/poho/git/gameshow/wiring_pi/include -L/home/poho/git/gameshow/wiring_pi/lib  -Wl,--start-group /home/poho/git/gameshow/wiring_pi/lib/libwiringPi.so -Wl,--end-group -l
 #DFLAGS=-D GAMESHOW_BUILD_RASPI -lwiringpi
+
 
 ifeq ($(shell echo $(HOSTTYPE)), arm)
   DFLAGS=-D GAMESHOW_BUILD_RASPI -lwiringpi
@@ -34,5 +40,6 @@ arm :
 
 clean:
 	$(RM) gameshow
+clean_arm:
 	$(RM) gameshow_arm
 
