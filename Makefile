@@ -1,10 +1,15 @@
 CC=g++
 CFLAGS=-Wall -std=c++0x -pthread
 
-ifeq ($(shell echo $(GAMESHOW_CROSSCOMPILE)), true)
-  CC=arm-linux-gnueabihf-g++
-  DFLAGS=-D GAMESHOW_BUILD_RASPI -I/home/poho/git/gameshow/arm_libraries/include -L/home/poho/git/gameshow/arm_libraries/lib  -Wl,--start-group /home/poho/git/gameshow/arm_libraries/lib/libWiringPi.so -Wl,--end-group
+#DFLAGS=-D GAMESHOW_BUILD_RASPI -I/home/poho/git/gameshow/wiring_pi/include -L/home/poho/git/gameshow/wiring_pi/lib  -Wl,--start-group /home/poho/git/gameshow/wiring_pi/lib/libwiringPi.so -Wl,--end-group -l
+#DFLAGS=-D GAMESHOW_BUILD_RASPI -lwiringpi
+
+ifeq ($(shell echo $(HOSTTYPE)), arm)
+  DFLAGS=-D GAMESHOW_BUILD_RASPI -lwiringpi
 endif
+
+ARMCC=arm-linux-gnueabihf-g++
+ARMDFLAGS=-D GAMESHOW_BUILD_RASPI -I/home/poho/git/gameshow/wiring_pi/include -L/home/poho/git/gameshow/wiring_pi/lib_arm  -Wl,--start-group /home/poho/git/gameshow/wiring_pi/lib_arm/libWiringPi.so -Wl,--end-group
 
 GAMEINCLUDE = 	./include
 GAMESOURCE = 	./src/*.cpp ./src/*.c
@@ -21,9 +26,13 @@ GAMESOURCE = 	./src/*.cpp ./src/*.c
 #	$(CC) $(CFLAGS) -I $(PINLIBINC) $(PINLIBSRC)
 
 
-gameshow : $(GAMEINCLUDE) $(GAMESOURCE)
+gameshow :
 	$(CC) $(CFLAGS) -D _DEBUG -D _LINUX $(DFLAGS) -iquote $(GAMEINCLUDE) $(GAMESOURCE) -o gameshow
+
+arm : 
+	$(ARMCC) $(CFLAGS) -D _DEBUG -D _LINUX $(ARMDFLAGS) -iquote $(GAMEINCLUDE) $(GAMESOURCE) -o gameshow_arm
 
 clean:
 	$(RM) gameshow
+	$(RM) gameshow_arm
 
