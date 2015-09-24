@@ -1,9 +1,9 @@
 #include "lamp_controller.h"
 
 
-int rowPins[8] = { 0, 2, 3, 12, 13, 14, 21, 22 };
+int rowPins[8] = { 22,21,14,13,12,3,2,0 };
 int colPins[3] = { 8, 9, 7 };
-int colOutputs[8][3] = { { 0, 0, 0 }, { 0, 0, 1 }, { 0, 1, 0 }, { 0, 1, 1 }, { 1, 0, 0 }, { 1, 0, 1 }, { 1, 1, 0 }, { 1, 1, 1 } };
+int colOutputs[8][3] = { { 1, 1, 1 }, { 1, 1, 0 }, { 1, 0, 1 }, { 1, 0, 0 }, { 0, 1, 1 }, { 0, 1, 0 }, { 0, 0, 1 }, { 0, 0, 0 } };
 string lampNames[8][8] = { 
   {"shoot_again", "bonus_1k", "wheel_5k", "wheel_45k", "truck_t", "big_bucks", "2_million_left", "top_lane_right" },
   {"wheel_5x","bonus_2x","wheel_10k","wheel_50k","truck_r","top_lane_red","left_spot_letter","grand_prize"},
