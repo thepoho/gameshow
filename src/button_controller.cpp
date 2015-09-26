@@ -59,28 +59,20 @@ void buttonController::update(unsigned int delta)
 {
   elapsedTime += delta;
 
-  for (int r = 0; r < 8; r++) ////my hardware drives the rows and reads the columns
-  // int c = 0;
-  {
+  for (int r = 0; r < 8; r++){ //For switch matrix, drive the rows, read the columns
 
-    //set the appropriate output pins for the current column
-    for (int i = 0; i < 3; i++)
-    {
+    //set the appropriate output pins for the current row
+    for (int i = 0; i < 3; i++){
       pinIo->pinWrite(rowPins[i], rowOutputs[r][i]);
     }
-    for (int c = 0; c < 8; c++)
-    {
-      //now for each row!
+
+    for (int c = 0; c < 8; c++){
+      //now read each column
 
       int gotPinState = pinIo->pinRead(colReadPins[c]);
-      //some debug test
-      // if(c == 2 || c == 3){
-      //   if(colReadPins[r] == 26 || colReadPins[r] == 4){
-      //     gotPinState = 1;
-      //   }
-      // }
       bool stateChanged = buttons[r][c].setState(gotPinState);
-      // int tmpNum = ((8 * r) + (c));
+      
+      
       if(stateChanged){
 	      //TODO - make it so we can turn off the web stuff at run time with a flag
         cout << "State changed R:" << r << " C:" << c << " name: " << buttons[r][c].getName() << " idx: " << buttons[r][c].getNum();
