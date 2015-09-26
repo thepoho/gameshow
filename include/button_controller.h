@@ -37,7 +37,7 @@ private:
   //static const int colOutputs[8][3];
 
   button buttons[8][8];
-  button buttons64[64];
+  // button buttons64[64];
 };
 
 #endif
