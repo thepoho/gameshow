@@ -20,7 +20,7 @@ using namespace std;
 #define FALSE (0)
 #define TRUE  (1)
 
-#define COIL_COUNT (14)
+#define COIL_COUNT (24)
 #define FLASHER_COUNT (8)
 
 #define COIL_OFF 0
