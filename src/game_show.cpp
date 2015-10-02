@@ -46,6 +46,24 @@ void GameShow::run(){
     button_controller.update(delta);
     coil_controller.update(delta);
 
+
+    if (button_controller.getButtonState("right_flipper")){
+      lamp_controller.setLampState("truck_t", LAMP_ON);
+      coil_controller.setCoilState("r_flipper", COIL_ON);
+    }
+    else{
+      coil_controller.setCoilState("r_flipper", COIL_OFF);
+      lamp_controller.setLampState("truck_t", LAMP_OFF);
+    }
+
+    if (button_controller.getButtonState("left_flipper")){
+      lamp_controller.setLampState("truck_r", LAMP_ON);
+      coil_controller.setCoilState("l_flipper", COIL_ON);
+    }
+    else{
+      coil_controller.setCoilState("l_flipper", COIL_OFF);
+      lamp_controller.setLampState("truck_r", LAMP_OFF);
+    }
     // if (button_controller.getButtonState("trough_1_right")){
     //   lamp_controller.setLampState("truck_t", LAMP_ON);
     // }
