@@ -39,7 +39,8 @@ arm :
 	$(ARMCC) $(CFLAGS) -D _DEBUG -D _LINUX $(ARMDFLAGS) -iquote $(GAMEINCLUDE) $(GAMESOURCE) -o gameshow_arm
 
 arm_cc: 
-	make arm && scp gameshow_arm pi@192.168.0.14:/home/pi && ssh 192.168.0.14 -lpi -t 'sudo /home/pi/gameshow_arm'
+	make arm && scp gameshow_arm pi@192.168.0.14:/home/pi/gs_arm && rsync -avz public_html pi@192.168.0.14:/home/pi/gs_arm && ssh 192.168.0.14 -lpi -t 'sudo /bin/bash -c "cd /home/pi/gs_arm && /home/pi/gs_arm/gameshow_arm"'
+
 
 clean:
 	$(RM) gameshow

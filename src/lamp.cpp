@@ -14,7 +14,7 @@ void lamp::startup(int _row, int _col, int _num, string _name)
 	col   = _col;
   name  = _name;
   num   = _num;
-  state = LAMP_FLASH_FAST;//default to flash fast!
+  state = LAMP_OFF;//default to off
 //  cout << "creating lamp " << row << ", " << col << ", " << name << ", " << num << endl;
 }
 
