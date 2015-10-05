@@ -18,15 +18,15 @@ const string buttonNames[8][8] = {
   { "high_score_reset", "big_bucks", "not_used", "trip_p", "not_used", "right_outlane", "not_used", "right_slingshot" }
 };
 
-buttonController::buttonController()
+ButtonController::ButtonController()
 {
 }
 
-buttonController::~buttonController()
+ButtonController::~ButtonController()
 {
 }
 
-void buttonController::startup(GameShow* _game_show, PinIO* _pinio)
+void ButtonController::startup(GameShow* _game_show, PinIO* _pinio)
 {
   pinIo = _pinio;
   game_show = _game_show;
@@ -55,7 +55,7 @@ void buttonController::startup(GameShow* _game_show, PinIO* _pinio)
   }
 }
 
-void buttonController::update(unsigned int delta)
+void ButtonController::update(unsigned int delta)
 {
   elapsedTime += delta;
 
@@ -82,7 +82,7 @@ void buttonController::update(unsigned int delta)
   }
 }
 
-button *buttonController::getButton(string name){
+Button *ButtonController::getButton(string name){
   for (int r = 0; r < 8; r++){
     for (int c = 0; c < 8; c++){
       if (buttons[r][c].getName() == name){
@@ -93,19 +93,19 @@ button *buttonController::getButton(string name){
   return(NULL);
 }
 
-// button *buttonController::getbutton(buttonName name){
+// button *ButtonController::getbutton(buttonName name){
 
 // }
 
-bool buttonController::getButtonState(string name){
-  button *tmpButton = getButton(name);
+bool ButtonController::getButtonState(string name){
+  Button *tmpButton = getButton(name);
   if (NULL != tmpButton){
     return(tmpButton->getState());
   }
   return(0);
 }
 
-void buttonController::outputButtons(){
+void ButtonController::outputButtons(){
   for (int r = 0; r < 8; r++){
     for (int c = 0; c < 8; c++){
       printf("%d", buttons[r][c].getState());
@@ -115,7 +115,7 @@ void buttonController::outputButtons(){
   printf("\r");
 }
 
-void buttonController::updateWebButtonState(button _btn)
+void ButtonController::updateWebButtonState(Button _btn)
 {
 
   StringBuffer s;
@@ -131,7 +131,7 @@ void buttonController::updateWebButtonState(button _btn)
   game_show->sendWebMessage(s.GetString());
 }
 
-string buttonController::getInfoString(){
+string ButtonController::getInfoString(){
 
   StringBuffer s;
   Writer<StringBuffer> writer(s);

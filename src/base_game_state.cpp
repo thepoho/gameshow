@@ -1,22 +1,30 @@
 #include "base_game_state.h"
 
-baseGameState::baseGameState()
+BaseGameState::BaseGameState()
 {
 
 }
 
-baseGameState::~baseGameState()
+BaseGameState::~BaseGameState()
 {
 }
 
-void baseGameState::startup(GameShow* _game_show)
+void BaseGameState::startup(GameShow* _game_show)
 {
   game_show = _game_show;
   name = "base";
 }
 
-void baseGameState::automaticCoils()
+void BaseGameState::update(unsigned int delta)
 {
+  automaticCoils();
+  elapsedTime += delta;
+}
+
+void BaseGameState::automaticCoils()
+{
+  // game_show::button_controller;
+
   // if (button_controller.getButtonState("right_flipper")){
   //   coil_controller.setCoilState("right_flipper", COIL_ON);
   //   // lamp_controller.setLampState("truck_t", LAMP_ON);

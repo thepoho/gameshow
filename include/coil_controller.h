@@ -4,24 +4,24 @@
 #include "coil.h"
 #include "game_show.h"
 
-class coilController
+class CoilController
 {
 public:
-  coilController();
-  ~coilController();
+  CoilController();
+  ~CoilController();
 
   void update(unsigned int delta);
 
   void startup(GameShow* _game_show, PinIO* _pinio);
   void setCoilState(string name, bool state);
-  coil *getCoil(string name);
+  Coil *getCoil(string name);
   string getInfoString();
-  void updateWebCoilState(coil _coil);
+  void updateWebCoilState(Coil _coil);
 private:
   PinIO* pinIo;
   GameShow* game_show;
 
-  coil coils[COIL_COUNT];
+  Coil coils[COIL_COUNT];
   unsigned int elapsedTime;
 };
 

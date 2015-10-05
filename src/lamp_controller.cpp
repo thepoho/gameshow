@@ -15,7 +15,7 @@ string lampNames[8][8] = {
   { "center_nudge", "bonus_128k", "wheel_40k", "trip_p", "wheel_1_million", "right_extra_ball", "top_lane_middle", "right_lock" }
 };
 
-lampController::lampController()
+LampController::LampController()
 {
   elapsedTime = 0;
   lastFastFlash = 0;
@@ -24,11 +24,11 @@ lampController::lampController()
   slowFlashStatus = 0;
 }
 
-lampController::~lampController()
+LampController::~LampController()
 {
 }
 
-void lampController::startup(GameShow* _game_show, PinIO* _pinio)
+void LampController::startup(GameShow* _game_show, PinIO* _pinio)
 {
   pinIo = _pinio;
   game_show = _game_show;
@@ -51,7 +51,7 @@ void lampController::startup(GameShow* _game_show, PinIO* _pinio)
   }
 }
 
-void lampController::update(unsigned int delta)
+void LampController::update(unsigned int delta)
 {
   elapsedTime += delta;
   
@@ -67,7 +67,7 @@ void lampController::update(unsigned int delta)
   flushLamps();
 }
 
-void lampController::flushLamps()
+void LampController::flushLamps()
 {
   for (int c = 0; c < 8; c++)
   { //columns
@@ -84,7 +84,7 @@ void lampController::flushLamps()
 
     for (int r = 0; r < 8; r++){
       //now for each row!
-      lamp tmpLamp = lamps[r][c];
+      Lamp tmpLamp = lamps[r][c];
       int state = 0;
       switch (tmpLamp.getState())
       {
@@ -107,7 +107,7 @@ void lampController::flushLamps()
   }
 }
 
-lamp *lampController::getLamp(string name){
+Lamp *LampController::getLamp(string name){
   for (int r = 0; r < 8; r++){
     for (int c = 0; c < 8; c++){
       if (lamps[r][c].getName().compare(name) == 0){
@@ -118,7 +118,7 @@ lamp *lampController::getLamp(string name){
   return(NULL);
 }
 
-void lampController::setLampState(string name, LampState state){
+void LampController::setLampState(string name, LampState state){
   if(name.compare("all") == 0 ){
     for (int r = 0; r < 8; r++){
       for (int c = 0; c < 8; c++){
@@ -128,7 +128,7 @@ void lampController::setLampState(string name, LampState state){
       }
     }
   }else{
-    lamp *tmpLamp = getLamp(name);
+    Lamp *tmpLamp = getLamp(name);
     if (NULL != tmpLamp){
       if(tmpLamp->setState(state)){
         updateWebLampState(tmpLamp);
@@ -139,7 +139,7 @@ void lampController::setLampState(string name, LampState state){
 
 
 
-void lampController::updateWebLampState(lamp* _lmp)
+void LampController::updateWebLampState(Lamp* _lmp)
 {
 
   StringBuffer s;
@@ -155,7 +155,7 @@ void lampController::updateWebLampState(lamp* _lmp)
   game_show->sendWebMessage(s.GetString());
 }
 
-string lampController::getInfoString(){
+string LampController::getInfoString(){
 
   StringBuffer s;
   Writer<StringBuffer> writer(s);

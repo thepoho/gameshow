@@ -4,22 +4,22 @@
 #include "common_defines.h"
 #include "game_show.h"
 
-class baseGameState
+class BaseGameState
 {
 public:
-  baseGameState();
-  ~baseGameState();
+  BaseGameState();
+  ~BaseGameState();
   void startup(GameShow* _game_show);
 
   void automaticCoils();
-  void update();
+  void update(unsigned int delta);
   
   
 private:
   string name;
 
   GameShow* game_show;
-
+  unsigned int elapsedTime;
 };
 
 #endif //_BASE_GAME_STATE_H

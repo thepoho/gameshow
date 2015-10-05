@@ -7,11 +7,11 @@
 #include "common_defines.h"
 // using namespace std;
 
-class coil
+class Coil
 {
 public:
-  coil();
-  ~coil();
+  Coil();
+  ~Coil();
   void startup(int _num, string _name);
 
   int onOffState; //use accessors?
@@ -38,7 +38,7 @@ private:
   bool state;
   unsigned int onTimeRemaining, offTimeRemaining;
   bool shouldTurnOff;
-  // coilController* coil_controller;
+  // CoilController* Coil_controller;
   
 };
 

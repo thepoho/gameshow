@@ -4,11 +4,11 @@
 #include "common_defines.h"
 
 
-class lamp
+class Lamp
 {
 public:
-	lamp();
-	~lamp();
+	Lamp();
+	~Lamp();
 	void startup(int _row, int _col, int _num, string _name);
 
   string getName() { return(name); }

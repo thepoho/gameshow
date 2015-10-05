@@ -1,24 +1,24 @@
 #include "lamp.h"
 
-lamp::lamp()
+Lamp::Lamp()
 {
 }
 
-lamp::~lamp()
+Lamp::~Lamp()
 {
 }
 
-void lamp::startup(int _row, int _col, int _num, string _name)
+void Lamp::startup(int _row, int _col, int _num, string _name)
 {
 	row   = _row;
 	col   = _col;
   name  = _name;
   num   = _num;
   state = LAMP_OFF;//default to off
-//  cout << "creating lamp " << row << ", " << col << ", " << name << ", " << num << endl;
+//  cout << "creating Lamp " << row << ", " << col << ", " << name << ", " << num << endl;
 }
 
-void lamp::serializeJson(Writer<StringBuffer>* writer)
+void Lamp::serializeJson(Writer<StringBuffer>* writer)
 {
   writer->StartObject();
   writer->String("name");
@@ -34,7 +34,7 @@ void lamp::serializeJson(Writer<StringBuffer>* writer)
   writer->EndObject();
 }
 
-bool lamp::setState(LampState _newState)
+bool Lamp::setState(LampState _newState)
 {
   //returns true if state changed
   bool ret = false;

@@ -1,14 +1,14 @@
 #include "coil.h"
 // #include "coil_controller.h"
-coil::coil()
+Coil::Coil()
 {
 }
 
-coil::~coil()
+Coil::~Coil()
 {
 }
 
-void coil::startup(int _num, string _name)
+void Coil::startup(int _num, string _name)
 {
   name  = _name;
   num   = _num;
@@ -17,7 +17,7 @@ void coil::startup(int _num, string _name)
   onTimeRemaining = offTimeRemaining = 0;
 }
 
-bool coil::setState(bool _state){
+bool Coil::setState(bool _state){
   if(state != _state){  //asking to go to a new state
     // cout << "new state for " << name << " is " << _state << endl;
     if(shouldTurnOff){
@@ -35,7 +35,7 @@ bool coil::setState(bool _state){
         return true;
       }
     }else{
-      //a flipper or something that can stay on indefinitely so dont care about cooldown or coil on times
+      //a flipper or something that can stay on indefinitely so dont care about cooldown or Coil on times
       state = _state;
       return true;
     }
@@ -43,7 +43,7 @@ bool coil::setState(bool _state){
   return false; //nothing changed here, boss
 }
 
-bool coil::update(unsigned int delta)
+bool Coil::update(unsigned int delta)
 {
   // if(strcmp(name, 'l_slingshot') == 0){
   //   cout << "lslingshot";
@@ -71,7 +71,7 @@ bool coil::update(unsigned int delta)
   return(ret);
 }
 
-void coil::serializeJson(Writer<StringBuffer>* writer)
+void Coil::serializeJson(Writer<StringBuffer>* writer)
 {
   writer->StartObject();
   writer->String("name");

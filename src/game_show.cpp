@@ -1,12 +1,13 @@
 #include "game_show.h"
 //#include "base_game_state.h"
 
-  lampController    lamp_controller;
-  buttonController  button_controller;
-  coilController    coil_controller;
-  socketServer      socket_server;
-  PinIO *pPinIo;
-  unsigned int lastTickTime;
+LampController    lamp_controller;
+ButtonController  button_controller;
+CoilController    coil_controller;
+SocketServer      socket_server;
+BaseGameState*    pGameState;
+PinIO *pPinIo;
+unsigned int lastTickTime;
   
 GameShow::GameShow()
 {
@@ -23,13 +24,10 @@ GameShow::GameShow()
   // printf("this pointer is %p\n", this);
   socket_server.startup(this);
 
-  game_state = GS_ATTRACT;
+  // game_state = GS_ATTRACT;
 
-  // baseGameState tmpGameState = new baseGameState();
-  // tmpGameState.startup(this);
-  // p_game_state = &tmpGameState;
-
-
+  pGameState = new BaseGameState();
+  pGameState->startup(this);
 
   // coil_controller.getCoil("trough")->setState(1);
   printf("setup complete\n");
@@ -54,35 +52,20 @@ void GameShow::run(){
     button_controller.update(delta);
     coil_controller.update(delta);
 
-    switch(game_state){
-      case GS_OFF:
-        break;
-      case GS_ATTRACT:
-        //nothing yet
-        break;
-      case GS_PLAYING:
-        doAutoCoils();
-        break;
-      case GS_DEBUG:
-        // doDebug();
-        break;
+    pGameState->update(delta);
 
-    }
-
-
-    
-    // if (button_controller.getButtonState("trough_1_right")){
-    //   lamp_controller.setLampState("truck_t", LAMP_ON);
-    // }
-    // else{
-    //   lamp_controller.setLampState("truck_t", LAMP_OFF);
-    // }
-
-    // if (button_controller.getButtonState("tv_t")){
-    //   lamp_controller.setLampState("trip_t", LAMP_ON);
-    // }
-    // else{
-    //   lamp_controller.setLampState("trip_t", LAMP_OFF);
+    // switch(game_state){
+    //   case GS_OFF:
+    //     break;
+    //   case GS_ATTRACT:
+    //     //nothing yet
+    //     break;
+    //   case GS_PLAYING:
+    //     doAutoCoils();
+    //     break;
+    //   case GS_DEBUG:
+    //     // doDebug();
+    //     break;
     // }
   }
 }

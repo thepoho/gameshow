@@ -1,32 +1,32 @@
 #include "socket_server.h"
 
-GameShow* socketServer::gameShow;
-struct mg_server* socketServer::s_server = NULL;
-queue<string> socketServer::messages;
-mutex socketServer::queueMutex;
+GameShow* SocketServer::gameShow;
+struct mg_server* SocketServer::s_server = NULL;
+queue<string> SocketServer::messages;
+mutex SocketServer::queueMutex;
 
-socketServer::socketServer()
+SocketServer::SocketServer()
 {
 }
 
-socketServer::~socketServer()
+SocketServer::~SocketServer()
 {
 }
 
-void socketServer::enqueueMessage(string message){
+void SocketServer::enqueueMessage(string message){
   queueMutex.lock();
   messages.push(message);
   queueMutex.unlock();
 }
 
-string socketServer::dequeueMessage(){
+string SocketServer::dequeueMessage(){
   // string ret;
   // strcpy(ret, messages.pop());
   // return ret;
   return "";
 }
 
-void socketServer::messagePusher(){
+void SocketServer::messagePusher(){
   while(1){
     string tmp = "";
     if(NULL != s_server){
@@ -45,25 +45,25 @@ void socketServer::messagePusher(){
 }
 
 
-void socketServer::startup(GameShow* _gameshow)
+void SocketServer::startup(GameShow* _gameshow)
 {
   gameShow = _gameshow;
   // printf("_gameshow pointer is %p\n", _gameshow);
   // printf("gameShow pointer is %p\n", gameShow);
   // printf("starting up server\n");
-  std::thread t1(socketServer::runThread);
+  std::thread t1(SocketServer::runThread);
   t1.detach();
 
-  std::thread t2(socketServer::messagePusher);
+  std::thread t2(SocketServer::messagePusher);
   t2.detach();
 }
 
-void socketServer::runThread(){
+void SocketServer::runThread(){
   // printf("at run thread\n");
    // struct mg_server *server;
 
   // Create and configure the server
-  s_server = mg_create_server(NULL, socketServer::ev_handler);
+  s_server = mg_create_server(NULL, SocketServer::ev_handler);
   mg_set_option(s_server, "document_root", "./public_html");
   mg_set_option(s_server, "listening_port", "8080");
 
@@ -78,7 +78,7 @@ void socketServer::runThread(){
   mg_destroy_server(&s_server);
 }
 
-void socketServer::sendMessage(string message)
+void SocketServer::sendMessage(string message)
 {
   // cout << "Trying to send " << message << endl;
   if(NULL != s_server){
@@ -98,7 +98,7 @@ void socketServer::sendMessage(string message)
 }
 
 
-int socketServer::ev_handler(struct mg_connection *conn, enum mg_event ev) {
+int SocketServer::ev_handler(struct mg_connection *conn, enum mg_event ev) {
   switch (ev) {
     case MG_AUTH: return MG_TRUE;
     case MG_REQUEST:
@@ -112,7 +112,7 @@ int socketServer::ev_handler(struct mg_connection *conn, enum mg_event ev) {
   }
 }
 
-int socketServer::sendWsReply(struct mg_connection *conn)
+int SocketServer::sendWsReply(struct mg_connection *conn)
 {
   if(conn->is_websocket){
     // cout << "WS: " << conn->content << endl;

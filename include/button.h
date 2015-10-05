@@ -3,11 +3,11 @@
 
 #include "common_defines.h"
 
-class button
+class Button
 {
 public:
-	button();
-	~button();
+	Button();
+	~Button();
 	void startup(int _row, int _col, int _num, string _name);
 
   string getName() { return(name); }

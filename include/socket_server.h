@@ -12,11 +12,11 @@ using namespace std;
 #include <queue>
 #include <mutex>
 
-class socketServer
+class SocketServer
 {
 public:
-  socketServer();
-  ~socketServer();
+  SocketServer();
+  ~SocketServer();
   static void startup(GameShow* _gameshow);
 
   static void sendMessage(string message);

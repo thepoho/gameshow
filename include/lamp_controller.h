@@ -8,19 +8,19 @@
 #define FAST_FLASH_DELAY 400
 
 
-class lampController
+class LampController
 {
 public:
-  lampController();
-  ~lampController();
+  LampController();
+  ~LampController();
 
   void update(unsigned int delta);
 
   void startup(GameShow* _game_show, PinIO* _pinio);
   void setLampState(string name, LampState state);
-  lamp *getLamp(string name);
+  Lamp *getLamp(string name);
 
-  void updateWebLampState(lamp* _lmp);
+  void updateWebLampState(Lamp* _lmp);
 
   string getInfoString();
 
@@ -28,7 +28,7 @@ private:
   PinIO* pinIo;
   GameShow* game_show;
 
-  lamp lamps[8][8];
+  Lamp lamps[8][8];
   void flushLamps();
   unsigned int elapsedTime;
   unsigned int lastFastFlash;

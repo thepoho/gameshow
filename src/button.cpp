@@ -1,25 +1,25 @@
 #include "button.h"
 
-button::button()
+Button::Button()
 {
   onOffState = 0;
 }
 
-button::~button()
+Button::~Button()
 {
 }
 
-void button::startup(int _row, int _col, int _num, string _name)
+void Button::startup(int _row, int _col, int _num, string _name)
 {
   row = _row;
   col = _col;
   name = _name;
   num = _num;
-  // state = button_ON;//default to on
-  cout << "creating button " << row << ", " << col << ", " << name << ", " << num << endl;
+  // state = Button_ON;//default to on
+  cout << "creating Button " << row << ", " << col << ", " << name << ", " << num << endl;
 }
 
-bool button::setState(int _newState)
+bool Button::setState(int _newState)
 {
   //returns true if state changed
   bool ret = false;
@@ -30,7 +30,7 @@ bool button::setState(int _newState)
   return(ret);
 }
 
-void button::serializeJson(Writer<StringBuffer>* writer)
+void Button::serializeJson(Writer<StringBuffer>* writer)
 {
   writer->StartObject();
   writer->String("name");

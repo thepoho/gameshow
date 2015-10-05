@@ -6,16 +6,16 @@ string coilNames[COIL_COUNT] = {"right_flipper","left_flipper",
                       "car_drop_target","knocker","ball_locker","ball_shooter_lane_feeder","outhole_kicker"};
 
 
-coilController::coilController()
+CoilController::CoilController()
 {
   elapsedTime = 0;
 }
 
-coilController::~coilController()
+CoilController::~CoilController()
 {
 }
 
-void coilController::startup(GameShow* _game_show, PinIO* _pinio)
+void CoilController::startup(GameShow* _game_show, PinIO* _pinio)
 {
   pinIo = _pinio;
   game_show = _game_show;
@@ -31,7 +31,7 @@ void coilController::startup(GameShow* _game_show, PinIO* _pinio)
   }
 }
 
-void coilController::update(unsigned int delta)
+void CoilController::update(unsigned int delta)
 {
   elapsedTime += delta;
   // printf("elapsed time is %d\n", elapsedTime);
@@ -51,7 +51,7 @@ void coilController::update(unsigned int delta)
 }
 
 
-coil *coilController::getCoil(string name){
+Coil *CoilController::getCoil(string name){
   for(int i = 0; i < SIZEOF(coils); i++){
     if(coils[i].getName() == name){
       return(&coils[i]);
@@ -60,8 +60,8 @@ coil *coilController::getCoil(string name){
   return(NULL);
 }
 
-void coilController::setCoilState(string name, bool state){
-  coil *tmpCoil = getCoil(name);
+void CoilController::setCoilState(string name, bool state){
+  Coil *tmpCoil = getCoil(name);
   if (NULL != tmpCoil){
     if(tmpCoil->setState(state)){
       //will return true if state changed
@@ -72,7 +72,7 @@ void coilController::setCoilState(string name, bool state){
   }
 }
 
-string coilController::getInfoString(){
+string CoilController::getInfoString(){
 
   StringBuffer s;
   Writer<StringBuffer> writer(s);
@@ -92,7 +92,7 @@ string coilController::getInfoString(){
   return s.GetString();
 }
 
-void coilController::updateWebCoilState(coil _coil)
+void CoilController::updateWebCoilState(Coil _coil)
 {
 
   StringBuffer s;
