@@ -20,11 +20,16 @@ public:
   // string getButtonInfoString();
   // string getLampInfoString();
 
+  void doAutoCoils();
+
   void processMessage(Document* document);
 
   void sendWebMessage(string message);
-private:
 
+  void setGameState(GameState _state);
+  void sendGameStateToWeb();
+private:
+  GameState game_state;
 };
 
 #include "pin_io.h"

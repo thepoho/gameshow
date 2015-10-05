@@ -2,10 +2,19 @@ GameShow = {
   websocket: null,
   lamp_states: ["lamp_off","lamp_on","lamp_flash_slow", "lamp_flash_fast"],
   startup: function(){
-     GameShow.websocket = new WebSocket("ws://"+location.host+"/ws");
-     GameShow.websocket.onopen = GameShow.socketOnOpen;
-     GameShow.websocket.onmessage = GameShow.socketOnMessage;
-     GameShow.websocket.onclose = function(ev) {console.log(ev);}
+    GameShow.websocket = new WebSocket("ws://"+location.host+"/ws");
+    GameShow.websocket.onopen = GameShow.socketOnOpen;
+    GameShow.websocket.onmessage = GameShow.socketOnMessage;
+    GameShow.websocket.onclose = function(ev) {console.log(ev);}
+
+    $("select.game_state").change(function(){
+      var data = {
+        message: "set_game_state", 
+        value: parseInt($(this).val())
+      };
+      GameShow.sendMessage(data);
+
+    });
   },
 
   socketOnMessage: function(ev){
@@ -32,6 +41,9 @@ GameShow = {
     if(data.name == "coil_state"){
       GameShow.handleCoilState(data.data); 
     }
+    if(data.name == "game_state"){
+      GameShow.handleGameState(data.data); 
+    }
     
   },
 
@@ -42,6 +54,9 @@ GameShow = {
     GameShow.sendMessage({message: "get_lamps"});
 
     GameShow.sendMessage({message: "get_coils"});
+
+    GameShow.sendMessage({message: "get_game_state"});
+
   },
 
   sendMessage: function(hash){
@@ -93,6 +108,9 @@ GameShow = {
     }
   },
 
+  handleGameState: function(data){
+    $("select.game_state").val(data.value);
+  },
 
   handleGetLampsResponses: function(button_data){
     var ret = "";

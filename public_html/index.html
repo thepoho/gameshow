@@ -25,57 +25,112 @@
   </head>
 
   <body>
-    <div class="container-fluid">
-      <div class="header clearfix">
-        <h3 class="text-muted">Gameshow</h3>
-      </div>
-    </div>
-
-    <div class="container-fluid">
-
-      <div class="row">
-        
-        <div class="col-lg-9">
-          <h3>Buttons</h3>
-          <table class="table table-bordered table-condensed buttons">
-            
-          </table>
-
+    <nav class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <!-- <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button> -->
+          <a class="navbar-brand" href="#">Gameshow</a>
         </div>
-        <div class="col-lg-3">
-          <br>
-          <h3>Coils</h3>
-          <table class="table table-bordered table-condensed coils">
-            
-          </table>          
-
+        <!-- 
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="../navbar/">Default</a></li>
+            <li class="active"><a href="./">Static top <span class="sr-only">(current)</span></a></li>
+            <li><a href="../navbar-fixed-top/">Fixed top</a></li>
+          </ul>
         </div>
+ -->
       </div>
+    </nav>
+
+
+    <div class="container-fluid">
       <div class="row">
         <div class="col-lg-12">
-          <h3>Lamps</h3>
-          <table class="table">
-            <tr>
-              <td class="lamp_combo">
-                <select class="lamp_state all_lamps">
-                  <option value="lamp_off">Off</option>
-                  <option value="lamp_on">On</option>
-                  <option value="lamp_flash_slow">Slow</option>
-                  <option value="lamp_flash_fast">Fast</option>
-                </select>
-              </td>
-              <td class="lamp lamp_off">Off</td>
-              <td class="lamp lamp_on">On</td>
-              <td class="lamp lamp_flash_slow">Slow</td>
-              <td class="lamp lamp_flash_fast">Fast</td>
-          </table>
-          <table class="table table-bordered table-condensed lamps">
+        
+
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+            <li role="presentation"><a href="#lamps" aria-controls="lamps" role="tab" data-toggle="tab">Lamps</a></li>
+            <li role="presentation"><a href="#buttons" aria-controls="buttons" role="tab" data-toggle="tab">Buttons</a></li>
+            <li role="presentation"><a href="#coils" aria-controls="coils" role="tab" data-toggle="tab">Coils</a></li>
+          </ul>
+
+          <!-- Tab panes -->
+          <div class="tab-content">
             
-          </table>
+            <div role="tabpanel" class="tab-pane active" id="settings">
+              Game state:
+              <select class="game_state">
+                <option value="0">Off</option>
+                <option value="1">Attract</option>
+                <option value="2">Playing</option>
+                <option value="3">Debug</option>
+              </select>
+            </div>
+
+
+            <div role="tabpanel" class="tab-pane" id="lamps">
+              <h3>Lamps</h3>
+              <table class="table">
+                <tr>
+                  <td class="lamp_combo">
+                    <select class="lamp_state all_lamps">
+                      <option value="lamp_off">Off</option>
+                      <option value="lamp_on">On</option>
+                      <option value="lamp_flash_slow">Slow</option>
+                      <option value="lamp_flash_fast">Fast</option>
+                    </select>
+                  </td>
+                  <td class="lamp lamp_off">Off</td>
+                  <td class="lamp lamp_on">On</td>
+                  <td class="lamp lamp_flash_slow">Slow</td>
+                  <td class="lamp lamp_flash_fast">Fast</td>
+              </table>
+              <table class="table table-bordered table-condensed lamps">
+                
+              </table>
+            </div>
+            
+
+            <div role="tabpanel" class="tab-pane" id="buttons">
+                <h3>Buttons</h3>
+                <table class="table table-bordered table-condensed buttons"></table>
+            </div>
+
+
+            <div role="tabpanel" class="tab-pane" id="coils">
+              <h3>Coils</h3>
+              <table class="table table-bordered table-condensed coils"></table>     
+            </div>
+          </div>
 
         </div>
       </div>
-
-    </div><!-- /.container -->
+    </div>
+  
   </body>
-</body>
+</html>

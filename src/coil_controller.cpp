@@ -1,7 +1,7 @@
 #include "coil_controller.h"
 
-string coilNames[COIL_COUNT] = {"r_flipper","l_flipper",
-                      "bottom_jet","right_jet","right_kicker","left_kicker","left_jet",
+string coilNames[COIL_COUNT] = {"right_flipper","left_flipper",
+                      "bottom_jet","right_jet","right_slingshot","left_slingshot","left_jet",
                       "title_flasher","backbox_gi_relay","ball_popper","centre_ramp_flasher","top_ramp_gate","playfield_gi_relay",
                       "car_drop_target","knocker","ball_locker","ball_shooter_lane_feeder","outhole_kicker"};
 

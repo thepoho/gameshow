@@ -22,6 +22,8 @@ GameShow::GameShow()
   // printf("this pointer is %p\n", this);
   socket_server.startup(this);
 
+  game_state = GS_ATTRACT;
+
 
   // coil_controller.getCoil("trough")->setState(1);
   printf("setup complete\n");
@@ -46,24 +48,23 @@ void GameShow::run(){
     button_controller.update(delta);
     coil_controller.update(delta);
 
+    switch(game_state){
+      case GS_OFF:
+        break;
+      case GS_ATTRACT:
+        //nothing yet
+        break;
+      case GS_PLAYING:
+        doAutoCoils();
+        break;
+      case GS_DEBUG:
+        // doDebug();
+        break;
 
-    if (button_controller.getButtonState("right_flipper")){
-      lamp_controller.setLampState("truck_t", LAMP_ON);
-      coil_controller.setCoilState("r_flipper", COIL_ON);
-    }
-    else{
-      coil_controller.setCoilState("r_flipper", COIL_OFF);
-      lamp_controller.setLampState("truck_t", LAMP_OFF);
     }
 
-    if (button_controller.getButtonState("left_flipper")){
-      lamp_controller.setLampState("truck_r", LAMP_ON);
-      coil_controller.setCoilState("l_flipper", COIL_ON);
-    }
-    else{
-      coil_controller.setCoilState("l_flipper", COIL_OFF);
-      lamp_controller.setLampState("truck_r", LAMP_OFF);
-    }
+
+    
     // if (button_controller.getButtonState("trough_1_right")){
     //   lamp_controller.setLampState("truck_t", LAMP_ON);
     // }
@@ -78,6 +79,43 @@ void GameShow::run(){
     //   lamp_controller.setLampState("trip_t", LAMP_OFF);
     // }
   }
+}
+
+void GameShow::doAutoCoils(){
+  if (button_controller.getButtonState("right_flipper")){
+    coil_controller.setCoilState("right_flipper", COIL_ON);
+    // lamp_controller.setLampState("truck_t", LAMP_ON);
+  }
+  else{
+    coil_controller.setCoilState("right_flipper", COIL_OFF);
+    // lamp_controller.setLampState("truck_t", LAMP_OFF);
+  }
+
+  if (button_controller.getButtonState("left_flipper")){
+    coil_controller.setCoilState("left_flipper", COIL_ON);
+    // lamp_controller.setLampState("truck_r", LAMP_ON);
+  }
+  else{
+    coil_controller.setCoilState("left_flipper", COIL_OFF);
+    // lamp_controller.setLampState("truck_r", LAMP_OFF);
+  }
+
+  if (button_controller.getButtonState("left_jet")){
+    coil_controller.setCoilState("left_jet", COIL_ON);
+  }
+  if (button_controller.getButtonState("right_jet")){
+    coil_controller.setCoilState("right_jet", COIL_ON);
+  }
+  if (button_controller.getButtonState("bottom_jet")){
+    coil_controller.setCoilState("bottom_jet", COIL_ON);
+  }
+  if (button_controller.getButtonState("left_slingshot")){
+    coil_controller.setCoilState("left_slingshot", COIL_ON);
+  }
+  if (button_controller.getButtonState("right_slingshot")){
+    coil_controller.setCoilState("right_slingshot", COIL_ON);
+  }
+
 }
 
 void GameShow::sendWebMessage(string message)
@@ -106,7 +144,37 @@ void GameShow::processMessage(Document* document){
     string name = document->FindMember("name")->value.GetString();
     int state = document->FindMember("value")->value.GetInt();
     coil_controller.setCoilState(name, state);
+
+  }else if(message.compare("get_game_state") == 0){
+    sendGameStateToWeb();
+
+  }else if(message.compare("set_game_state") == 0){
+    GameState state = (GameState)document->FindMember("value")->value.GetInt();
+    setGameState(state);
   }
 
+}
 
+void GameShow::sendGameStateToWeb(){
+  StringBuffer s;
+  Writer<StringBuffer> writer(s);
+
+  writer.StartObject();
+  writer.String("name");
+  writer.String("game_state");
+  writer.String("data");
+
+  writer.StartObject();
+  writer.String("value");
+  writer.Uint((unsigned int) game_state);
+  writer.EndObject();
+  
+  writer.EndObject();
+
+  sendWebMessage(s.GetString());
+}
+
+void GameShow::setGameState(GameState _state){
+  game_state = _state;
+  sendGameStateToWeb();
 }
