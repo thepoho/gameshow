@@ -1,4 +1,5 @@
 #include "game_show.h"
+//#include "base_game_state.h"
 
   lampController    lamp_controller;
   buttonController  button_controller;
@@ -23,6 +24,11 @@ GameShow::GameShow()
   socket_server.startup(this);
 
   game_state = GS_ATTRACT;
+
+  // baseGameState tmpGameState = new baseGameState();
+  // tmpGameState.startup(this);
+  // p_game_state = &tmpGameState;
+
 
 
   // coil_controller.getCoil("trough")->setState(1);

@@ -30,6 +30,7 @@ public:
   void sendGameStateToWeb();
 private:
   GameState game_state;
+  // baseGameState* p_game_state;
 };
 
 #include "pin_io.h"
@@ -40,6 +41,7 @@ private:
 #include "coil.h"
 #include "coil_controller.h"
 #include "socket_server.h"
+// #include "base_game_state.h"
 //#include "lamp_matrix_test.h"
 
 

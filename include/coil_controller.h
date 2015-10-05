@@ -2,7 +2,7 @@
 #define _COIL_CONTROLLER_H
 
 #include "coil.h"
-#include "game_show.h"  
+#include "game_show.h"
 
 class coilController
 {
