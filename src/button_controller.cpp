@@ -37,9 +37,8 @@ void ButtonController::startup(GameShow* _game_show, PinIO* _pinio)
   for (int r = 0; r < 8; r++){
     for (int c = 0; c < 8; c++){
       // int tmpNum = ((8 * r) + (c));
-      cout << "row is " << r << " col is " << c << endl;
+      // cout << "row is " << r << " col is " << c << endl;
       buttons[r][c].startup(r, c, idx, buttonNames[r][c]);
-
       // buttons64[idx].startup(r, c, idx, buttonNames64[idx]);
       idx++;
     }

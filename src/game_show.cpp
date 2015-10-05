@@ -24,10 +24,10 @@ GameShow::GameShow()
   // printf("this pointer is %p\n", this);
   socket_server.startup(this);
 
-  // game_state = GS_ATTRACT;
+  game_state = GS_ATTRACT;
 
-  pGameState = new BaseGameState();
-  pGameState->startup(this);
+  // pGameState = new BaseGameState();
+  // pGameState->startup(this);
 
   // coil_controller.getCoil("trough")->setState(1);
   printf("setup complete\n");
@@ -52,21 +52,21 @@ void GameShow::run(){
     button_controller.update(delta);
     coil_controller.update(delta);
 
-    pGameState->update(delta);
+    // pGameState->update(delta);
 
-    // switch(game_state){
-    //   case GS_OFF:
-    //     break;
-    //   case GS_ATTRACT:
-    //     //nothing yet
-    //     break;
-    //   case GS_PLAYING:
-    //     doAutoCoils();
-    //     break;
-    //   case GS_DEBUG:
-    //     // doDebug();
-    //     break;
-    // }
+    switch(game_state){
+      case GS_OFF:
+        break;
+      case GS_ATTRACT:
+        //nothing yet
+        break;
+      case GS_PLAYING:
+        doAutoCoils();
+        break;
+      case GS_DEBUG:
+        // doDebug();
+        break;
+    }
   }
 }
 
