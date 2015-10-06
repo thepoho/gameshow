@@ -14,14 +14,16 @@ public:
 
   void automaticCoils();
   void update(unsigned int delta);
+
+
+  void serializeJson(Writer<StringBuffer>* writer);
   
+  void sendToWeb();
   
 private:
   string name;
 
-  // GameShow* game_show;
   GameController* pGameController;
-  
   unsigned int elapsedTime;
 };
 

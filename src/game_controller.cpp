@@ -34,4 +34,10 @@ void GameController::update(unsigned int delta)
   pCoilController->update(delta);
   pLampController->update(delta);
   pButtonController->update(delta);
+
+}
+
+void GameController::sendWebMessage(string message)
+{
+  pSocketServer->enqueueMessage(message);
 }

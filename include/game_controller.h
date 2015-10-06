@@ -24,8 +24,13 @@ public:
   CoilController* coilController() { return pCoilController; }
   LampController* lampController() { return pLampController; }
   ButtonController* buttonController() { return pButtonController; }
+
+  void sendWebMessage(string message);
   
 private:
+
+  void processWebMessages();
+
   PinIO* pPinIo;
   SocketServer* pSocketServer;
 

@@ -16,6 +16,7 @@ void BaseGameState::startup(GameController* _game_controller)
   name = "base";
 }
 
+
 void BaseGameState::update(unsigned int delta)
 {
   automaticCoils();
@@ -58,4 +59,27 @@ void BaseGameState::automaticCoils()
   if (pGameController->buttonController()->getButtonState("right_slingshot")){
     pGameController->coilController()->setCoilState("right_slingshot", COIL_ON);
   }
+}
+
+void BaseGameState::serializeJson(Writer<StringBuffer>* writer){
+  writer->StartObject();
+  writer->String("name");
+  writer->String("game_state");
+  writer->String("data");
+
+  writer->StartObject();
+  writer->String("value");
+  writer->String(name.c_str());
+  writer->EndObject();
+  
+  writer->EndObject();
+}
+
+void BaseGameState::sendToWeb(){
+  StringBuffer s;
+  Writer<StringBuffer> writer(s);
+
+  serializeJson(&writer);
+
+  pGameController->socketServer()->enqueueMessage(s.GetString());
 }
