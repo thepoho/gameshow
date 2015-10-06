@@ -28,10 +28,11 @@ LampController::~LampController()
 {
 }
 
-void LampController::startup(GameShow* _game_show, PinIO* _pinio)
+void LampController::startup(PinIO* _pinio, SocketServer* _socket_server)
 {
   pinIo = _pinio;
-  game_show = _game_show;
+  // game_show = _game_show;
+  pSocketServer = _socket_server;
   int idx = 0;
 
   for (int r = 0; r < 8; r++){
@@ -152,7 +153,7 @@ void LampController::updateWebLampState(Lamp* _lmp)
   _lmp->serializeJson(&writer);
   writer.EndObject();
 
-  game_show->sendWebMessage(s.GetString());
+  pSocketServer->enqueueMessage(s.GetString());
 }
 
 string LampController::getInfoString(){

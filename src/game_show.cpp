@@ -20,9 +20,9 @@ GameShow::GameShow()
   pSocketServer->startup();
   
   button_controller.startup(pPinIo, pSocketServer);
+  lamp_controller.startup(pPinIo, pSocketServer);
+  coil_controller.startup(pPinIo, pSocketServer);
 
-  lamp_controller.startup(this, pPinIo);
-  coil_controller.startup(this, pPinIo);
 
   // printf("not starting socket server yet!");
   // printf("this pointer is %p\n", this);

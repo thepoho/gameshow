@@ -26,7 +26,7 @@ public:
 private:
   PinIO* pinIo;
   // GameShow* game_show;
-  SocketServer* socket_server;
+  SocketServer* pSocketServer;
 
   void updateWebButtonState(Button _btn);
 

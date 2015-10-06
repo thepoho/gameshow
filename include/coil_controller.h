@@ -2,7 +2,9 @@
 #define _COIL_CONTROLLER_H
 
 #include "coil.h"
-#include "game_show.h"
+#include "socket_server.h"
+#include "pin_io.h"
+// #include "game_show.h"
 
 class CoilController
 {
@@ -12,14 +14,15 @@ public:
 
   void update(unsigned int delta);
 
-  void startup(GameShow* _game_show, PinIO* _pinio);
+  void startup(PinIO* _pinio, SocketServer* _socket_server);
   void setCoilState(string name, bool state);
   Coil *getCoil(string name);
   string getInfoString();
   void updateWebCoilState(Coil _coil);
 private:
   PinIO* pinIo;
-  GameShow* game_show;
+  // GameShow* game_show;
+  SocketServer* pSocketServer;
 
   Coil coils[COIL_COUNT];
   unsigned int elapsedTime;

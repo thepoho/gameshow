@@ -15,10 +15,11 @@ CoilController::~CoilController()
 {
 }
 
-void CoilController::startup(GameShow* _game_show, PinIO* _pinio)
+void CoilController::startup(PinIO* _pinio, SocketServer* _socket_server)
 {
   pinIo = _pinio;
-  game_show = _game_show;
+  // game_show = _game_show;
+  pSocketServer = _socket_server;
   //create all my coils                    
   for(int i = 0; i < SIZEOF(coils); i++){
     coils[i].startup(i, coilNames[i]);
@@ -105,5 +106,5 @@ void CoilController::updateWebCoilState(Coil _coil)
   _coil.serializeJson(&writer);
   writer.EndObject();
 
-  game_show->sendWebMessage(s.GetString());
+  pSocketServer->enqueueMessage(s.GetString());
 }
