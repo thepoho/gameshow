@@ -2,7 +2,9 @@
 #define _BUTTON_CONTROLLER_H
 
 #include "button.h"
-#include "game_show.h"
+// #include "game_show.h"
+#include "socket_server.h"
+#include "pin_io.h"
 
 #include <sstream>
 
@@ -15,7 +17,7 @@ public:
 
   void update(unsigned int delta);
 
-  void startup(GameShow* _game_show, PinIO* _pinio);
+  void startup(PinIO* _pinio, SocketServer* _socket_server);
   bool getButtonState(string name);
   Button *getButton(string name);
   void outputButtons();
@@ -23,7 +25,8 @@ public:
   string getInfoString();
 private:
   PinIO* pinIo;
-  GameShow* game_show;
+  // GameShow* game_show;
+  SocketServer* socket_server;
 
   void updateWebButtonState(Button _btn);
 

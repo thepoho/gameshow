@@ -26,10 +26,11 @@ ButtonController::~ButtonController()
 {
 }
 
-void ButtonController::startup(GameShow* _game_show, PinIO* _pinio)
+void ButtonController::startup(PinIO* _pinio, SocketServer* _socket_server)
 {
   pinIo = _pinio;
-  game_show = _game_show;
+  // game_show = _game_show;
+  socket_server = _socket_server;
   elapsedTime = 0;
 
   int idx = 0;
@@ -127,7 +128,7 @@ void ButtonController::updateWebButtonState(Button _btn)
   _btn.serializeJson(&writer);
   writer.EndObject();
 
-  game_show->sendWebMessage(s.GetString());
+  socket_server->enqueueMessage(s.GetString());
 }
 
 string ButtonController::getInfoString(){

@@ -4,9 +4,9 @@
 LampController    lamp_controller;
 ButtonController  button_controller;
 CoilController    coil_controller;
-SocketServer      socket_server;
 BaseGameState*    pGameState;
 PinIO *pPinIo;
+SocketServer *pSocketServer;
 unsigned int lastTickTime;
   
 GameShow::GameShow()
@@ -15,14 +15,17 @@ GameShow::GameShow()
   pPinIo = new PinIO();
   
   pPinIo->startup();
+  
+  pSocketServer = new SocketServer();
+  pSocketServer->startup();
+  
+  button_controller.startup(pPinIo, pSocketServer);
 
   lamp_controller.startup(this, pPinIo);
-  button_controller.startup(this, pPinIo);
   coil_controller.startup(this, pPinIo);
 
   // printf("not starting socket server yet!");
   // printf("this pointer is %p\n", this);
-  socket_server.startup(this);
 
   game_state = GS_ATTRACT;
 
@@ -51,6 +54,7 @@ void GameShow::run(){
     lamp_controller.update(delta);
     button_controller.update(delta);
     coil_controller.update(delta);
+    processWebMessages();
 
     // pGameState->update(delta);
 
@@ -109,39 +113,47 @@ void GameShow::doAutoCoils(){
 
 void GameShow::sendWebMessage(string message)
 {
-  socket_server.enqueueMessage(message);
+  pSocketServer->enqueueMessage(message);
 }
 
-void GameShow::processMessage(Document* document){
-  string message = document->FindMember("message")->value.GetString();
-  
-  if(message.compare("get_buttons") == 0){
-    sendWebMessage(button_controller.getInfoString());
-  
-  }else if(message.compare("get_lamps") == 0){
-    sendWebMessage(lamp_controller.getInfoString());
-  
-  }else if(message.compare("get_coils") == 0){
-    sendWebMessage(coil_controller.getInfoString());
-  
-  }else if(message.compare("set_lamp_state") == 0){
-    string name = document->FindMember("name")->value.GetString();
-    LampState state = (LampState)document->FindMember("value")->value.GetInt();
-    lamp_controller.setLampState(name, state);
-  
-  }else if(message.compare("set_coil_state") == 0){
-    string name = document->FindMember("name")->value.GetString();
-    int state = document->FindMember("value")->value.GetInt();
-    coil_controller.setCoilState(name, state);
+void GameShow::processWebMessages()
+{
+  Document* document = pSocketServer->getNextIncomingMessage();
+  if(0 != document){
+    cout << "Got document " << document;
+    
+    string message = document->FindMember("message")->value.GetString();
+    cout << "Got message " << document;
 
-  }else if(message.compare("get_game_state") == 0){
-    sendGameStateToWeb();
+    if(message.compare("get_buttons") == 0){
+      sendWebMessage(button_controller.getInfoString());
+    
+    }else if(message.compare("get_lamps") == 0){
+      sendWebMessage(lamp_controller.getInfoString());
+    
+    }else if(message.compare("get_coils") == 0){
+      sendWebMessage(coil_controller.getInfoString());
+    
+    }else if(message.compare("set_lamp_state") == 0){
+      string name = document->FindMember("name")->value.GetString();
+      LampState state = (LampState)document->FindMember("value")->value.GetInt();
+      lamp_controller.setLampState(name, state);
+    
+    }else if(message.compare("set_coil_state") == 0){
+      string name = document->FindMember("name")->value.GetString();
+      int state = document->FindMember("value")->value.GetInt();
+      coil_controller.setCoilState(name, state);
 
-  }else if(message.compare("set_game_state") == 0){
-    GameState state = (GameState)document->FindMember("value")->value.GetInt();
-    setGameState(state);
+    }else if(message.compare("get_game_state") == 0){
+      sendGameStateToWeb();
+
+    }else if(message.compare("set_game_state") == 0){
+      GameState state = (GameState)document->FindMember("value")->value.GetInt();
+      setGameState(state);
+    }
+    
+    free(document);
   }
-
 }
 
 void GameShow::sendGameStateToWeb(){

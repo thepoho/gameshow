@@ -1,8 +1,9 @@
 #include "socket_server.h"
 
-GameShow* SocketServer::gameShow;
+// GameShow* SocketServer::gameShow;
 struct mg_server* SocketServer::s_server = NULL;
 queue<string> SocketServer::messages;
+queue<Document*> SocketServer::incomingMessages;
 mutex SocketServer::queueMutex;
 
 SocketServer::SocketServer()
@@ -11,6 +12,20 @@ SocketServer::SocketServer()
 
 SocketServer::~SocketServer()
 {
+}
+
+Document *SocketServer::getNextIncomingMessage()
+{
+  // cout << "gnim" << endl;
+  queueMutex.lock();
+  Document* tmp = 0;  
+  if(!incomingMessages.empty()){
+    tmp = incomingMessages.front();
+    cout << "got tmp " << tmp << endl;
+    incomingMessages.pop();
+  }
+  queueMutex.unlock();
+  return tmp;
 }
 
 void SocketServer::enqueueMessage(string message){
@@ -45,9 +60,9 @@ void SocketServer::messagePusher(){
 }
 
 
-void SocketServer::startup(GameShow* _gameshow)
+void SocketServer::startup()
 {
-  gameShow = _gameshow;
+  // gameShow = _gameshow;
   // printf("_gameshow pointer is %p\n", _gameshow);
   // printf("gameShow pointer is %p\n", gameShow);
   // printf("starting up server\n");
@@ -129,20 +144,22 @@ int SocketServer::sendWsReply(struct mg_connection *conn)
     memcpy(buffer, conn->content, (int) conn->content_len);
     buffer[(int) conn->content_len] = 0;
 
-    Document document;
-    document.Parse(buffer);
+    Document *document = new Document();
+    document->Parse(buffer);
 
-    if(!document.IsObject()){
+    if(!document->IsObject()){
       cout << "-- malformed json message --" << endl;
       return MG_FALSE;
     }
-    if(!document.HasMember("message")){
+    if(!document->HasMember("message")){
       cout << "-- json doesnt contain node 'message' --" << endl;
       return MG_FALSE; 
     }
     // string message = document["message"].GetString();
     // cout << "message is " <<  message << endl;
-    gameShow->processMessage(&document);
+    // gameShow->processMessage(&document);
+    incomingMessages.push(document);
+
     
     return MG_TRUE ;
   }else{

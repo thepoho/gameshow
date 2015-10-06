@@ -22,7 +22,7 @@ public:
 
   void doAutoCoils();
 
-  void processMessage(Document* document);
+  void processWebMessages();
 
   void sendWebMessage(string message);
 

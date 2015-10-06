@@ -2,8 +2,8 @@
 #define _SOCKET_SERVER_H
 
 #include "common_defines.h"
+// #include "game_show.h"
 
-#include "game_show.h"
 
 using namespace std;
 
@@ -17,14 +17,14 @@ class SocketServer
 public:
   SocketServer();
   ~SocketServer();
-  static void startup(GameShow* _gameshow);
+  static void startup();
 
   static void sendMessage(string message);
   // void startup();
 
   static void enqueueMessage(string message);
 
-
+  static Document* getNextIncomingMessage();
 
   
 private:
@@ -38,9 +38,10 @@ private:
 
   // std::thread socketThread;
 
-  static GameShow* gameShow;
+  // static GameShow* gameShow;
   static struct mg_server *s_server;
   static queue<string> messages;
+  static queue<Document*> incomingMessages;
 
   static mutex queueMutex;
   
