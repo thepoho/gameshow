@@ -9,6 +9,8 @@
 using namespace std;
 
 #include "common_defines.h"
+#include "game_controller.h"
+#include "base_game_state.h"
 
 class GameShow
 {
@@ -33,17 +35,12 @@ public:
   
 private:
   GameState game_state;
+  GameController* pGameController;
+  BaseGameState*    pGameState;
 };
 
-#include "pin_io.h"
-#include "lamp.h"
-#include "lamp_controller.h"
-#include "button.h"
-#include "button_controller.h"
-#include "coil.h"
-#include "coil_controller.h"
-#include "socket_server.h"
-#include "base_game_state.h"
+// #include "pin_io.h"
+// #include "socket_server.h"
 //#include "lamp_matrix_test.h"
 
 

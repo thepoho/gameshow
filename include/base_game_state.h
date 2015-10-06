@@ -2,14 +2,15 @@
 #define _BASE_GAME_STATE_H
 
 #include "common_defines.h"
-#include "game_show.h"
+#include "game_controller.h"
+// #include "game_show.h"
 
 class BaseGameState
 {
 public:
   BaseGameState();
   ~BaseGameState();
-  void startup(GameShow* _game_show);
+  void startup(GameController* _game_controller);
 
   void automaticCoils();
   void update(unsigned int delta);
@@ -18,7 +19,9 @@ public:
 private:
   string name;
 
-  GameShow* game_show;
+  // GameShow* game_show;
+  GameController* pGameController;
+  
   unsigned int elapsedTime;
 };
 

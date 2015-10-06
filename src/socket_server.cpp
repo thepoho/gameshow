@@ -21,7 +21,7 @@ Document *SocketServer::getNextIncomingMessage()
   Document* tmp = 0;  
   if(!incomingMessages.empty()){
     tmp = incomingMessages.front();
-    cout << "got tmp " << tmp << endl;
+    // cout << "got tmp " << tmp << endl;
     incomingMessages.pop();
   }
   queueMutex.unlock();
