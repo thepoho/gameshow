@@ -23,7 +23,6 @@ public:
 
   void processWebMessages();
   void setGameState(GameState _state);
-
   
 private:
   GameState game_state;

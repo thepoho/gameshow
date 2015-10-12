@@ -74,7 +74,7 @@ void GameShow::processWebMessages()
     }
     
     //I don't like this here.
-    free(document);
+    delete(document);
   }
 }
 

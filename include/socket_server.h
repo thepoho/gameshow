@@ -26,6 +26,8 @@ public:
 
   static Document* getNextIncomingMessage();
 
+  // static void processIncomingMessages(void(*callback)(Document*));
+
   
 private:
 
