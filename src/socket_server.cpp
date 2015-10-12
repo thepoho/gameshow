@@ -28,19 +28,6 @@ Document *SocketServer::getNextIncomingMessage()
   return tmp;
 }
 
-// void SocketServer::processIncomingMessages(void(*callback)(Document*))
-// {
-
-//   // (*callback)(0);
-
-//   // Document* tmp = 0;
-//   // tmp = getNextIncomingMessage();
-//   // while(tmp){
-//   //   )callback_function(tmp);
-//   //   tmp = getNextIncomingMessage();
-//   // }
-// }
-
 void SocketServer::enqueueMessage(string message){
   queueMutex.lock();
   messages.push(message);

@@ -73,27 +73,16 @@
 
           <!-- Nav tabs -->
           <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
-            <li role="presentation"><a href="#lamps" aria-controls="lamps" role="tab" data-toggle="tab">Lamps</a></li>
+            <li role="presentation" class="active"><a href="#lamps" aria-controls="lamps" role="tab" data-toggle="tab">Lamps</a></li>
             <li role="presentation"><a href="#buttons" aria-controls="buttons" role="tab" data-toggle="tab">Buttons</a></li>
             <li role="presentation"><a href="#coils" aria-controls="coils" role="tab" data-toggle="tab">Coils</a></li>
+            <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
           </ul>
 
           <!-- Tab panes -->
           <div class="tab-content">
             
-            <div role="tabpanel" class="tab-pane active" id="settings">
-              Game state:
-              <select class="game_state">
-                <option value="0">Off</option>
-                <option value="1">Attract</option>
-                <option value="2">Playing</option>
-                <option value="3">Debug</option>
-              </select>
-            </div>
-
-
-            <div role="tabpanel" class="tab-pane" id="lamps">
+            <div role="tabpanel" class="tab-pane active" id="lamps">
               <h3>Lamps</h3>
               <table class="table">
                 <tr>
@@ -125,6 +114,24 @@
             <div role="tabpanel" class="tab-pane" id="coils">
               <h3>Coils</h3>
               <table class="table table-bordered table-condensed coils"></table>     
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="settings">
+              <!-- 
+              Game state:
+              <select class="game_state">
+                <option value="0">Off</option>
+                <option value="1">Attract</option>
+                <option value="2">Playing</option>
+                <option value="3">Debug</option>
+              </select> 
+              -->
+              <div class="panel panel-default">
+                <div class="panel-heading">Game Log</div>
+                <div class="panel-body">
+                  <textarea class="log" style="width: 100%" rows='25'></textarea>
+                </div>
+              </div>
             </div>
           </div>
 

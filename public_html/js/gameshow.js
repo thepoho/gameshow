@@ -64,6 +64,12 @@ GameShow = {
     GameShow.websocket.send(data);
   },
 
+  log: function(str){
+    var textarea = $("textarea.log");
+    textarea.append(str+"\n");
+    textarea[0].scrollTop = textarea[0].scrollHeight;
+  },
+
   handleGetButtonsResponses: function(button_data){
     ret = "";
     $.each(button_data, function(idx, data){
@@ -92,6 +98,7 @@ GameShow = {
         tmp.addClass("buttonPressed");
       }
     }
+    GameShow.log("Button "+button_data.name+" has new state "+button_data.state);
   },
 
   handleLampState: function(lamp_data){
@@ -106,6 +113,7 @@ GameShow = {
       // tmp.find("option[value="+GameShow.lamp_states[lamp_data.state]+"]").attr("selected", "selected");
 
     }
+    GameShow.log("Lamp "+lamp_data.name+" has new state "+GameShow.lamp_states[lamp_data.state]);
   },
 
   handleGameState: function(data){
@@ -177,6 +185,7 @@ GameShow = {
         tmp.addClass("coil_on");
       }
     }
+    GameShow.log("Coil "+coil_data.name+" has new state "+coil_data.state);
   }
 
 }
