@@ -15,7 +15,8 @@ GameShow::GameShow()
 
 GameShow::~GameShow()
 {
-
+  delete(pGameController);
+  delete(pGameState);
 }
 
 void GameShow::run(){
