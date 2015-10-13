@@ -38,6 +38,8 @@ private:
   LampController*     pLampController;
   ButtonController*   pButtonController;
 
+  // WebMessageHandler*  pWebMessageHandler;
+
 };
 
 #endif

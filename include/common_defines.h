@@ -10,6 +10,11 @@
 #include <iostream>
 #include <string>
 #include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+
+using namespace std;
 
 using namespace rapidjson;
 using namespace std;

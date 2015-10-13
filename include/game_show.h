@@ -1,13 +1,6 @@
 #ifndef _GAME_SHOW_H
 #define _GAME_SHOW_H
 
-#include <iostream>
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <string>
-using namespace std;
-
 #include "common_defines.h"
 #include "game_controller.h"
 #include "base_game_state.h"
