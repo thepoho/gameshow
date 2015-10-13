@@ -49,8 +49,6 @@ void WebMessageHandler::processWebMessages(Document* document)
       GameState state = (GameState)document->FindMember("value")->value.GetInt();
       setGameState(state);
     }*/
-    
-    //I don't like this here.
-    delete(document);
+
   }
 }
