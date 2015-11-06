@@ -6,7 +6,7 @@
 CC=g++
 CFLAGS=-Wall -std=c++0x -pthread
 
-#DFLAGS=-D GAMESHOW_BUILD_RASPI -I/home/poho/git/gameshow/wiring_pi/include -L/home/poho/git/gameshow/wiring_pi/lib  -Wl,--start-group /home/poho/git/gameshow/wiring_pi/lib/libwiringPi.so -Wl,--end-group -l
+#DFLAGS=-D GAMESHOW_BUILD_RASPI -I/.wiring_pi/include -L/.wiring_pi/lib  -Wl,--start-group /.wiring_pi/lib/libwiringPi.so -Wl,--end-group -l
 #DFLAGS=-D GAMESHOW_BUILD_RASPI -lwiringpi
 
 
@@ -15,7 +15,7 @@ ifeq ($(shell echo $(HOSTTYPE)), arm)
 endif
 
 ARMCC=arm-linux-gnueabihf-g++
-ARMDFLAGS=-D GAMESHOW_BUILD_RASPI -I/home/poho/git/gameshow/wiring_pi/include -L/home/poho/git/gameshow/wiring_pi/lib_arm  -Wl,--start-group /home/poho/git/gameshow/wiring_pi/lib_arm/libWiringPi.so -Wl,--end-group
+ARMDFLAGS=-D GAMESHOW_BUILD_RASPI -I./wiring_pi/include -L./wiring_pi/lib_arm  -Wl,--start-group ./wiring_pi/lib_arm/libWiringPi.so -Wl,--end-group
 
 GAMEINCLUDE = 	./include
 GAMESOURCE = 	./src/*.cpp ./src/*.c
