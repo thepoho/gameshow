@@ -1,15 +1,16 @@
-#ifndef _BASE_GAME_STATE_H
-#define _BASE_GAME_STATE_H
+#ifndef _STATE_DEBUG_H
+#define _STATE_DEBUG_H
 
 #include "common_defines.h"
 #include "game_controller.h"
+#include "state_core.h"
 // #include "game_show.h"
 
-class BaseGameState
+class StateDebug: public StateCore
 {
 public:
-  BaseGameState();
-  ~BaseGameState();
+  StateDebug();
+  ~StateDebug();
   void startup(GameController* _game_controller);
 
   void automaticCoils();
@@ -27,4 +28,4 @@ private:
   unsigned int elapsedTime;
 };
 
-#endif //_BASE_GAME_STATE_H
+#endif //_STATE_DEBUG_H

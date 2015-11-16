@@ -3,7 +3,11 @@
 
 #include "common_defines.h"
 #include "game_controller.h"
-#include "base_game_state.h"
+
+/// Game States ///
+#include "state_core.h"
+#include "state_basic.h"
+#include "state_debug.h"
 
 class GameShow
 {
@@ -15,14 +19,16 @@ public:
   void doAutoCoils();
 
   void processWebMessages();
-  void setGameState(GameState _state);
+  void setGameState(string _state);
   
 private:
-  GameState game_state;
+  // GameState game_state;
   GameController* pGameController;
-  BaseGameState*    pGameState;
+  StateCore*    pGameState;
 
   unsigned int lastTickTime;
+
+  void doSetNewGameState(StateCore *_new_state);
 };
 
 #endif //_GAME_SHOW_H

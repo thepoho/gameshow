@@ -39,7 +39,7 @@ int PinIO::pinRead(int pin)
 
 void PinIO::flushSerialData()
 {
-  if(serialOutputsDirty){
+  // if(serialOutputsDirty){
     digitalWrite(SERIAL_LATCH_PIN, LOW);
     
     digitalWrite(SERIAL_CLOCK_PIN, LOW);
@@ -50,7 +50,7 @@ void PinIO::flushSerialData()
     }
     digitalWrite(SERIAL_LATCH_PIN, HIGH);
     serialOutputsDirty = FALSE;
-  }
+  // }
 }
 
 void PinIO::doDelay(unsigned int howLong)

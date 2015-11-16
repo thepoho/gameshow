@@ -7,7 +7,7 @@ GameShow::GameShow()
   pGameController->startup();
 
 
-  pGameState = new BaseGameState();
+  pGameState = new StateBasic();  // This will eventually be defaulting to something like attract
   pGameState->startup(pGameController);
 
   printf("setup complete\n");
@@ -66,11 +66,14 @@ void GameShow::processWebMessages()
       int state = document->FindMember("value")->value.GetInt();
       pGameController->coilController()->setCoilState(name, state);
 
+    }else if(message.compare("get_game_states") == 0){
+      //note the plural S
+      // pGameState->sendToWeb();
     }else if(message.compare("get_game_state") == 0){
       pGameState->sendToWeb();
 
     }else if(message.compare("set_game_state") == 0){
-      GameState state = (GameState)document->FindMember("value")->value.GetInt();
+      string state = document->FindMember("value")->value.GetString();
       setGameState(state);
     }
     
@@ -80,8 +83,20 @@ void GameShow::processWebMessages()
 }
 
 
-void GameShow::setGameState(GameState _state){
-  game_state = _state;
-  // sendGameStateToWeb();
+void GameShow::setGameState(string _state){
+  if(_state.compare("debug") == 0){
+    StateCore *tmp_state = new StateDebug();
+    doSetNewGameState(tmp_state);
+  }
+  if(_state.compare("basic") == 0){
+    StateCore *tmp_state = new StateBasic();
+    doSetNewGameState(tmp_state);  
+  }
   pGameState->sendToWeb();
+}
+
+void GameShow::doSetNewGameState(StateCore *_new_state){
+  delete(pGameState);
+  pGameState = _new_state;
+  pGameState->startup(pGameController);
 }

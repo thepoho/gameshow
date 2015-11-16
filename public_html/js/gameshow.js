@@ -55,6 +55,7 @@ GameShow = {
 
     GameShow.sendMessage({message: "get_coils"});
 
+    GameShow.sendMessage({message: "get_game_states"});
     GameShow.sendMessage({message: "get_game_state"});
 
   },

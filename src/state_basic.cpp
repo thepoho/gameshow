@@ -1,48 +1,50 @@
-#include "base_game_state.h"
+#include "state_basic.h"
 
 
-BaseGameState::BaseGameState()
+StateBasic::StateBasic()
 {
 
 }
 
-BaseGameState::~BaseGameState()
+StateBasic::~StateBasic()
 {
 }
 
-void BaseGameState::startup(GameController* _game_controller)
+void StateBasic::startup(GameController* _game_controller)
 {
   pGameController = _game_controller;
-  name = "base";
+  name = "basic";
 }
 
 
-void BaseGameState::update(unsigned int delta)
+void StateBasic::update(unsigned int delta)
 {
-  automaticCoils();
   elapsedTime += delta;
+  automaticCoils();
 }
 
-void BaseGameState::automaticCoils()
+void StateBasic::automaticCoils()
 {
+
+  ///// Right Flipper
 
   if (pGameController->buttonController()->getButtonState("right_flipper")){
     pGameController->coilController()->setCoilState("right_flipper", COIL_ON);
-    // lamp_controller.setLampState("truck_t", LAMP_ON);
   }
   else{
     pGameController->coilController()->setCoilState("right_flipper", COIL_OFF);
-    // lamp_controller.setLampState("truck_t", LAMP_OFF);
   }
+
+  ///// Left Flipper
 
   if (pGameController->buttonController()->getButtonState("left_flipper")){
     pGameController->coilController()->setCoilState("left_flipper", COIL_ON);
-    // lamp_controller.setLampState("truck_r", LAMP_ON);
   }
   else{
     pGameController->coilController()->setCoilState("left_flipper", COIL_OFF);
-    // lamp_controller.setLampState("truck_r", LAMP_OFF);
   }
+
+  ///// Jets
 
   if (pGameController->buttonController()->getButtonState("left_jet")){
     pGameController->coilController()->setCoilState("left_jet", COIL_ON);
@@ -59,27 +61,4 @@ void BaseGameState::automaticCoils()
   if (pGameController->buttonController()->getButtonState("right_slingshot")){
     pGameController->coilController()->setCoilState("right_slingshot", COIL_ON);
   }
-}
-
-void BaseGameState::serializeJson(Writer<StringBuffer>* writer){
-  writer->StartObject();
-  writer->String("name");
-  writer->String("game_state");
-  writer->String("data");
-
-  writer->StartObject();
-  writer->String("value");
-  writer->String(name.c_str());
-  writer->EndObject();
-  
-  writer->EndObject();
-}
-
-void BaseGameState::sendToWeb(){
-  StringBuffer s;
-  Writer<StringBuffer> writer(s);
-
-  serializeJson(&writer);
-
-  pGameController->socketServer()->enqueueMessage(s.GetString());
 }

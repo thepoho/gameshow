@@ -2,13 +2,14 @@
 
 string coilNames[COIL_COUNT] = {"right_flipper","left_flipper",
                       "bottom_jet","right_jet","right_slingshot","left_slingshot","left_jet",
-                      "title_flasher","backbox_gi_relay","ball_popper","centre_ramp_flasher","top_ramp_gate","playfield_gi_relay",
+                      "title_flasher"};/*,"backbox_gi_relay","ball_popper","centre_ramp_flasher","top_ramp_gate","playfield_gi_relay",
                       "car_drop_target","knocker","ball_locker","ball_shooter_lane_feeder","outhole_kicker"};
-
+//*/
 
 CoilController::CoilController()
 {
   elapsedTime = 0;
+  allState = 0;
 }
 
 CoilController::~CoilController()
@@ -32,23 +33,33 @@ void CoilController::startup(PinIO* _pinio, SocketServer* _socket_server)
   }
 }
 
+void CoilController::setAllState(bool state){
+  allState = state;  
+}
+
 void CoilController::update(unsigned int delta)
 {
   elapsedTime += delta;
   // printf("elapsed time is %d\n", elapsedTime);
   
-  //See if any coils have been on for too long and turn them off
-  for(int i = 0; i < SIZEOF(coils); i++){
-    // if(i == 5){
-    //   printf("coil state is %d\n", coils[i].getState());
-    //   // printf("coil tot   is %d\n", coils[i].getTurnOffTime());
-    // }
-    if(coils[i].update(delta)){
-      //The coil state has changed. Probably due to an auto switch off.
-      pinIo->setSerialOutput(coils[i].getNumber(), coils[i].getState());
-      updateWebCoilState(coils[i]);
-    }
-  }  
+  for(int i = 0; i < COIL_COUNT; i++){
+    pinIo->setSerialOutput(i, allState);
+  }
+  if(false){
+    
+    //See if any coils have been on for too long and turn them off
+    for(int i = 0; i < SIZEOF(coils); i++){
+      // if(i == 5){
+      //   printf("coil state is %d\n", coils[i].getState());
+      //   // printf("coil tot   is %d\n", coils[i].getTurnOffTime());
+      // }
+      if(coils[i].update(delta)){
+        //The coil state has changed. Probably due to an auto switch off.
+        pinIo->setSerialOutput(coils[i].getNumber(), coils[i].getState());
+        updateWebCoilState(coils[i]);
+      }
+    }  
+  }
 }
 
 
