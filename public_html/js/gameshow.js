@@ -44,6 +44,9 @@ GameShow = {
     if(data.name == "game_state"){
       GameShow.handleGameState(data.data); 
     }
+    if(data.name == "game_states"){
+      GameShow.handleGameStates(data.data); 
+    }
     
   },
 
@@ -119,6 +122,13 @@ GameShow = {
 
   handleGameState: function(data){
     $("select.game_state").val(data.value);
+  },
+  handleGameStates: function(data){
+    var txt = "";
+    $.each(data, function(idx, e){
+      txt += '<option>'+e+'</option>';
+    });
+    $("select.game_state").html(txt);
   },
 
   handleGetLampsResponses: function(button_data){

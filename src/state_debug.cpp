@@ -13,6 +13,7 @@ void StateDebug::startup(GameController* _game_controller)
 {
   pGameController = _game_controller;
   name = "debug";
+  // cout << "State Debug starting up!" << endl;
 }
 
 
@@ -20,9 +21,6 @@ void StateDebug::update(unsigned int delta)
 {
   // automaticCoils();
   elapsedTime += delta;
-}
-
-void StateDebug::automaticCoils()
-{
-
+  // cout << "DEBUG UPDATE" << endl;
+  
 }

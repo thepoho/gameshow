@@ -13,19 +13,11 @@ public:
   ~StateDebug();
   void startup(GameController* _game_controller);
 
-  void automaticCoils();
+  // void automaticCoils();
   void update(unsigned int delta);
-
-
-  void serializeJson(Writer<StringBuffer>* writer);
-  
-  void sendToWeb();
   
 private:
-  string name;
 
-  GameController* pGameController;
-  unsigned int elapsedTime;
 };
 
 #endif //_STATE_DEBUG_H

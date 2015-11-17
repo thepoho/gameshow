@@ -14,17 +14,9 @@ public:
 
   void automaticCoils();
   void update(unsigned int delta);
-
-
-  void serializeJson(Writer<StringBuffer>* writer);
-  
-  void sendToWeb();
   
 private:
-  string name;
 
-  GameController* pGameController;
-  unsigned int elapsedTime;
 };
 
 #endif //_STATE_BASIC_H

@@ -19,8 +19,12 @@ public:
   void serializeJson(Writer<StringBuffer>* writer);
   
   void sendToWeb();
+
+  void sendAllStatesToWeb();
+
+  string getName() {return name;}
   
-private:
+protected:
   string name;
 
   GameController* pGameController;
