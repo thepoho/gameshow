@@ -21,7 +21,7 @@ public:
   void updateWebCoilState(Coil _coil);
   void setAllState(bool state);
 private:
-  PinIO* pinIo;
+  PinIO* pPinIo;
   // GameShow* game_show;
   SocketServer* pSocketServer;
 

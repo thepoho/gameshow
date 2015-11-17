@@ -10,7 +10,7 @@ GameShow = {
     $("select.game_state").change(function(){
       var data = {
         message: "set_game_state", 
-        value: parseInt($(this).val())
+        value: $(this).val()
       };
       GameShow.sendMessage(data);
 
@@ -122,6 +122,7 @@ GameShow = {
 
   handleGameState: function(data){
     $("select.game_state").val(data.value);
+    GameShow.log("Game state set to "+data.value);
   },
   handleGameStates: function(data){
     var txt = "";

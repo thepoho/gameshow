@@ -2,7 +2,7 @@
 
 string coilNames[COIL_COUNT] = {"right_flipper","left_flipper",
                       "bottom_jet","right_jet","right_slingshot","left_slingshot","left_jet",
-                      "title_flasher"};/*,"backbox_gi_relay","ball_popper","centre_ramp_flasher","top_ramp_gate","playfield_gi_relay",
+                      "title_flasher","backbox_gi_relay","ball_popper","centre_ramp_flasher","top_ramp_gate","playfield_gi_relay",
                       "car_drop_target","knocker","ball_locker","ball_shooter_lane_feeder","outhole_kicker"};
 //*/
 
@@ -18,7 +18,7 @@ CoilController::~CoilController()
 
 void CoilController::startup(PinIO* _pinio, SocketServer* _socket_server)
 {
-  pinIo = _pinio;
+  pPinIo = _pinio;
   // game_show = _game_show;
   pSocketServer = _socket_server;
   //create all my coils                    
@@ -26,7 +26,7 @@ void CoilController::startup(PinIO* _pinio, SocketServer* _socket_server)
     coils[i].startup(i, coilNames[i]);
     
     //all coils should turn off after a period of time except for flippers
-    if(coilNames[i] == "r_flipper" || coilNames[i] == "l_flipper"){
+    if(coilNames[i] == "right_flipper" || coilNames[i] == "left_flipper"){
       coils[i].setShouldTurnOff(FALSE);
     }
 
@@ -41,25 +41,25 @@ void CoilController::update(unsigned int delta)
 {
   elapsedTime += delta;
   // printf("elapsed time is %d\n", elapsedTime);
-  
-  for(int i = 0; i < COIL_COUNT; i++){
-    pinIo->setSerialOutput(i, allState);
+
+  // bool dirty = false;
+
+  //See if any coils have been on for too long and turn them off
+  for(int i = 0; i < SIZEOF(coils); i++){
+    // if(i == 5){
+    //   printf("coil state is %d\n", coils[i].getState());
+    //   // printf("coil tot   is %d\n", coils[i].getTurnOffTime());
+    // }
+    if(coils[i].update(delta)){
+      //The coil state has changed. Probably due to an auto switch off.
+      pPinIo->setSerialOutput(coils[i].getNumber(), coils[i].getState());
+      updateWebCoilState(coils[i]);
+      // dirty = true;
+    }
   }
-  if(false){
-    
-    //See if any coils have been on for too long and turn them off
-    for(int i = 0; i < SIZEOF(coils); i++){
-      // if(i == 5){
-      //   printf("coil state is %d\n", coils[i].getState());
-      //   // printf("coil tot   is %d\n", coils[i].getTurnOffTime());
-      // }
-      if(coils[i].update(delta)){
-        //The coil state has changed. Probably due to an auto switch off.
-        pinIo->setSerialOutput(coils[i].getNumber(), coils[i].getState());
-        updateWebCoilState(coils[i]);
-      }
-    }  
-  }
+  // if(dirty){
+    pPinIo->flushSerialData();
+  // }
 }
 
 
@@ -77,7 +77,7 @@ void CoilController::setCoilState(string name, bool state){
   if (NULL != tmpCoil){
     if(tmpCoil->setState(state)){
       //will return true if state changed
-      pinIo->setSerialOutput(tmpCoil->getNumber(), tmpCoil->getState());
+      pPinIo->setSerialOutput(tmpCoil->getNumber(), tmpCoil->getState());
       updateWebCoilState(*tmpCoil);
       // tmpCoil->setTurnOffTime(elapsedTime + COIL_ON_TIME);
     }

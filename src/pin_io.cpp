@@ -39,18 +39,21 @@ int PinIO::pinRead(int pin)
 
 void PinIO::flushSerialData()
 {
-  // if(serialOutputsDirty){
+  cout << "Flushing serial data: ";
+  if(serialOutputsDirty){
     digitalWrite(SERIAL_LATCH_PIN, LOW);
     
     digitalWrite(SERIAL_CLOCK_PIN, LOW);
-    for (int i = 0; i < SIZEOF(currentSerialState); i++){
+    for (int i = SIZEOF(currentSerialState)-1; i >= 0; i--){
+      cout << currentSerialState[i];
       digitalWrite(SERIAL_DATA_PIN, currentSerialState[i]);
       digitalWrite(SERIAL_CLOCK_PIN, HIGH);
       digitalWrite(SERIAL_CLOCK_PIN, LOW);
     }
+    cout << endl;
     digitalWrite(SERIAL_LATCH_PIN, HIGH);
     serialOutputsDirty = FALSE;
-  // }
+  }
 }
 
 void PinIO::doDelay(unsigned int howLong)
@@ -68,13 +71,22 @@ void PinIO::setPinMode(int pin, int mode){}
 void PinIO::pinWrite(int pin, int value){}
 int  PinIO::pinRead(int pin){ return(0); }
 void PinIO::doDelay(unsigned int howLong){ usleep(howLong * 1000);}
-void PinIO::flushSerialData(){serialOutputsDirty = FALSE;}
+void PinIO::flushSerialData(){
+  if(serialOutputsDirty){
+    cout << "Flushing serial data: ";
+    for (int i = SIZEOF(currentSerialState)-1; i >= 0; i--){
+      cout << currentSerialState[i];
+    }
+    cout << endl;
+    serialOutputsDirty = FALSE;
+  }
+}
 
 unsigned int tmp = 0;
 unsigned int PinIO::getMillis(void){ return(++tmp); }
 #endif
 
-void PinIO::setSerialOutput(int num, char state)
+void PinIO::setSerialOutput(int num, bool state)
 {
   currentSerialState[num] = state;
   serialOutputsDirty = TRUE;
