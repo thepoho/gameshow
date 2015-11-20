@@ -19,7 +19,7 @@ void PinIO::startup()
   if (wiringPiSetup() == -1)
     exit(0);
 
-  serialOutputsDirty = FALSE;
+  serialOutputsDirty = TRUE;
 }
 
 void PinIO::setPinMode(int pin, int mode)
@@ -39,11 +39,12 @@ int PinIO::pinRead(int pin)
 
 void PinIO::flushSerialData()
 {
-  cout << "Flushing serial data: ";
   if(serialOutputsDirty){
+    cout << "Flushing serial data: ";
     digitalWrite(SERIAL_LATCH_PIN, LOW);
     
     digitalWrite(SERIAL_CLOCK_PIN, LOW);
+    // for (int i = 0; i < SIZEOF(currentSerialState); i++){
     for (int i = SIZEOF(currentSerialState)-1; i >= 0; i--){
       cout << currentSerialState[i];
       digitalWrite(SERIAL_DATA_PIN, currentSerialState[i]);
@@ -51,6 +52,7 @@ void PinIO::flushSerialData()
       digitalWrite(SERIAL_CLOCK_PIN, LOW);
     }
     cout << endl;
+    cout << "SERIAL LATCH IS " << SERIAL_LATCH_PIN << endl;
     digitalWrite(SERIAL_LATCH_PIN, HIGH);
     serialOutputsDirty = FALSE;
   }
