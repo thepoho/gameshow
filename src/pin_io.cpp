@@ -20,6 +20,9 @@ void PinIO::startup()
     exit(0);
 
   serialOutputsDirty = TRUE;
+  setPinMode(SERIAL_CLOCK_PIN, OUTPUT);
+  setPinMode(SERIAL_LATCH_PIN, OUTPUT);
+  setPinMode(SERIAL_DATA_PIN, OUTPUT);
 }
 
 void PinIO::setPinMode(int pin, int mode)
