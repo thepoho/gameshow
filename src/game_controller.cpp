@@ -6,6 +6,11 @@ GameController::GameController()
 
 GameController::~GameController()
 {
+  delete(pPinIo);
+  delete(pSocketServer);
+  delete(pButtonController);
+  delete(pLampController);
+  delete(pCoilController);
 }
 
 void GameController::startup()

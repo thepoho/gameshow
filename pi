@@ -1,5 +1,5 @@
 #!/bin/bash
 make clean_arm
-make arm && scp gameshow_arm pi@192.168.1.103:/home/pi/gs_arm
-rsync -avz public_html pi@192.168.1.103:/home/pi/gs_arm
-ssh 192.168.1.103 -lpi -t 'sudo /bin/bash -c "cd /home/pi/gs_arm && /home/pi/gs_arm/gameshow_arm"'
+make arm && scp gameshow_arm pi@192.168.1.102:/home/pi/gs_arm
+rsync -avz public_html pi@192.168.1.102:/home/pi/gs_arm
+ssh 192.168.1.102 -lpi -t 'sudo /bin/bash -c "cd /home/pi/gs_arm && /home/pi/gs_arm/gameshow_arm"'

@@ -10,7 +10,7 @@ GameShow = {
     $("select.game_state").change(function(){
       var data = {
         message: "set_game_state", 
-        value: parseInt($(this).val())
+        value: $(this).val()
       };
       GameShow.sendMessage(data);
 
@@ -44,6 +44,9 @@ GameShow = {
     if(data.name == "game_state"){
       GameShow.handleGameState(data.data); 
     }
+    if(data.name == "game_states"){
+      GameShow.handleGameStates(data.data); 
+    }
     
   },
 
@@ -55,6 +58,7 @@ GameShow = {
 
     GameShow.sendMessage({message: "get_coils"});
 
+    GameShow.sendMessage({message: "get_game_states"});
     GameShow.sendMessage({message: "get_game_state"});
 
   },
@@ -62,6 +66,12 @@ GameShow = {
   sendMessage: function(hash){
     var data = JSON.stringify(hash);
     GameShow.websocket.send(data);
+  },
+
+  log: function(str){
+    var textarea = $("textarea.log");
+    textarea.append(str+"\n");
+    textarea[0].scrollTop = textarea[0].scrollHeight;
   },
 
   handleGetButtonsResponses: function(button_data){
@@ -92,6 +102,7 @@ GameShow = {
         tmp.addClass("buttonPressed");
       }
     }
+    GameShow.log("Button "+button_data.name+" has new state "+button_data.state);
   },
 
   handleLampState: function(lamp_data){
@@ -106,10 +117,19 @@ GameShow = {
       // tmp.find("option[value="+GameShow.lamp_states[lamp_data.state]+"]").attr("selected", "selected");
 
     }
+    GameShow.log("Lamp "+lamp_data.name+" has new state "+GameShow.lamp_states[lamp_data.state]);
   },
 
   handleGameState: function(data){
     $("select.game_state").val(data.value);
+    GameShow.log("Game state set to "+data.value);
+  },
+  handleGameStates: function(data){
+    var txt = "";
+    $.each(data, function(idx, e){
+      txt += '<option>'+e+'</option>';
+    });
+    $("select.game_state").html(txt);
   },
 
   handleGetLampsResponses: function(button_data){
@@ -177,6 +197,7 @@ GameShow = {
         tmp.addClass("coil_on");
       }
     }
+    GameShow.log("Coil "+coil_data.name+" has new state "+coil_data.state);
   }
 
 }

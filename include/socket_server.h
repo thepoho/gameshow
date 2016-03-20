@@ -25,7 +25,6 @@ public:
   static void enqueueMessage(string message);
 
   static Document* getNextIncomingMessage();
-
   
 private:
 

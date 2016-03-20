@@ -1,15 +1,15 @@
-#ifndef _BASE_GAME_STATE_H
-#define _BASE_GAME_STATE_H
+#ifndef _STATE_CORE_H
+#define _STATE_CORE_H
 
 #include "common_defines.h"
 #include "game_controller.h"
 // #include "game_show.h"
 
-class BaseGameState
+class StateCore
 {
 public:
-  BaseGameState();
-  ~BaseGameState();
+  StateCore();
+  ~StateCore();
   void startup(GameController* _game_controller);
 
   void automaticCoils();
@@ -19,12 +19,16 @@ public:
   void serializeJson(Writer<StringBuffer>* writer);
   
   void sendToWeb();
+
+  void sendAllStatesToWeb();
+
+  string getName() {return name;}
   
-private:
+protected:
   string name;
 
   GameController* pGameController;
   unsigned int elapsedTime;
 };
 
-#endif //_BASE_GAME_STATE_H
+#endif //_STATE_CORE_H

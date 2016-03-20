@@ -16,7 +16,7 @@
 #define SERIAL_DATA_PIN 23
 #define SERIAL_CLOCK_PIN 24
 #define SERIAL_LATCH_PIN 25
-#define SERIAL_NUM_OUTPUTS 16
+#define SERIAL_NUM_OUTPUTS 24
 
 class PinIO
 {
@@ -36,10 +36,10 @@ public:
   unsigned int getMillis(void);
 
   void flushSerialData();
-  void setSerialOutput(int num, char state);
+  void setSerialOutput(int num, bool state);
 
 private:
-  char currentSerialState[SERIAL_NUM_OUTPUTS];
+  bool currentSerialState[SERIAL_NUM_OUTPUTS];
 
   bool serialOutputsDirty;
 };

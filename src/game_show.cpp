@@ -7,15 +7,16 @@ GameShow::GameShow()
   pGameController->startup();
 
 
-  pGameState = new BaseGameState();
-  pGameState->startup(pGameController);
-
+  // pGameState = new StateDebug();  // This will eventually be defaulting to something like attract
+  // ((StateDebug*)pGameState)->startup(pGameController);
+  setGameState("debug");
   printf("setup complete\n");
 }
 
 GameShow::~GameShow()
 {
-
+  delete(pGameController);
+  delete(pGameState);
 }
 
 void GameShow::run(){
@@ -27,11 +28,18 @@ void GameShow::run(){
     unsigned int delta = millis - lastTickTime;
     lastTickTime = millis;
 
-    pGameController->update(delta);
-
     processWebMessages();
 
-    pGameState->update(delta);
+    // cout << "State name is " << pGameState->getName() << endl;
+
+    if(pGameState->getName().compare("debug") == 0){
+      ((StateDebug*)pGameState)->update(delta);
+    }
+    if(pGameState->getName().compare("basic") == 0){
+      ((StateBasic*)pGameState)->update(delta);
+    }
+
+    pGameController->update(delta);  //maybe put this inside the states?
 
   }
 }
@@ -65,22 +73,40 @@ void GameShow::processWebMessages()
       int state = document->FindMember("value")->value.GetInt();
       pGameController->coilController()->setCoilState(name, state);
 
+    }else if(message.compare("get_game_states") == 0){ //note the plural S
+      
+      pGameState->sendAllStatesToWeb();
     }else if(message.compare("get_game_state") == 0){
       pGameState->sendToWeb();
 
     }else if(message.compare("set_game_state") == 0){
-      GameState state = (GameState)document->FindMember("value")->value.GetInt();
+      string state = document->FindMember("value")->value.GetString();
       setGameState(state);
     }
     
     //I don't like this here.
-    free(document);
+    delete(document);
   }
 }
 
 
-void GameShow::setGameState(GameState _state){
-  game_state = _state;
-  // sendGameStateToWeb();
+void GameShow::setGameState(string _state){
+  if(_state.compare("debug") == 0){
+    delete(pGameState);
+    pGameState = new StateDebug();
+    ((StateDebug*)pGameState)->startup(pGameController);
+  }
+  if(_state.compare("basic") == 0){
+    // StateBasic *tmp_state = new StateBasic();
+    pGameState = new StateBasic();
+    ((StateBasic*)pGameState)->startup(pGameController);
+  }
   pGameState->sendToWeb();
+}
+
+void GameShow::doSetNewGameState(StateCore *_new_state){
+  //not used for now
+  delete(pGameState);
+  pGameState = _new_state;
+  pGameState->startup(pGameController);
 }

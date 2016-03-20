@@ -19,6 +19,7 @@ public:
   Coil *getCoil(string name);
   string getInfoString();
   void updateWebCoilState(Coil _coil);
+  void setAllState(bool state);
 private:
   PinIO* pPinIo;
   // GameShow* game_show;
@@ -26,6 +27,7 @@ private:
 
   Coil coils[COIL_COUNT];
   unsigned int elapsedTime;
+  bool allState;
 };
 
 #endif
