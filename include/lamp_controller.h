@@ -27,7 +27,7 @@ public:
   string getInfoString();
 
 private:
-  PinIO* pinIo;
+  PinIO* pPinIo;
   // GameShow* game_show;
   SocketServer* pSocketServer;
 

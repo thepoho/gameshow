@@ -20,7 +20,7 @@ public:
   string getInfoString();
   void updateWebCoilState(Coil _coil);
 private:
-  PinIO* pinIo;
+  PinIO* pPinIo;
   // GameShow* game_show;
   SocketServer* pSocketServer;
 

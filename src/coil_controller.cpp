@@ -17,7 +17,7 @@ CoilController::~CoilController()
 
 void CoilController::startup(PinIO* _pinio, SocketServer* _socket_server)
 {
-  pinIo = _pinio;
+  pPinIo = _pinio;
   // game_show = _game_show;
   pSocketServer = _socket_server;
   //create all my coils                    
@@ -45,7 +45,7 @@ void CoilController::update(unsigned int delta)
     // }
     if(coils[i].update(delta)){
       //The coil state has changed. Probably due to an auto switch off.
-      pinIo->setSerialOutput(coils[i].getNumber(), coils[i].getState());
+      pPinIo->setSerialOutput(coils[i].getNumber(), coils[i].getState());
       updateWebCoilState(coils[i]);
     }
   }  
@@ -66,7 +66,7 @@ void CoilController::setCoilState(string name, bool state){
   if (NULL != tmpCoil){
     if(tmpCoil->setState(state)){
       //will return true if state changed
-      pinIo->setSerialOutput(tmpCoil->getNumber(), tmpCoil->getState());
+      pPinIo->setSerialOutput(tmpCoil->getNumber(), tmpCoil->getState());
       updateWebCoilState(*tmpCoil);
       // tmpCoil->setTurnOffTime(elapsedTime + COIL_ON_TIME);
     }
