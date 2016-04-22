@@ -27,7 +27,6 @@ void StateBasic::automaticCoils()
 {
 
   ///// Right Flipper
-
   if (pGameController->buttonController()->getButtonState("right_flipper")){
     pGameController->coilController()->setCoilState("right_flipper", COIL_ON);
   }
@@ -36,7 +35,6 @@ void StateBasic::automaticCoils()
   }
 
   ///// Left Flipper
-
   if (pGameController->buttonController()->getButtonState("left_flipper")){
     pGameController->coilController()->setCoilState("left_flipper", COIL_ON);
   }
@@ -45,7 +43,6 @@ void StateBasic::automaticCoils()
   }
 
   ///// Jets
-
   if (pGameController->buttonController()->getButtonState("left_jet")){
     pGameController->coilController()->setCoilState("left_jet", COIL_ON);
   }
@@ -55,10 +52,20 @@ void StateBasic::automaticCoils()
   if (pGameController->buttonController()->getButtonState("bottom_jet")){
     pGameController->coilController()->setCoilState("bottom_jet", COIL_ON);
   }
+
+  ///// Slingshots
   if (pGameController->buttonController()->getButtonState("left_slingshot")){
     pGameController->coilController()->setCoilState("left_slingshot", COIL_ON);
   }
   if (pGameController->buttonController()->getButtonState("right_slingshot")){
     pGameController->coilController()->setCoilState("right_slingshot", COIL_ON);
+  }
+
+  ///// Outhole
+  if (pGameController->buttonController()->getButtonState("outhole")){
+    pGameController->coilController()->setCoilState("outhole_kicker", COIL_ON);
+  }
+  if (pGameController->buttonController()->getButtonState("credit_button")){
+    pGameController->coilController()->setCoilState("ball_shooter_lane_feeder", COIL_ON);
   }
 }
