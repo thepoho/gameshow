@@ -81,8 +81,8 @@ void StateCore::fireCoil(string name)
   pGameController->coilController()->fireCoil(name);
 }
 
-void StateCore::getButtonState(string name)
+bool StateCore::getButtonState(string name)
 {
   //handy accessor method
-  pGameController->buttonController()->getButtonState(name);
+  return(pGameController->buttonController()->getButtonState(name));
 }
