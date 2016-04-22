@@ -40,16 +40,11 @@ void CoilController::setAllState(bool state){
 void CoilController::update(unsigned int delta)
 {
   elapsedTime += delta;
-  // printf("elapsed time is %d\n", elapsedTime);
 
   // bool dirty = false;
 
   //See if any coils have been on for too long and turn them off
   for(int i = 0; i < SIZEOF(coils); i++){
-    // if(i == 5){
-    //   printf("coil state is %d\n", coils[i].getState());
-    //   // printf("coil tot   is %d\n", coils[i].getTurnOffTime());
-    // }
     if(coils[i].update(delta)){
       //The coil state has changed. Probably due to an auto switch off.
       pPinIo->setSerialOutput(coils[i].getNumber(), coils[i].getState());
@@ -70,6 +65,10 @@ Coil *CoilController::getCoil(string name){
     }
   }
   return(NULL);
+}
+
+void CoilController::fireCoil(string name){
+  setCoilState(name, COIL_ON);
 }
 
 void CoilController::setCoilState(string name, bool state){

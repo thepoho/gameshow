@@ -20,6 +20,7 @@ public:
   string getInfoString();
   void updateWebCoilState(Coil _coil);
   void setAllState(bool state);
+  void fireCoil(string name);
 private:
   PinIO* pPinIo;
   // GameShow* game_show;

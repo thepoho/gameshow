@@ -27,45 +27,45 @@ void StateBasic::automaticCoils()
 {
 
   ///// Right Flipper
-  if (pGameController->buttonController()->getButtonState("right_flipper")){
-    pGameController->coilController()->setCoilState("right_flipper", COIL_ON);
+  if (getButtonState("right_flipper")){
+    setCoilState("right_flipper", COIL_ON);
   }
   else{
-    pGameController->coilController()->setCoilState("right_flipper", COIL_OFF);
+    setCoilState("right_flipper", COIL_OFF);
   }
 
   ///// Left Flipper
-  if (pGameController->buttonController()->getButtonState("left_flipper")){
-    pGameController->coilController()->setCoilState("left_flipper", COIL_ON);
+  if (getButtonState("left_flipper")){
+    setCoilState("left_flipper", COIL_ON);
   }
   else{
-    pGameController->coilController()->setCoilState("left_flipper", COIL_OFF);
+    setCoilState("left_flipper", COIL_OFF);
   }
 
   ///// Jets
-  if (pGameController->buttonController()->getButtonState("left_jet")){
-    pGameController->coilController()->setCoilState("left_jet", COIL_ON);
+  if (getButtonState("left_jet")){
+    fireCoil("left_jet");
   }
-  if (pGameController->buttonController()->getButtonState("right_jet")){
-    pGameController->coilController()->setCoilState("right_jet", COIL_ON);
+  if (getButtonState("right_jet")){
+    fireCoil("right_jet");
   }
-  if (pGameController->buttonController()->getButtonState("bottom_jet")){
-    pGameController->coilController()->setCoilState("bottom_jet", COIL_ON);
+  if (getButtonState("bottom_jet")){
+    fireCoil("bottom_jet");
   }
 
   ///// Slingshots
-  if (pGameController->buttonController()->getButtonState("left_slingshot")){
-    pGameController->coilController()->setCoilState("left_slingshot", COIL_ON);
+  if (getButtonState("left_slingshot")){
+    fireCoil("left_slingshot");
   }
-  if (pGameController->buttonController()->getButtonState("right_slingshot")){
-    pGameController->coilController()->setCoilState("right_slingshot", COIL_ON);
+  if (getButtonState("right_slingshot")){
+    fireCoil("right_slingshot");
   }
 
   ///// Outhole
-  if (pGameController->buttonController()->getButtonState("outhole")){
-    pGameController->coilController()->setCoilState("outhole_kicker", COIL_ON);
+  if (getButtonState("outhole")){
+    fireCoil("outhole_kicker");
   }
-  if (pGameController->buttonController()->getButtonState("credit_button")){
-    pGameController->coilController()->setCoilState("ball_shooter_lane_feeder", COIL_ON);
+  if (getButtonState("credit_button")){
+    fireCoil("ball_shooter_lane_feeder");
   }
 }

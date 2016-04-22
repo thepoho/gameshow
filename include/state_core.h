@@ -29,6 +29,10 @@ protected:
 
   GameController* pGameController;
   unsigned int elapsedTime;
+
+  void setCoilState(string name, bool state);
+  void fireCoil(string name);
+  void getButtonState(string name);
 };
 
 #endif //_STATE_CORE_H
