@@ -3,7 +3,7 @@
 string coilNames[COIL_COUNT] = {"left_flipper","right_flipper",
                       "bottom_jet","right_jet","right_slingshot","left_slingshot","left_jet",
                       "title_flasher","backbox_gi_relay","ball_popper","centre_ramp_flasher","top_ramp_gate","playfield_gi_relay",
-                      "car_drop_target","knocker","ball_locker","ball_shooter_lane_feeder","outhole_kicker"};
+                      "outhole_kicker","ball_shooter_lane_feeder","ball_locker","knocker","car_drop_target"};
 //*/
 
 CoilController::CoilController()
