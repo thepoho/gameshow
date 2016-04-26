@@ -21,6 +21,7 @@ public:
   bool getButtonState(string name);
   Button *getButton(string name);
   void outputButtons();
+  void setButtonState(Button btn, bool newState);
 
   string getInfoString();
 private:
