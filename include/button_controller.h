@@ -21,7 +21,8 @@ public:
   bool getButtonState(string name);
   Button *getButton(string name);
   void outputButtons();
-  void setButtonState(Button btn, bool newState);
+  void setButtonState(Button *btn, bool newState);
+  void setButtonStateByName(string name, bool newState);
 
   string getInfoString();
 private:
@@ -29,7 +30,7 @@ private:
   // GameShow* game_show;
   SocketServer* pSocketServer;
 
-  void updateWebButtonState(Button _btn);
+  void updateWebButtonState(Button *_btn);
 
   unsigned int elapsedTime;
 

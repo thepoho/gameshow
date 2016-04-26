@@ -70,14 +70,23 @@ void ButtonController::update(unsigned int delta)
       //now read each column
 
       int gotPinState = pPinIo->pinRead(colReadPins[c]);
-      setButtonState(buttons[r][c], bool(gotPinState));
+      setButtonState(&buttons[r][c], bool(gotPinState));
 
     }
   }
 }
 
-void ButtonController::setButtonState(Button btn, bool newState){
-  bool stateChanged = btn.setState(newState);
+void ButtonController::setButtonStateByName(string name, bool newState){
+  Button *btn = getButton(name);
+  if(NULL != btn){
+    setButtonState(btn, newState);
+  }else{
+    cout << "Trying to set state of nonexistant button " << name;
+  }
+}
+
+void ButtonController::setButtonState(Button *btn, bool newState){
+  bool stateChanged = btn->setState(newState);
       
   if(stateChanged){
     //TODO - make it so we can turn off the web stuff at run time with a flag
@@ -119,7 +128,7 @@ void ButtonController::outputButtons(){
   printf("\r");
 }
 
-void ButtonController::updateWebButtonState(Button _btn)
+void ButtonController::updateWebButtonState(Button *_btn)
 {
 
   StringBuffer s;
@@ -129,7 +138,7 @@ void ButtonController::updateWebButtonState(Button _btn)
   writer.String("name");
   writer.String("button_state");
   writer.String("data");
-  _btn.serializeJson(&writer);
+  _btn->serializeJson(&writer);
   writer.EndObject();
 
   pSocketServer->enqueueMessage(s.GetString());
