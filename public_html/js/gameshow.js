@@ -15,6 +15,13 @@ GameShow = {
       GameShow.sendMessage(data);
     });
 
+    //prevent long presses from opening context menu
+    window.oncontextmenu = function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      return false;
+    };
+
   },
 
   socketOnMessage: function(ev){
