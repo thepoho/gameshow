@@ -76,7 +76,7 @@ void GameShow::processWebMessages()
     }else if(message.compare("set_button_state") == 0){
       string name = document->FindMember("name")->value.GetString();
       int state = document->FindMember("value")->value.GetInt();
-      pGameController->buttonController()->setButtonStateByName(name, state);
+      pGameController->buttonController()->overrideButtonState(name, state);
 
     }else if(message.compare("get_game_states") == 0){ //note the plural S
       

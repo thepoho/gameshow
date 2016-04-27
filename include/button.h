@@ -6,9 +6,10 @@
 class Button
 {
 public:
-	Button();
-	~Button();
-	void startup(int _row, int _col, int _num, string _name);
+  Button();
+  ~Button();
+  void startup(int _row, int _col, int _num, string _name);
+  void setOverridden(bool _override);
 
   string getName() { return(name); }
   int getNum() { return(num); }
@@ -23,6 +24,7 @@ private:
   int row, col, num;
   string name;
   int onOffState;
+  bool overridden;
   
 };
 

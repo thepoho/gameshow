@@ -85,6 +85,17 @@ void ButtonController::setButtonStateByName(string name, bool newState){
   }
 }
 
+void ButtonController::overrideButtonState(string name, bool newState){
+  Button *btn = getButton(name);
+  if(NULL != btn){
+    setButtonState(btn, newState);
+
+    btn->setOverridden(newState); //mark as overridden if set to 'on'. flag will be cleared when released
+  }else{
+    cout << "Trying to set state of nonexistant button " << name;
+  }
+
+}
 void ButtonController::setButtonState(Button *btn, bool newState){
   bool stateChanged = btn->setState(newState);
       

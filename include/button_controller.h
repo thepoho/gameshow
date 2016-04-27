@@ -23,6 +23,7 @@ public:
   void outputButtons();
   void setButtonState(Button *btn, bool newState);
   void setButtonStateByName(string name, bool newState);
+  void overrideButtonState(string name, bool newState);
 
   string getInfoString();
 private:

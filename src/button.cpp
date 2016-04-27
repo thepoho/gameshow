@@ -15,7 +15,9 @@ void Button::startup(int _row, int _col, int _num, string _name)
   col = _col;
   name = _name;
   num = _num;
+  overridden = false;
   // state = Button_ON;//default to on
+  
   // cout << "creating Button " << row << ", " << col << ", " << name << ", " << num << endl;
 }
 
@@ -23,6 +25,9 @@ bool Button::setState(int _newState)
 {
   //returns true if state changed
   bool ret = false;
+  if(overridden){
+    return(ret);
+  }
   if(onOffState != _newState){
     ret = true;
   }
@@ -44,4 +49,9 @@ void Button::serializeJson(Writer<StringBuffer>* writer)
   writer->String("state");
   writer->Uint(getState());
   writer->EndObject();
+}
+
+void Button::setOverridden(bool _override)
+{
+  overridden = _override;
 }
