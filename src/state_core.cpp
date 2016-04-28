@@ -68,3 +68,21 @@ void StateCore::sendAllStatesToWeb()
 
   pGameController->socketServer()->enqueueMessage(s.GetString());
 }
+
+void StateCore::setCoilState(string name, bool state)
+{
+  //handy accessor method
+  pGameController->coilController()->setCoilState(name, state);
+}
+
+void StateCore::fireCoil(string name)
+{
+  //handy accessor method
+  pGameController->coilController()->fireCoil(name);
+}
+
+bool StateCore::getButtonState(string name)
+{
+  //handy accessor method
+  return(pGameController->buttonController()->getButtonState(name));
+}

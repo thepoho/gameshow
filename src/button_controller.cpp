@@ -28,7 +28,7 @@ ButtonController::~ButtonController()
 
 void ButtonController::startup(PinIO* _pinio, SocketServer* _socket_server)
 {
-  pinIo = _pinio;
+  pPinIo = _pinio;
   // game_show = _game_show;
   pSocketServer = _socket_server;
   elapsedTime = 0;
@@ -47,11 +47,11 @@ void ButtonController::startup(PinIO* _pinio, SocketServer* _socket_server)
 
   //initialize the pins on the rpi
   for (int i = 0; i < SIZEOF(colReadPins); i++){
-    pinIo->setPinMode(colReadPins[i], INPUT);
+    pPinIo->setPinMode(colReadPins[i], INPUT);
   }
   for (int i = 0; i < SIZEOF(rowPins); i++){
-    pinIo->setPinMode(rowPins[i], OUTPUT);
-    pinIo->pinWrite(rowPins[i], LOW);
+    pPinIo->setPinMode(rowPins[i], OUTPUT);
+    pPinIo->pinWrite(rowPins[i], LOW);
   }
 }
 
@@ -63,22 +63,46 @@ void ButtonController::update(unsigned int delta)
 
     //set the appropriate output pins for the current row
     for (int i = 0; i < 3; i++){
-      pinIo->pinWrite(rowPins[i], rowOutputs[r][i]);
+      pPinIo->pinWrite(rowPins[i], rowOutputs[r][i]);
     }
 
     for (int c = 0; c < 8; c++){
       //now read each column
 
-      int gotPinState = pinIo->pinRead(colReadPins[c]);
-      bool stateChanged = buttons[r][c].setState(gotPinState);
-      
-      
-      if(stateChanged){
-	      //TODO - make it so we can turn off the web stuff at run time with a flag
-        cout << "State changed R:" << r << " C:" << c << " name: " << buttons[r][c].getName() << " idx: " << buttons[r][c].getNum();
-        updateWebButtonState(buttons[r][c]);
-      }
+      int gotPinState = pPinIo->pinRead(colReadPins[c]);
+      setButtonState(&buttons[r][c], bool(gotPinState));
+
     }
+  }
+}
+
+void ButtonController::setButtonStateByName(string name, bool newState){
+  Button *btn = getButton(name);
+  if(NULL != btn){
+    setButtonState(btn, newState);
+  }else{
+    cout << "Trying to set state of nonexistant button " << name;
+  }
+}
+
+void ButtonController::overrideButtonState(string name, bool newState){
+  Button *btn = getButton(name);
+  if(NULL != btn){
+    setButtonState(btn, newState);
+
+    btn->setOverridden(newState); //mark as overridden if set to 'on'. flag will be cleared when released
+  }else{
+    cout << "Trying to set state of nonexistant button " << name;
+  }
+
+}
+void ButtonController::setButtonState(Button *btn, bool newState){
+  bool stateChanged = btn->setState(newState);
+      
+  if(stateChanged){
+    //TODO - make it so we can turn off the web stuff at run time with a flag
+    //cout << "Button state changed " << btn.getName() << " idx: " << btn.getNum();
+    updateWebButtonState(btn);
   }
 }
 
@@ -115,7 +139,7 @@ void ButtonController::outputButtons(){
   printf("\r");
 }
 
-void ButtonController::updateWebButtonState(Button _btn)
+void ButtonController::updateWebButtonState(Button *_btn)
 {
 
   StringBuffer s;
@@ -125,7 +149,7 @@ void ButtonController::updateWebButtonState(Button _btn)
   writer.String("name");
   writer.String("button_state");
   writer.String("data");
-  _btn.serializeJson(&writer);
+  _btn->serializeJson(&writer);
   writer.EndObject();
 
   pSocketServer->enqueueMessage(s.GetString());

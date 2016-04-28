@@ -30,7 +30,7 @@ LampController::~LampController()
 
 void LampController::startup(PinIO* _pinio, SocketServer* _socket_server)
 {
-  pinIo = _pinio;
+  pPinIo = _pinio;
   // game_show = _game_show;
   pSocketServer = _socket_server;
   int idx = 0;
@@ -43,12 +43,12 @@ void LampController::startup(PinIO* _pinio, SocketServer* _socket_server)
 
   //initialize the pins on the rpi
   for (int i = 0; i < SIZEOF(rowPins); i++){
-    pinIo->setPinMode(rowPins[i], OUTPUT);
-    pinIo->pinWrite(rowPins[i], LOW);
+    pPinIo->setPinMode(rowPins[i], OUTPUT);
+    pPinIo->pinWrite(rowPins[i], LOW);
   }
   for (int i = 0; i < SIZEOF(colPins); i++){
-    pinIo->setPinMode(colPins[i], OUTPUT);
-    pinIo->pinWrite(colPins[i], LOW);
+    pPinIo->setPinMode(colPins[i], OUTPUT);
+    pPinIo->pinWrite(colPins[i], LOW);
   }
 }
 
@@ -75,12 +75,12 @@ void LampController::flushLamps()
 
     //turn all rows off. Mabe unnecessary?
     for(int i = 0; i < SIZEOF(rowPins); i++){
-      pinIo->pinWrite(rowPins[i], LOW);
+      pPinIo->pinWrite(rowPins[i], LOW);
     }
 
     //set the appropriate output pins for the current column
     for (int i = 0; i < 3; i++){
-      pinIo->pinWrite(colPins[i], colOutputs[c][i]);
+      pPinIo->pinWrite(colPins[i], colOutputs[c][i]);
     }
 
     for (int r = 0; r < 8; r++){
@@ -102,9 +102,9 @@ void LampController::flushLamps()
         state = 0;
         break;
       }
-      pinIo->pinWrite(rowPins[r], state);
+      pPinIo->pinWrite(rowPins[r], state);
     }
-    pinIo->doDelay(1);
+    pPinIo->doDelay(1);
   }
 }
 

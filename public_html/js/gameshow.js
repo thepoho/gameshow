@@ -13,8 +13,15 @@ GameShow = {
         value: $(this).val()
       };
       GameShow.sendMessage(data);
-
     });
+
+    //prevent long presses from opening context menu
+    window.oncontextmenu = function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      return false;
+    };
+
   },
 
   socketOnMessage: function(ev){
@@ -90,6 +97,30 @@ GameShow = {
       }
     })
     $("table.buttons").html(ret);
+
+    $("table.buttons td.button, td.flipper").on('mousedown touchstart',function(){
+      GameShow.setButtonOverride($(this), 1);
+    });
+    $("table.buttons td.button, td.flipper").on('mouseup mouseleave touchend touchcancel', function(){
+      GameShow.setButtonOverride($(this), 0);
+    });
+ 
+  },
+  setButtonOverride: function(element, value){
+    if(value == 0){
+      if($(this).data("overridden") == true){
+        $(this).data("overridden", false);
+      }else{
+        return; //not currently overridden by a web press so ignore this.
+      }
+    }
+    if(value == 1){
+      $(this).data("overridden", true);
+    }
+    var data = {message: "set_button_state", 
+      name: $(element).data("name"),
+      value: value}
+    GameShow.sendMessage(data);
   },
 
   handleButtonState: function(button_data){
