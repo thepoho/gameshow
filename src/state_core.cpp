@@ -22,7 +22,6 @@ void StateCore::update(unsigned int delta)
 {
   //Usually expect this to be overridden. Make it virtual? Still need to ensure time is updated
   elapsedTime += delta;
-  cout << "State core updating - you should never see this!" << endl;
 }
 
 
@@ -85,4 +84,10 @@ bool StateCore::getButtonState(string name)
 {
   //handy accessor method
   return(pGameController->buttonController()->getButtonState(name));
+}
+
+
+void StateCore::fireCoilDelay(string name, unsigned int delay)
+{
+  pGameController->delayedEventController()->createEvent("fire_coil", (elapsedTime + delay), name);
 }

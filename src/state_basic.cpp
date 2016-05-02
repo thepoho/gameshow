@@ -19,7 +19,7 @@ void StateBasic::startup(GameController* _game_controller)
 
 void StateBasic::update(unsigned int delta)
 {
-  elapsedTime += delta;
+  StateCore::update(delta);
   automaticCoils();
 }
 
@@ -63,7 +63,7 @@ void StateBasic::automaticCoils()
 
   ///// Outhole
   if (getButtonState("outhole")){
-    fireCoil("outhole_kicker");
+    fireCoilDelay("outhole_kicker", 2000);
   }
   if (getButtonState("credit_button")){
     fireCoil("ball_shooter_lane_feeder");

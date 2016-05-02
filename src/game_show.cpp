@@ -9,7 +9,7 @@ GameShow::GameShow()
 
   // pGameState = new StateDebug();  // This will eventually be defaulting to something like attract
   // ((StateDebug*)pGameState)->startup(pGameController);
-  setGameState("debug");
+  setGameState("basic");
   printf("setup complete\n");
 }
 

@@ -11,6 +11,7 @@ GameController::~GameController()
   delete(pButtonController);
   delete(pLampController);
   delete(pCoilController);
+  delete(pDelayedEventController);
 }
 
 void GameController::startup()
@@ -29,6 +30,9 @@ void GameController::startup()
   
   pCoilController = new CoilController();
   pCoilController->startup(pPinIo, pSocketServer);
+
+  pDelayedEventController = new DelayedEventController();
+  pDelayedEventController->startup();
 }
 
 void GameController::update(unsigned int delta)
@@ -40,9 +44,21 @@ void GameController::update(unsigned int delta)
   pLampController->update(delta);
   pButtonController->update(delta);
 
+  pDelayedEventController->update(delta);
+  processDelayedEvents();
 }
 
 void GameController::sendWebMessage(string message)
 {
   pSocketServer->enqueueMessage(message);
+}
+
+void GameController::processDelayedEvents()
+{
+  //TODO: put this in a loop so all due events are processed
+  DelayedEvent *tmp = pDelayedEventController->getDueEvent();
+  if(NULL != tmp){
+    //run the event
+    pDelayedEventController->freeEvent(tmp);
+  }
 }

@@ -32,6 +32,7 @@ protected:
 
   void setCoilState(string name, bool state);
   void fireCoil(string name);
+  void fireCoilDelay(string name, unsigned int delay);
   bool getButtonState(string name);
 };
 

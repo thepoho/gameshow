@@ -26,6 +26,7 @@ using namespace std;
 
 #define COIL_COUNT (24)
 #define FLASHER_COUNT (8)
+#define MAX_DELAYED_EVENT_COUNT (128)
 
 #define COIL_OFF 0
 #define COIL_ON  1
