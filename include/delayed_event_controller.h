@@ -21,14 +21,17 @@ public:
 
 private:
  struct WrappedEvent {
-  DelayedEvent delayed_event;
-  WrappedEvent* pNext;
+   DelayedEvent  event;
+   WrappedEvent* pNext;
+   WrappedEvent* pPrevious;
  };
+ WrappedEvent* findWrappedEvent(DelayedEvent *event);
  
  WrappedEvent* freeList; 
  WrappedEvent* activeList; 
  //DelayedEvent* delayed_events[MAX_DELAYED_EVENT_COUNT];
  //DelayedEvent* delayed_events_freelist[MAX_DELAYED_EVENT_COUNT];
+
 
  unsigned int elapsedTime;
 };
