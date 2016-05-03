@@ -21,9 +21,12 @@ GameShow::~GameShow()
 
 void GameShow::run(){
   printf("starting main loop\n");
+
+
+  //pGameController->delayedEventController()->createEvent("fire_coil", (100), "right_flipper");
   while(1){
     
-  //work out deltas
+    //work out deltas
     unsigned int millis = pGameController->pinIO()->getMillis();
     unsigned int delta = millis - lastTickTime;
     lastTickTime = millis;

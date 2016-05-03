@@ -59,6 +59,7 @@ void GameController::processDelayedEvents()
   DelayedEvent *tmp = pDelayedEventController->getDueEvent();
   if(NULL != tmp){
     //run the event
+    cout << "GOT AN EVENT " << tmp->getEventType() << endl;
     pDelayedEventController->freeEvent(tmp);
   }
 }

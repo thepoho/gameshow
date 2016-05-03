@@ -28,6 +28,8 @@ void DelayedEventController::startup()
 
   freeList = pRoot;
   activeList = NULL;
+
+  cout << "Delayed Event Controller started up" << endl;
 }
 
 void DelayedEventController::update(unsigned int delta)
@@ -42,17 +44,21 @@ void DelayedEventController::createEvent(string event_type, unsigned int trigger
 
   WrappedEvent *newEvent = freeList;
   assert(NULL != newEvent);
+
   //make free list pointer be the next available free thing
   freeList        = freeList->pNext;
 
 
   //set previous pointer on the next event to be my new event
-  if(NULL != newEvent->pNext){
+  if(NULL != activeList){
     activeList->pPrevious = newEvent;
   }
 
   //set the 'next' pointer on my new event to the start of the active list
   newEvent->pNext       = activeList;
+
+  newEvent->event.startup(event_type, trigger_time, data);
+  //cout << "Created event " << event_type << " with trigger time of " << trigger_time << endl;
 
   //make the active list start on my new event.
   activeList = newEvent;
