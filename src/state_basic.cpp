@@ -63,9 +63,14 @@ void StateBasic::automaticCoils()
 
   ///// Outhole
   if (getButtonState("outhole")){
-    fireCoilDelay("outhole_kicker", 2000);
+    //fireCoilDelay("outhole_kicker", 2000);
+    fireCoil("outhole_kicker");
   }
   if (getButtonState("credit_button")){
     fireCoil("ball_shooter_lane_feeder");
+  }
+
+  if (getButtonState("ball_popper")){
+    fireCoil("ball_popper");
   }
 }
