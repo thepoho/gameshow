@@ -16,6 +16,8 @@ public:
   int getRow() { return(row); }
   int getCol() { return(col); }
   int getState() { return(onOffState); }
+  int getLastPressTime() { return(lastPressTime); }
+  void setLastPressTime(unsigned int lpt) { lastPressTime = lpt; }
 
   bool setState(int _newState);
 
@@ -25,6 +27,7 @@ private:
   string name;
   int onOffState;
   bool overridden;
+  unsigned int lastPressTime;
   
 };
 

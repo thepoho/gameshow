@@ -32,6 +32,7 @@ private:
   SocketServer* pSocketServer;
 
   void updateWebButtonState(Button *_btn);
+  bool canUpdateButton(Button *btn);
 
   unsigned int elapsedTime;
 

@@ -70,10 +70,23 @@ void ButtonController::update(unsigned int delta)
       //now read each column
 
       int gotPinState = pPinIo->pinRead(colReadPins[c]);
-      setButtonState(&buttons[r][c], bool(gotPinState));
+
+      
+      if(gotPinState != buttons[r][c].getState()){//the button state has changed.
+        if(canUpdateButton(&buttons[r][c])){ //ensure the button is not in cooldown.
+          usleep(5); //sleep for 5 micros and check again (cheap debouncing)
+          if(gotPinState == pPinIo->pinRead(colReadPins[c])){
+            setButtonState(&buttons[r][c], bool(gotPinState));
+          }
+        }
+      }
 
     }
   }
+}
+
+bool ButtonController::canUpdateButton(Button *btn){
+  return( (unsigned int)(btn->getLastPressTime() + BUTTON_COOLDOWN_TIME ) < elapsedTime);
 }
 
 void ButtonController::setButtonStateByName(string name, bool newState){
@@ -98,10 +111,9 @@ void ButtonController::overrideButtonState(string name, bool newState){
 }
 void ButtonController::setButtonState(Button *btn, bool newState){
   bool stateChanged = btn->setState(newState);
-      
+
   if(stateChanged){
-    //TODO - make it so we can turn off the web stuff at run time with a flag
-    //cout << "Button state changed " << btn.getName() << " idx: " << btn.getNum();
+    btn->setLastPressTime(elapsedTime); 
     updateWebButtonState(btn);
   }
 }

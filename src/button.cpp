@@ -15,6 +15,7 @@ void Button::startup(int _row, int _col, int _num, string _name)
   col = _col;
   name = _name;
   num = _num;
+  lastPressTime = 0;
   overridden = false;
   // state = Button_ON;//default to on
   
