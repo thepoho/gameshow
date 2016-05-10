@@ -19,6 +19,42 @@ GameShow::~GameShow()
   delete(pGameState);
 }
 
+void GameShow::test(){
+  cout << "===== TESTING =====" << endl;
+  /*ifstream file("game_data/buttons.json", ios::in|ios::binary|ios::ate);
+
+  streampos size;
+  size = file.tellg();
+  char *buffer;
+  buffer = new char[size];
+
+
+  file.seekg (0, ios::beg);
+  file.read (buffer, size);
+  file.close();
+
+
+  Document *document = new Document();
+  document->Parse(buffer);
+
+  if(document->IsObject()){
+    cout << "Is object!" << endl;
+    const Value& a =  document->FindMember("buttons")->value;
+    for (SizeType i = 0; i < a.Size(); i++){ 
+      //printf("a[%d] = %d\n", i, a[i].GetInt());
+      cout << a[i]["name"].GetString() << endl;
+    }
+  }
+  delete[] buffer;
+
+  //memcpy(buffer, conn->content, (int) conn->content_len);
+  //buffer[(int) conn->content_len] = 0;
+
+  //Document *document = new Document();
+  //document->Parse(buffer);
+  //*/ 
+}
+
 void GameShow::run(){
   printf("starting main loop\n");
 

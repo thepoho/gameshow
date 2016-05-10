@@ -1,6 +1,10 @@
 #include "game_show.h"
 
-int main(void){
+int main(int argc, char* argv[]){
   GameShow* pGs = new GameShow();
-  pGs->run();
+  if(argc == 2 && std::string(argv[1]) == "--test"){
+    pGs->test();
+  }else{
+    pGs->run();
+  }
 }
