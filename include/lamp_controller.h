@@ -30,6 +30,8 @@ private:
   PinIO* pPinIo;
   // GameShow* game_show;
   SocketServer* pSocketServer;
+  
+  void loadLampsFromFile();
 
   Lamp lamps[8][8];
   void flushLamps();

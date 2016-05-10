@@ -4,16 +4,6 @@
 int rowPins[8] = { 22,21,14,13,12,3,2,0 };
 int colPins[3] = { 8, 9, 7 };
 int colOutputs[8][3] = { { 1, 1, 1 }, { 1, 1, 0 }, { 1, 0, 1 }, { 1, 0, 0 }, { 0, 1, 1 }, { 0, 1, 0 }, { 0, 0, 1 }, { 0, 0, 0 } };
-string lampNames[8][8] = { 
-  {"shoot_again", "bonus_1k", "wheel_5k", "wheel_45k", "truck_t", "big_bucks", "2_million_left", "top_lane_right" },
-  {"wheel_5x","bonus_2x","wheel_10k","wheel_50k","truck_r","top_lane_red","left_spot_letter","grand_prize"},
-  { "bonus_multiplier_1x", "bonus_4k", "wheel_15k", "tv_t", "truck_u", "top_lane_red_1", "left_extra_ball", "collect_tv" },
-  { "bonus_multiplier_2x", "bonus_8k", "wheel_20k", "tv_v", "truck_c", "back_panel_car", "2_million_right", "collect_trip" },
-  { "bonus_multiplier_4x", "bonus_16k", "wheel_25k", "trip_t", "truck_k", "left_extra_ball", "right_spot_letter", "collect_truck" },
-  { "bonus_miltiplier_8x", "bonus_32_k", "wheel_30k", "trip_r", "wheel_250k", "wheel_4_million", "right_spinner", "collect_car" },
-  { "center_spinner", "bonus_64k", "wheel_35k", "trip_i", "wheel_hold_bonus", "wheel_extra_ball", "top_lane_left", "collect_prizes" },
-  { "center_nudge", "bonus_128k", "wheel_40k", "trip_p", "wheel_1_million", "right_extra_ball", "top_lane_middle", "right_lock" }
-};
 
 LampController::LampController()
 {
@@ -33,13 +23,8 @@ void LampController::startup(PinIO* _pinio, SocketServer* _socket_server)
   pPinIo = _pinio;
   // game_show = _game_show;
   pSocketServer = _socket_server;
-  int idx = 0;
 
-  for (int r = 0; r < 8; r++){
-    for (int c = 0; c < 8; c++){
-      lamps[r][c].startup(r, c, idx++, lampNames[r][c]);
-    }
-  }
+  loadLampsFromFile();
 
   //initialize the pins on the rpi
   for (int i = 0; i < SIZEOF(rowPins); i++){
@@ -50,6 +35,40 @@ void LampController::startup(PinIO* _pinio, SocketServer* _socket_server)
     pPinIo->setPinMode(colPins[i], OUTPUT);
     pPinIo->pinWrite(colPins[i], LOW);
   }
+}
+
+
+void LampController::loadLampsFromFile()
+{
+  ifstream file(LAMP_DATA_FILE, ios::in|ios::binary|ios::ate);
+
+  streampos size;
+  size = file.tellg();
+  char *buffer;
+  buffer = new char[size];
+
+  file.seekg (0, ios::beg);
+  file.read (buffer, size);
+  file.close();
+
+  Document *document = new Document();
+  document->Parse(buffer);
+
+  buffer[size] = 0;
+
+  if(document->IsObject()){
+    const Value& a =  document->FindMember("lamps")->value;
+    int idx = 0;
+    for (SizeType i = 0; i < a.Size(); i++){
+      int r = a[i]["row"].GetInt();
+      int c = a[i]["column"].GetInt();
+      string name = a[i]["name"].GetString();
+      lamps[r][c].startup(r, c, idx++, name);
+      //cout << a[i]["name"].GetString() << endl;
+    }
+  }
+  delete[] buffer;
+  delete(document);
 }
 
 void LampController::update(unsigned int delta)

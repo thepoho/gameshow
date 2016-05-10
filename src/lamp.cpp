@@ -10,8 +10,8 @@ Lamp::~Lamp()
 
 void Lamp::startup(int _row, int _col, int _num, string _name)
 {
-	row   = _row;
-	col   = _col;
+  row   = _row;
+  col   = _col;
   name  = _name;
   num   = _num;
   state = LAMP_OFF;//default to off

@@ -26,6 +26,8 @@ using namespace std;
 #define TRUE  (1)
 
 #define BUTTON_DATA_FILE ("game_data/buttons.json")
+#define LAMP_DATA_FILE   ("game_data/lamps.json")
+#define COIL_DATA_FILE   ("game_data/coils.json")
 
 #define COIL_COUNT (24)
 #define FLASHER_COUNT (8)

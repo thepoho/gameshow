@@ -25,8 +25,9 @@ private:
   PinIO* pPinIo;
   // GameShow* game_show;
   SocketServer* pSocketServer;
+  void loadCoilsFromFile();
 
-  Coil coils[COIL_COUNT];
+  Coil *coils;
   unsigned int elapsedTime;
   bool allState;
 };

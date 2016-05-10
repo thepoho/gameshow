@@ -5,18 +5,6 @@
 static const int colReadPins[8] = { 28,27,26,11,10,6,5,4 };
 static const int rowPins[3] = { 15, 16, 1 };
 static const int rowOutputs[8][3] = { { 0, 0, 0 }, { 1, 0, 0 }, { 0, 1, 0 }, { 1, 1, 0 }, { 0, 0, 1 }, { 1, 0, 1 }, { 0, 1, 1 }, { 1, 1, 1 } };
-// const string buttonNames64[64] = { "plum_bob_tilt", "not_used", "top_lane_left", "easy_spin", "truck_t", "spin_wheel", "not_used", "right_flipper", "not_used", "outhole", "top_lane_middle", "center_ramp", "truck_r", "right_spinner", "not_used", "left_flipper", "credit_button", "trough_1_right", "top_lane_right", "tv_t", "truck_u", "spot_letter", "not_used", "not_used", "right_coin", "trough_2_left", "right_ramp", "tv_v", "truck_c", "not_used", "not_used", "left_jet", "center_coin", "not_used", "ball_popper", "trip_t", "truck_k", "left_outlane", "not_used", "right_jet", "left_coin", "shooter_lane", "not_used", "trip_r", "not_used", "left_return", "not_used", "bottom_jet", "slam_tilt", "not_used", "left_lockup", "trip_i", "drop_target_car", "right_return", "not_used", "left_slingshot", "high_score_reset", "big_bucks", "not_used", "trip_p", "not_used", "right_outlane", "not_used", "right_slingshot" };
-
-const string buttonNames[8][8] = {
-  { "plum_bob_tilt", "not_used", "top_lane_left", "easy_spin", "truck_t", "spin_wheel", "not_used", "right_flipper" },
-  { "not_used", "outhole", "top_lane_middle", "center_ramp", "truck_r", "right_spinner", "not_used", "left_flipper" },
-  { "credit_button", "trough_1_right", "top_lane_right", "tv_t", "truck_u", "spot_letter", "not_used", "not_used" },
-  { "right_coin", "trough_2_left", "right_ramp", "tv_v", "truck_c", "not_used", "not_used", "left_jet" },
-  { "center_coin", "not_used", "ball_popper", "trip_t", "truck_k", "left_outlane", "not_used", "right_jet" },
-  { "left_coin", "shooter_lane", "not_used", "trip_r", "not_used", "left_return", "not_used", "bottom_jet" },
-  { "slam_tilt", "not_used", "left_lockup", "trip_i", "drop_target_car", "right_return", "not_used", "left_slingshot" },
-  { "high_score_reset", "big_bucks", "not_used", "trip_p", "not_used", "right_outlane", "not_used", "right_slingshot" }
-};
 
 ButtonController::ButtonController()
 {
@@ -33,21 +21,7 @@ void ButtonController::startup(PinIO* _pinio, SocketServer* _socket_server)
   pSocketServer = _socket_server;
   elapsedTime = 0;
 
-  if(true){
-    loadButtonsFromFile();
-  }else{
-    int idx = 0;
-
-    for (int r = 0; r < 8; r++){
-      for (int c = 0; c < 8; c++){
-        // int tmpNum = ((8 * r) + (c));
-        // cout << "row is " << r << " col is " << c << endl;
-        buttons[r][c].startup(r, c, idx, buttonNames[r][c]);
-        // buttons64[idx].startup(r, c, idx, buttonNames64[idx]);
-        idx++;
-      }
-    }
-  }
+  loadButtonsFromFile();
 
   //initialize the pins on the rpi
   for (int i = 0; i < SIZEOF(colReadPins); i++){
@@ -72,9 +46,10 @@ void ButtonController::loadButtonsFromFile()
   file.read (buffer, size);
   file.close();
 
+  buffer[size] = 0;
+
   Document *document = new Document();
   document->Parse(buffer);
-
 
   if(document->IsObject()){
     const Value& a =  document->FindMember("buttons")->value;
@@ -88,6 +63,7 @@ void ButtonController::loadButtonsFromFile()
     }
   }
   delete[] buffer;
+  delete(document);
 }
 
 void ButtonController::update(unsigned int delta)

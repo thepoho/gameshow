@@ -8,13 +8,17 @@ Coil::~Coil()
 {
 }
 
-void Coil::startup(int _num, string _name)
+void Coil::startup(int _num, string _name, int _onTime, int _coolDownTime)
 {
   name  = _name;
   num   = _num;
   shouldTurnOff = TRUE;
   state = COIL_OFF;
   onTimeRemaining = offTimeRemaining = 0;
+
+  onTime = _onTime;
+  coolDownTime = _coolDownTime;
+  cout << "Coil " << name << " starting up. ontime is " << onTime << endl;
 }
 
 bool Coil::setState(bool _state){

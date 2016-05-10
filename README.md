@@ -18,7 +18,4 @@ Includes a cross compilation script too!
  http://hertaville.com/2012/09/28/development-environment-raspberry-pi-cross-compiler/  
   
 TODO:  
-Make lamps and buttons enum & 1x64 array instead of 8x8  
-Make debug game-state work properly  
-Finish building coil hardware
 GI

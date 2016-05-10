@@ -29,6 +29,8 @@ private:
  
  WrappedEvent* freeList; 
  WrappedEvent* activeList; 
+  
+ WrappedEvent* pRoot;
  //DelayedEvent* delayed_events[MAX_DELAYED_EVENT_COUNT];
  //DelayedEvent* delayed_events_freelist[MAX_DELAYED_EVENT_COUNT];
 

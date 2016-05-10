@@ -12,7 +12,7 @@ class Coil
 public:
   Coil();
   ~Coil();
-  void startup(int _num, string _name);
+  void startup(int _num, string _name, int _onTime, int _coolDownTime);
 
   int onOffState; //use accessors?
   string getName() { return(name); }
@@ -34,6 +34,8 @@ public:
   void serializeJson(Writer<StringBuffer>* writer);
 private:
   int num;
+  int onTime;
+  int coolDownTime;
   string name;
   bool state;
   unsigned int onTimeRemaining, offTimeRemaining;

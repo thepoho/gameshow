@@ -14,6 +14,7 @@ CoilController::CoilController()
 
 CoilController::~CoilController()
 {
+  delete[] coils;
 }
 
 void CoilController::startup(PinIO* _pinio, SocketServer* _socket_server)
@@ -22,6 +23,8 @@ void CoilController::startup(PinIO* _pinio, SocketServer* _socket_server)
   // game_show = _game_show;
   pSocketServer = _socket_server;
   //create all my coils                    
+
+  /*
   for(int i = 0; i < SIZEOF(coils); i++){
     coils[i].startup(i, coilNames[i]);
     
@@ -31,6 +34,62 @@ void CoilController::startup(PinIO* _pinio, SocketServer* _socket_server)
     }
 
   }
+  */
+  cout << " coil controller startup " << endl;
+  loadCoilsFromFile();
+}
+
+void CoilController::loadCoilsFromFile()
+{
+  ifstream file(COIL_DATA_FILE, ios::in|ios::binary|ios::ate);
+
+  streampos size;
+  size = file.tellg();
+  char *buffer;
+  buffer = new char[size];
+
+  file.seekg (0, ios::beg);
+  file.read (buffer, size);
+  file.close();
+
+  buffer[size] = 0;
+
+  Document *document = new Document();
+  document->Parse(buffer);
+
+  cout << buffer << endl;
+
+  if(document->IsObject()){
+    int defaultOnTime = document->FindMember("defaults")->value["on_time"].GetInt();
+    int defaultCoolDownTime = document->FindMember("defaults")->value["cool_down_time"].GetInt();
+    const Value& a =  document->FindMember("coils")->value;
+
+
+    assert(a.Size() < 200); //arbitrarily limiting malloc to 200 records JUST IN CASE
+    coils = new Coil[a.Size()];
+
+    for (SizeType i = 0; i < a.Size(); i++){
+      int idx      = a[i]["index"].GetInt();
+      string coilType = a[i]["type"].GetString();
+      string name  = a[i]["name"].GetString();
+      
+      int onTime = defaultOnTime;
+      if(a[i].HasMember("on_time")){
+        onTime = a[i]["on_time"].GetInt();
+      }
+      int coolDownTime = defaultCoolDownTime;
+      if(a[i].HasMember("cool_down_time")){
+        coolDownTime = a[i]["cool_down_time"].GetInt();
+      }
+      //coils[idx] = new Coil();
+      coils[idx].startup(idx, name, onTime, coolDownTime);
+      //int c = a[i]["column"].GetInt();
+      //buttons[r][c].startup(r, c, idx++, name);
+      //cout << a[i]["name"].GetString() << endl;
+    }
+  }
+  delete[] buffer;
+  delete(document);
 }
 
 void CoilController::setAllState(bool state){

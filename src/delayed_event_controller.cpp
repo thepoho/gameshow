@@ -9,12 +9,14 @@ DelayedEventController::DelayedEventController()
 
 DelayedEventController::~DelayedEventController()
 {
+  delete[] pRoot;
+  //need to think about destroying the active list too.
 }
 
 void DelayedEventController::startup()
 {
   //Generate all my blank delayed events and put them in a freelist.
-  WrappedEvent* pRoot = new WrappedEvent[MAX_DELAYED_EVENT_COUNT];
+  pRoot = new WrappedEvent[MAX_DELAYED_EVENT_COUNT];
   
   //die if we can't allocate memory for our freelist
   assert(NULL != pRoot);
