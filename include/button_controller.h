@@ -33,6 +33,7 @@ private:
 
   void updateWebButtonState(Button *_btn);
   bool canUpdateButton(Button *btn);
+  void loadButtonsFromFile();
 
   unsigned int elapsedTime;
 

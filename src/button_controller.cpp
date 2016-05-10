@@ -33,15 +33,19 @@ void ButtonController::startup(PinIO* _pinio, SocketServer* _socket_server)
   pSocketServer = _socket_server;
   elapsedTime = 0;
 
-  int idx = 0;
+  if(true){
+    loadButtonsFromFile();
+  }else{
+    int idx = 0;
 
-  for (int r = 0; r < 8; r++){
-    for (int c = 0; c < 8; c++){
-      // int tmpNum = ((8 * r) + (c));
-      // cout << "row is " << r << " col is " << c << endl;
-      buttons[r][c].startup(r, c, idx, buttonNames[r][c]);
-      // buttons64[idx].startup(r, c, idx, buttonNames64[idx]);
-      idx++;
+    for (int r = 0; r < 8; r++){
+      for (int c = 0; c < 8; c++){
+        // int tmpNum = ((8 * r) + (c));
+        // cout << "row is " << r << " col is " << c << endl;
+        buttons[r][c].startup(r, c, idx, buttonNames[r][c]);
+        // buttons64[idx].startup(r, c, idx, buttonNames64[idx]);
+        idx++;
+      }
     }
   }
 
@@ -53,6 +57,37 @@ void ButtonController::startup(PinIO* _pinio, SocketServer* _socket_server)
     pPinIo->setPinMode(rowPins[i], OUTPUT);
     pPinIo->pinWrite(rowPins[i], LOW);
   }
+}
+
+void ButtonController::loadButtonsFromFile()
+{
+  ifstream file(BUTTON_DATA_FILE, ios::in|ios::binary|ios::ate);
+
+  streampos size;
+  size = file.tellg();
+  char *buffer;
+  buffer = new char[size];
+
+  file.seekg (0, ios::beg);
+  file.read (buffer, size);
+  file.close();
+
+  Document *document = new Document();
+  document->Parse(buffer);
+
+
+  if(document->IsObject()){
+    const Value& a =  document->FindMember("buttons")->value;
+    int idx = 0;
+    for (SizeType i = 0; i < a.Size(); i++){
+      int r = a[i]["row"].GetInt();
+      int c = a[i]["column"].GetInt();
+      string name = a[i]["name"].GetString();
+      buttons[r][c].startup(r, c, idx++, name);
+      //cout << a[i]["name"].GetString() << endl;
+    }
+  }
+  delete[] buffer;
 }
 
 void ButtonController::update(unsigned int delta)

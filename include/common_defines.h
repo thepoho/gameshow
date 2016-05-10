@@ -8,6 +8,7 @@
 #include "rapidjson/stringbuffer.h"
 
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <unistd.h>
 #include <stdio.h>
@@ -23,6 +24,8 @@ using namespace std;
 // #define NULL (0)
 #define FALSE (0)
 #define TRUE  (1)
+
+#define BUTTON_DATA_FILE ("game_data/buttons.json")
 
 #define COIL_COUNT (24)
 #define FLASHER_COUNT (8)

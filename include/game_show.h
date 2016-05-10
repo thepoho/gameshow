@@ -15,6 +15,7 @@ public:
   GameShow();
   ~GameShow();
   void run();
+  void test();
 
   void doAutoCoils();
 
