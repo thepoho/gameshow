@@ -16,6 +16,7 @@ void Button::startup(int _row, int _col, int _num, string _name)
   name = _name;
   num = _num;
   lastPressTime = 0;
+  wasPressed = 0;
   overridden = false;
   // state = Button_ON;//default to on
   
@@ -31,6 +32,7 @@ bool Button::setState(int _newState)
   }
   if(onOffState != _newState){
     ret = true;
+    wasPressed = true;
   }
   onOffState = _newState;
   return(ret);

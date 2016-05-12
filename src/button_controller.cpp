@@ -140,6 +140,14 @@ Button *ButtonController::getButton(string name){
   return(NULL);
 }
 
+void ButtonController::resetAllWasPressed()
+{
+  for (int r = 0; r < 8; r++){
+    for (int c = 0; c < 8; c++){
+      buttons[r][c].wasPressed = false;
+    }
+  }
+}
 // button *ButtonController::getbutton(buttonName name){
 
 // }

@@ -22,6 +22,8 @@ public:
   bool setState(int _newState);
 
   void serializeJson(Writer<StringBuffer>* writer);
+  
+  bool wasPressed;
 private:
   int row, col, num;
   string name;

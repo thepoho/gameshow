@@ -24,6 +24,7 @@ public:
   void setButtonState(Button *btn, bool newState);
   void setButtonStateByName(string name, bool newState);
   void overrideButtonState(string name, bool newState);
+  void resetAllWasPressed();
 
   string getInfoString();
 private:
