@@ -24,6 +24,11 @@ void StateCore::update(unsigned int delta)
   elapsedTime += delta;
 }
 
+void StateCore::afterUpdate(unsigned int delta){
+  checkForShutdown();
+  resetAllWasPressedReleased();
+}
+
 
 void StateCore::serializeJson(Writer<StringBuffer>* writer)
 {
@@ -36,7 +41,7 @@ void StateCore::serializeJson(Writer<StringBuffer>* writer)
   writer->String("value");
   writer->String(name.c_str());
   writer->EndObject();
-  
+
   writer->EndObject();
 }
 
@@ -86,8 +91,20 @@ bool StateCore::getButtonState(string name)
   return(pGameController->buttonController()->getButtonState(name));
 }
 
-
 void StateCore::fireCoilDelay(string name, unsigned int delay)
 {
   pGameController->delayedEventController()->createEvent("fire_coil", (elapsedTime + delay), name);
+}
+
+void StateCore::resetAllWasPressedReleased(){
+  pGameController->buttonController()->resetAllWasPressedReleased();
+}
+
+void StateCore::checkForShutdown(){
+  if(getButtonState("credit_button")){
+    Button *pLeftFlipperButton = pGameController->buttonController()->getButton("left_flipper");
+    if(pLeftFlipperButton->getWasPressed()){
+      cout << "TIME TO SHUT DOWN BABY!";
+    }
+  }
 }

@@ -82,7 +82,7 @@ void ButtonController::update(unsigned int delta)
 
       int gotPinState = pPinIo->pinRead(colReadPins[c]);
 
-      
+
       if(gotPinState != buttons[r][c].getState()){//the button state has changed.
         if(canUpdateButton(&buttons[r][c])){ //ensure the button is not in cooldown.
           usleep(5); //sleep for 5 micros and check again (cheap debouncing)
@@ -124,7 +124,7 @@ void ButtonController::setButtonState(Button *btn, bool newState){
   bool stateChanged = btn->setState(newState);
 
   if(stateChanged){
-    btn->setLastPressTime(elapsedTime); 
+    btn->setLastPressTime(elapsedTime);
     updateWebButtonState(btn);
   }
 }
@@ -140,17 +140,15 @@ Button *ButtonController::getButton(string name){
   return(NULL);
 }
 
-void ButtonController::resetAllWasPressed()
+void ButtonController::resetAllWasPressedReleased()
 {
   for (int r = 0; r < 8; r++){
     for (int c = 0; c < 8; c++){
-      buttons[r][c].wasPressed = false;
+      buttons[r][c].wasPressed  = false;
+      buttons[r][c].wasReleased = false;
     }
   }
 }
-// button *ButtonController::getbutton(buttonName name){
-
-// }
 
 bool ButtonController::getButtonState(string name){
   Button *tmpButton = getButton(name);

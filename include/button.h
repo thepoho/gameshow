@@ -16,21 +16,24 @@ public:
   int getRow() { return(row); }
   int getCol() { return(col); }
   int getState() { return(onOffState); }
+  int getWasPressed() { return(wasPressed); }
+  int getWasReleased() { return(wasReleased); }
+  int isPressed() { return(onOffState); }
   int getLastPressTime() { return(lastPressTime); }
   void setLastPressTime(unsigned int lpt) { lastPressTime = lpt; }
 
   bool setState(int _newState);
 
   void serializeJson(Writer<StringBuffer>* writer);
-  
-  bool wasPressed;
+
+  bool wasPressed, wasReleased;
 private:
   int row, col, num;
   string name;
   int onOffState;
   bool overridden;
   unsigned int lastPressTime;
-  
+
 };
 
 #endif //_BUTTON_H

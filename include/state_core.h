@@ -15,15 +15,14 @@ public:
   void automaticCoils();
   void update(unsigned int delta);
 
-
   void serializeJson(Writer<StringBuffer>* writer);
-  
+
   void sendToWeb();
 
   void sendAllStatesToWeb();
 
   string getName() {return name;}
-  
+
 protected:
   string name;
 
@@ -33,6 +32,9 @@ protected:
   void setCoilState(string name, bool state);
   void fireCoil(string name);
   void fireCoilDelay(string name, unsigned int delay);
+  void resetAllWasPressedReleased();
+  void afterUpdate(unsigned int delta);
+  void checkForShutdown();
   bool getButtonState(string name);
 };
 

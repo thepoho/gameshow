@@ -21,6 +21,7 @@ void StateBasic::update(unsigned int delta)
 {
   StateCore::update(delta);
   automaticCoils();
+  StateCore::afterUpdate(delta);
 }
 
 void StateBasic::automaticCoils()
