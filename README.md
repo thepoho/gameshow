@@ -15,7 +15,7 @@ Includes rapidjson
 https://github.com/miloyip/rapidjson  
   
 Includes a cross compilation script too!   
- http://hertaville.com/2012/09/28/development-environment-raspberry-pi-cross-compiler/  
+ http://hertaville.com/development-environment-raspberry-pi-cross-compiler.html
   
 TODO:  
 GI
