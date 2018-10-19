@@ -104,7 +104,9 @@ void StateCore::checkForShutdown(){
   if(getButtonState("credit_button")){
     Button *pLeftFlipperButton = pGameController->buttonController()->getButton("left_flipper");
     if(pLeftFlipperButton->getWasPressed()){
+      pGameController->lampController()->setLampState("all", LAMP_FLASH_FAST);
       cout << "TIME TO SHUT DOWN BABY!";
+      system("shutdown -h now");
     }
   }
 }
