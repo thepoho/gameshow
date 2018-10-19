@@ -22,12 +22,12 @@ void CoilController::startup(PinIO* _pinio, SocketServer* _socket_server)
   pPinIo = _pinio;
   // game_show = _game_show;
   pSocketServer = _socket_server;
-  //create all my coils                    
+  //create all my coils
 
   /*
-  for(int i = 0; i < SIZEOF(coils); i++){
+  for(int i = 0; i < coilCount; i++){
     coils[i].startup(i, coilNames[i]);
-    
+
     //all coils should turn off after a period of time except for flippers
     if(coilNames[i] == "right_flipper" || coilNames[i] == "left_flipper"){
       coils[i].setShouldTurnOff(FALSE);
@@ -57,7 +57,7 @@ void CoilController::loadCoilsFromFile()
   Document *document = new Document();
   document->Parse(buffer);
 
-  cout << buffer << endl;
+  // cout << buffer << endl;
 
   if(document->IsObject()){
     int defaultOnTime = document->FindMember("defaults")->value["on_time"].GetInt();
@@ -66,13 +66,17 @@ void CoilController::loadCoilsFromFile()
 
 
     assert(a.Size() < 200); //arbitrarily limiting malloc to 200 records JUST IN CASE
-    coils = new Coil[a.Size()];
+    coilCount = a.Size();
+    coils = new Coil[coilCount];
+    // cout << "sizeof coil is " << coilCount << endl;
+
+    // cout << "SEtting coil size to " << a.Size() << endl;
 
     for (SizeType i = 0; i < a.Size(); i++){
       int idx      = a[i]["index"].GetInt();
       string coilType = a[i]["type"].GetString();
       string name  = a[i]["name"].GetString();
-      
+
       int onTime = defaultOnTime;
       if(a[i].HasMember("on_time")){
         onTime = a[i]["on_time"].GetInt();
@@ -88,12 +92,13 @@ void CoilController::loadCoilsFromFile()
       //cout << a[i]["name"].GetString() << endl;
     }
   }
+  // cout << "sizeof coil[0] is " << sizeof(coils[0]) << endl;
   delete[] buffer;
   delete(document);
 }
 
 void CoilController::setAllState(bool state){
-  allState = state;  
+  allState = state;
 }
 
 void CoilController::update(unsigned int delta)
@@ -103,7 +108,7 @@ void CoilController::update(unsigned int delta)
   // bool dirty = false;
 
   //See if any coils have been on for too long and turn them off
-  for(int i = 0; i < SIZEOF(coils); i++){
+  for(int i = 0; i < coilCount; i++){
     if(coils[i].update(delta)){
       //The coil state has changed. Probably due to an auto switch off.
       pPinIo->setSerialOutput(coils[i].getNumber(), coils[i].getState());
@@ -118,7 +123,7 @@ void CoilController::update(unsigned int delta)
 
 
 Coil *CoilController::getCoil(string name){
-  for(int i = 0; i < SIZEOF(coils); i++){
+  for(int i = 0; i < coilCount; i++){
     if(coils[i].getName() == name){
       return(&coils[i]);
     }
@@ -153,8 +158,10 @@ string CoilController::getInfoString(){
   writer.String("data");
   writer.StartArray();
 
-  for(int i = 0; i < SIZEOF(coils); i++){
+  cout << "Sizeof coils: " << coilCount << endl;
+  for(int i = 0; i < coilCount; i++){
     coils[i].serializeJson(&writer);
+    cout << "Coil serialized " << coils[i].getName();
   }
   writer.EndArray();
   writer.EndObject();

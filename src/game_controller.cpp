@@ -18,16 +18,16 @@ void GameController::startup()
 {
   pPinIo = new PinIO();
   pPinIo->startup();
-  
+
   pSocketServer = new SocketServer();
   pSocketServer->startup();
-  
+
   pButtonController = new ButtonController();
   pButtonController->startup(pPinIo, pSocketServer);
-  
+
   pLampController = new LampController();
   pLampController->startup(pPinIo, pSocketServer);
-  
+
   pCoilController = new CoilController();
   pCoilController->startup(pPinIo, pSocketServer);
 

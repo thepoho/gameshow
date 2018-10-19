@@ -51,10 +51,12 @@ void LampController::loadLampsFromFile()
   file.read (buffer, size);
   file.close();
 
+  buffer[size] = 0;
+
   Document *document = new Document();
   document->Parse(buffer);
 
-  buffer[size] = 0;
+  // cout << buffer << endl;
 
   if(document->IsObject()){
     const Value& a =  document->FindMember("lamps")->value;
@@ -64,7 +66,7 @@ void LampController::loadLampsFromFile()
       int c = a[i]["column"].GetInt();
       string name = a[i]["name"].GetString();
       lamps[r][c].startup(r, c, idx++, name);
-      //cout << a[i]["name"].GetString() << endl;
+      // cout << a[i]["name"].GetString() << endl;
     }
   }
   delete[] buffer;
@@ -74,7 +76,7 @@ void LampController::loadLampsFromFile()
 void LampController::update(unsigned int delta)
 {
   elapsedTime += delta;
-  
+
   if (elapsedTime >= (lastFastFlash + FAST_FLASH_DELAY)){
     lastFastFlash = elapsedTime;
     fastFlashStatus = !fastFlashStatus;

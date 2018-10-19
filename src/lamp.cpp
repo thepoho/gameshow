@@ -15,7 +15,7 @@ void Lamp::startup(int _row, int _col, int _num, string _name)
   name  = _name;
   num   = _num;
   state = LAMP_OFF;//default to off
-//  cout << "creating Lamp " << row << ", " << col << ", " << name << ", " << num << endl;
+ // cout << "creating Lamp " << row << ", " << col << ", " << name << ", " << num << endl;
 }
 
 void Lamp::serializeJson(Writer<StringBuffer>* writer)

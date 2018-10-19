@@ -18,7 +18,7 @@ void Coil::startup(int _num, string _name, int _onTime, int _coolDownTime)
 
   onTime = _onTime;
   coolDownTime = _coolDownTime;
-  cout << "Coil " << name << " starting up. ontime is " << onTime << endl;
+  // cout << "Coil " << name << " starting up. ontime is " << onTime << endl;
 }
 
 bool Coil::setState(bool _state){

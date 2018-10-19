@@ -30,6 +30,7 @@ private:
   Coil *coils;
   unsigned int elapsedTime;
   bool allState;
+  int coilCount;
 };
 
 #endif

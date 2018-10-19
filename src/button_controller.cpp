@@ -51,6 +51,8 @@ void ButtonController::loadButtonsFromFile()
   Document *document = new Document();
   document->Parse(buffer);
 
+  // cout << buffer << endl;
+
   if(document->IsObject()){
     const Value& a =  document->FindMember("buttons")->value;
     int idx = 0;

@@ -1,1 +1,324 @@
-{"lamps":[{"name":"shoot_again","row":0,"column":0},{"name":"bonus_1k","row":0,"column":1},{"name":"wheel_5k","row":0,"column":2},{"name":"wheel_45k","row":0,"column":3},{"name":"truck_t","row":0,"column":4},{"name":"big_bucks","row":0,"column":5},{"name":"2_million_left","row":0,"column":6},{"name":"top_lane_right","row":0,"column":7},{"name":"wheel_5x","row":1,"column":0},{"name":"bonus_2x","row":1,"column":1},{"name":"wheel_10k","row":1,"column":2},{"name":"wheel_50k","row":1,"column":3},{"name":"truck_r","row":1,"column":4},{"name":"top_lane_red","row":1,"column":5},{"name":"left_spot_letter","row":1,"column":6},{"name":"grand_prize","row":1,"column":7},{"name":"bonus_multiplier_1x","row":2,"column":0},{"name":"bonus_4k","row":2,"column":1},{"name":"wheel_15k","row":2,"column":2},{"name":"tv_t","row":2,"column":3},{"name":"truck_u","row":2,"column":4},{"name":"top_lane_red_1","row":2,"column":5},{"name":"left_extra_ball","row":2,"column":6},{"name":"collect_tv","row":2,"column":7},{"name":"bonus_multiplier_2x","row":3,"column":0},{"name":"bonus_8k","row":3,"column":1},{"name":"wheel_20k","row":3,"column":2},{"name":"tv_v","row":3,"column":3},{"name":"truck_c","row":3,"column":4},{"name":"back_panel_car","row":3,"column":5},{"name":"2_million_right","row":3,"column":6},{"name":"collect_trip","row":3,"column":7},{"name":"bonus_multiplier_4x","row":4,"column":0},{"name":"bonus_16k","row":4,"column":1},{"name":"wheel_25k","row":4,"column":2},{"name":"trip_t","row":4,"column":3},{"name":"truck_k","row":4,"column":4},{"name":"left_extra_ball","row":4,"column":5},{"name":"right_spot_letter","row":4,"column":6},{"name":"collect_truck","row":4,"column":7},{"name":"bonus_miltiplier_8x","row":5,"column":0},{"name":"bonus_32_k","row":5,"column":1},{"name":"wheel_30k","row":5,"column":2},{"name":"trip_r","row":5,"column":3},{"name":"wheel_250k","row":5,"column":4},{"name":"wheel_4_million","row":5,"column":5},{"name":"right_spinner","row":5,"column":6},{"name":"collect_car","row":5,"column":7},{"name":"center_spinner","row":6,"column":0},{"name":"bonus_64k","row":6,"column":1},{"name":"wheel_35k","row":6,"column":2},{"name":"trip_i","row":6,"column":3},{"name":"wheel_hold_bonus","row":6,"column":4},{"name":"wheel_extra_ball","row":6,"column":5},{"name":"top_lane_left","row":6,"column":6},{"name":"collect_prizes","row":6,"column":7},{"name":"center_nudge","row":7,"column":0},{"name":"bonus_128k","row":7,"column":1},{"name":"wheel_40k","row":7,"column":2},{"name":"trip_p","row":7,"column":3},{"name":"wheel_1_million","row":7,"column":4},{"name":"right_extra_ball","row":7,"column":5},{"name":"top_lane_middle","row":7,"column":6},{"name":"right_lock","row":7,"column":7}]}
+{
+  "lamps": [
+    {
+      "name": "shoot_again",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "name": "bonus_1k",
+      "row": 0,
+      "column": 1
+    },
+    {
+      "name": "wheel_5k",
+      "row": 0,
+      "column": 2
+    },
+    {
+      "name": "wheel_45k",
+      "row": 0,
+      "column": 3
+    },
+    {
+      "name": "truck_t",
+      "row": 0,
+      "column": 4
+    },
+    {
+      "name": "big_bucks",
+      "row": 0,
+      "column": 5
+    },
+    {
+      "name": "2_million_left",
+      "row": 0,
+      "column": 6
+    },
+    {
+      "name": "top_lane_right",
+      "row": 0,
+      "column": 7
+    },
+    {
+      "name": "wheel_5x",
+      "row": 1,
+      "column": 0
+    },
+    {
+      "name": "bonus_2x",
+      "row": 1,
+      "column": 1
+    },
+    {
+      "name": "wheel_10k",
+      "row": 1,
+      "column": 2
+    },
+    {
+      "name": "wheel_50k",
+      "row": 1,
+      "column": 3
+    },
+    {
+      "name": "truck_r",
+      "row": 1,
+      "column": 4
+    },
+    {
+      "name": "top_lane_red",
+      "row": 1,
+      "column": 5
+    },
+    {
+      "name": "left_spot_letter",
+      "row": 1,
+      "column": 6
+    },
+    {
+      "name": "grand_prize",
+      "row": 1,
+      "column": 7
+    },
+    {
+      "name": "bonus_multiplier_1x",
+      "row": 2,
+      "column": 0
+    },
+    {
+      "name": "bonus_4k",
+      "row": 2,
+      "column": 1
+    },
+    {
+      "name": "wheel_15k",
+      "row": 2,
+      "column": 2
+    },
+    {
+      "name": "tv_t",
+      "row": 2,
+      "column": 3
+    },
+    {
+      "name": "truck_u",
+      "row": 2,
+      "column": 4
+    },
+    {
+      "name": "top_lane_red_1",
+      "row": 2,
+      "column": 5
+    },
+    {
+      "name": "left_extra_ball",
+      "row": 2,
+      "column": 6
+    },
+    {
+      "name": "collect_tv",
+      "row": 2,
+      "column": 7
+    },
+    {
+      "name": "bonus_multiplier_2x",
+      "row": 3,
+      "column": 0
+    },
+    {
+      "name": "bonus_8k",
+      "row": 3,
+      "column": 1
+    },
+    {
+      "name": "wheel_20k",
+      "row": 3,
+      "column": 2
+    },
+    {
+      "name": "tv_v",
+      "row": 3,
+      "column": 3
+    },
+    {
+      "name": "truck_c",
+      "row": 3,
+      "column": 4
+    },
+    {
+      "name": "back_panel_car",
+      "row": 3,
+      "column": 5
+    },
+    {
+      "name": "2_million_right",
+      "row": 3,
+      "column": 6
+    },
+    {
+      "name": "collect_trip",
+      "row": 3,
+      "column": 7
+    },
+    {
+      "name": "bonus_multiplier_4x",
+      "row": 4,
+      "column": 0
+    },
+    {
+      "name": "bonus_16k",
+      "row": 4,
+      "column": 1
+    },
+    {
+      "name": "wheel_25k",
+      "row": 4,
+      "column": 2
+    },
+    {
+      "name": "trip_t",
+      "row": 4,
+      "column": 3
+    },
+    {
+      "name": "truck_k",
+      "row": 4,
+      "column": 4
+    },
+    {
+      "name": "left_extra_ball",
+      "row": 4,
+      "column": 5
+    },
+    {
+      "name": "right_spot_letter",
+      "row": 4,
+      "column": 6
+    },
+    {
+      "name": "collect_truck",
+      "row": 4,
+      "column": 7
+    },
+    {
+      "name": "bonus_miltiplier_8x",
+      "row": 5,
+      "column": 0
+    },
+    {
+      "name": "bonus_32_k",
+      "row": 5,
+      "column": 1
+    },
+    {
+      "name": "wheel_30k",
+      "row": 5,
+      "column": 2
+    },
+    {
+      "name": "trip_r",
+      "row": 5,
+      "column": 3
+    },
+    {
+      "name": "wheel_250k",
+      "row": 5,
+      "column": 4
+    },
+    {
+      "name": "wheel_4_million",
+      "row": 5,
+      "column": 5
+    },
+    {
+      "name": "right_spinner",
+      "row": 5,
+      "column": 6
+    },
+    {
+      "name": "collect_car",
+      "row": 5,
+      "column": 7
+    },
+    {
+      "name": "center_spinner",
+      "row": 6,
+      "column": 0
+    },
+    {
+      "name": "bonus_64k",
+      "row": 6,
+      "column": 1
+    },
+    {
+      "name": "wheel_35k",
+      "row": 6,
+      "column": 2
+    },
+    {
+      "name": "trip_i",
+      "row": 6,
+      "column": 3
+    },
+    {
+      "name": "wheel_hold_bonus",
+      "row": 6,
+      "column": 4
+    },
+    {
+      "name": "wheel_extra_ball",
+      "row": 6,
+      "column": 5
+    },
+    {
+      "name": "top_lane_left",
+      "row": 6,
+      "column": 6
+    },
+    {
+      "name": "collect_prizes",
+      "row": 6,
+      "column": 7
+    },
+    {
+      "name": "center_nudge",
+      "row": 7,
+      "column": 0
+    },
+    {
+      "name": "bonus_128k",
+      "row": 7,
+      "column": 1
+    },
+    {
+      "name": "wheel_40k",
+      "row": 7,
+      "column": 2
+    },
+    {
+      "name": "trip_p",
+      "row": 7,
+      "column": 3
+    },
+    {
+      "name": "wheel_1_million",
+      "row": 7,
+      "column": 4
+    },
+    {
+      "name": "right_extra_ball",
+      "row": 7,
+      "column": 5
+    },
+    {
+      "name": "top_lane_middle",
+      "row": 7,
+      "column": 6
+    },
+    {
+      "name": "right_lock",
+      "row": 7,
+      "column": 7
+    }
+  ]
+}
